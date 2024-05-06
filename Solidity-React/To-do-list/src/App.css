@@ -1,0 +1,294 @@
+.App {
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  display: flex;
+  background-color: #222;
+  height: 75px;
+  padding: 20px;
+  color: white;
+  justify-content: center;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  height: calc(100vh - 200px);
+  display: flex;
+  width: 100%;
+  margin: 0px;
+  color: aliceblue;
+}
+
+/* --------------------------- */
+/* Zone d'affichage des taches */
+/* --------------------------- */
+
+.displaytache {
+  background-color: black;
+  opacity: 50%;
+  border: 1px;
+  border-style: groove;
+  width: 70%;
+}
+
+.listTache {
+  background-color: antiquewhite;
+  width: 100%;
+  height: 100%;
+}
+
+.divlistTache {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  height: 45px;
+}
+
+.checkEtatPost button {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  vertical-align: middle;
+}
+
+.buttonetatlistTache,
+.etatlistTache,
+.contentlistTache {
+  height: 60%;
+}
+
+.buttonetatlistTache,
+.checkEtatPost {
+  width: 5%;
+}
+
+.etatlistTache,
+.etatPost {
+  width: 6%;
+}
+
+.contentlistTache,
+.contentpost {
+  width: 82%;
+}
+
+.etatlistTache,
+.contentlistTache,
+.buttonetatlistTache,
+.checkEtatPost {
+  border: 2px;
+  border-color: black;
+  border-style: groove;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.post {
+  display: flex;
+  text-align: left;
+  color: black;
+  width: 100%;
+}
+
+.etatPost,
+.contentpost {
+  border: 2px;
+  border-color: black;
+  border-style: groove;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+.etatPost {
+  text-align: center;
+}
+
+.checkEtatPost button {
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.Terminé {
+  background-color: rgb(95, 95, 95);
+}
+
+.buttontermine {
+  background-color: rgb(95, 95, 95);
+}
+
+.URGENT {
+  background-color: red;
+  color: aliceblue;
+}
+
+.buttonURGENT {
+  background-color: red;
+}
+
+/* ---------------------------- */
+/* Zone de création d'une tache */
+/* ---------------------------- */
+
+.barreLateral {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.createtache {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  opacity: 75%;
+  /* justify-content: space-around; */
+  background-color: black;
+  border: 1px;
+  border-style: groove;
+}
+
+.TitleCreatePost {
+  background-color: antiquewhite;
+  width: 98%;
+  height: 50%;
+}
+
+.postContent {
+  background-color: antiquewhite;
+  width: 98%;
+  height: 100%;
+}
+
+/* ---------------------------- */
+/* ----- Zone des filtres ----- */
+/* ---------------------------- */
+
+.buttonFilter {
+  height: 250px;
+  background-color: black;
+  opacity: 75%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 96.5%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.buttonFilter button {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  width: 60%;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.buttonAll,
+.buttonafaire {
+  background-color: blue;
+}
+
+.buttonFilter .titleFilter {
+  color: white;
+  font-size: 25px;
+}
+
+/* ---------------------------- */
+/* ----- Zone de msg user ----- */
+/* ---------------------------- */
+.msg {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 90%;
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  color: white;
+  text-align: center;
+}
+
+.contenuMsg {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.msg button {
+  width: auto;
+  padding: 15px;
+  font-size: 30px;
+  color: white;
+  background-color: blue;
+  border-radius: 15px;
+}
+
+.Waiting-logo {
+  height: 60px;
+  width: 70px;
+  background-image: url('./waiting1.png');
+  animation: Waiting 1.2s steps(8) infinite;
+}
+
+@keyframes Waiting {
+  from {
+    background-position: -5px -0px;
+  }
+
+  to {
+    background-position: -558px -0px;
+  }
+}
+
+.user {
+  height: 75px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 75%;
+  background-color: black;
+  border: 1px;
+  border-style: groove;
+}
+
+.userInfo button {
+  width: auto;
+  padding: 15px;
+  font-size: 15px;
+  color: white;
+  background-color: blue;
+  border-radius: 15px;
+}

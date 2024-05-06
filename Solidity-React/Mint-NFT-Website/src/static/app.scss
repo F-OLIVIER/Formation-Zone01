@@ -1,0 +1,30 @@
+@use  "modules/test";
+@use "modules/header";
+@use "modules/profile";
+@use "modules/main";
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // height: 300px;
+
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .collection{
+            
+        }
+    }
+}
+
+#container {
+    margin: auto;
+    color: white;
+}

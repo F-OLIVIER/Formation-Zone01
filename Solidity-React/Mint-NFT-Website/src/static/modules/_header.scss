@@ -1,0 +1,119 @@
+$shadowColor: rgb(85 67 67);
+
+@keyframes shadowIn {
+    to {
+        box-shadow: inset 2px 2px $shadowColor, inset -1px -1px $shadowColor;
+    }
+}
+
+@keyframes shadowOut {
+    from {
+        box-shadow: inset 2px 2px $shadowColor, inset -1px -1px $shadowColor;
+    }
+    to {
+        box-shadow: 0;
+    }
+}
+
+
+header {
+    &, > * {
+        display: flex;
+        align-items: center;
+    }
+
+    height: 30px;
+    // margin: 10px;
+    padding: 10px;
+    background-color: rgb(126, 108, 108);
+
+    input {
+        height: 25px;
+    }
+
+    a {
+        width: 30px;
+        height: 30px;
+        margin-left: 60px;
+        border-radius: 5px;
+
+        animation: shadowOut 0.3s ;
+
+        &:hover {
+            cursor: pointer;
+            animation: shadowIn 0.5s forwards ;
+        }
+    }
+
+}
+
+#mainNav {
+    // justify-content: space-between;
+    flex-grow: 1;
+}
+
+#profileNav {
+    // flex-direction: row-reverse;
+}
+
+
+#mainSearchBtn {
+    width: 800px;
+    padding-left: 20px;
+    border-radius: 5px;
+
+    background-color: $shadowColor;
+
+    &::placeholder {
+        color: white;
+    }
+}
+
+#logo {
+    width: 30px;
+    height: 30px;
+}
+
+#profileBtn {
+    width: 120px;
+    height: 30px;
+    margin-left: 10px;
+
+}
+
+/*
+#navbar{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    height: 70px;
+    p{
+        font-size:xx-large;
+        font-weight:bolder;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        transition:1s;
+        color: rgb(184, 79, 179);
+    }
+    p:hover{
+        text-shadow: 10px 10px 10px rgb(209, 151, 206);
+        animation: hoverTitle 200ms ease-in-out;
+    }
+}
+
+@keyframes hoverTitle {
+    from {
+        text-shadow: 0px 0px 0px rgb(209, 151, 206);
+    }
+    30%{
+        text-shadow: 3px 3px 3px rgb(209, 151, 206)
+    }
+    60%{
+        text-shadow: 6px 6px 6px rgb(209, 151, 206);
+    }
+    to{
+        text-shadow: 10px 10px 10px rgb(209, 151, 206);
+    }
+}
+*/

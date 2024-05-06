@@ -1,0 +1,48 @@
+#profileSection {
+    flex-grow: 1;
+    position: relative;
+    // display: block;
+    // animation: name duration timing-function delay iteration-count direction fill-mode;
+    
+    &:hover {
+        #profileDropDown {
+            display: block;
+            height: 400px;
+            transition: height 1s;
+        }        
+    }
+}
+
+#profileDropDown {
+    width: 400px;
+    // height: 400px;
+    height: 0;
+    position: absolute;
+    overflow: hidden;
+    left: -260px;
+    top: 40px;
+    // padding: 10px;
+
+    background-color: red;
+    transition: height 0.5s ;
+    pointer-events: none;
+    box-sizing: border-box;
+
+    > * {
+        display: flex;
+    }
+
+}
+
+#profileTitle {
+    // margin: 10px;
+
+    img {
+        width: 45px;
+        border-radius: 25px;
+    }
+
+    p {
+        margin: auto 10px auto auto;
+    }
+}

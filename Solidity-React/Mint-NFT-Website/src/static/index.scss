@@ -1,0 +1,12 @@
+@use 'modules/header';
+@use 'modules/main';
+@use 'modules/footer';
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#container{
+    background-color: #1c1e1b;
+}

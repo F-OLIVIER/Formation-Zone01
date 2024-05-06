@@ -1,0 +1,214 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+@keyframes shadowIn {
+  to {
+    box-shadow: inset 2px 2px rgb(85, 67, 67), inset -1px -1px rgb(85, 67, 67);
+  }
+}
+@keyframes shadowOut {
+  from {
+    box-shadow: inset 2px 2px rgb(85, 67, 67), inset -1px -1px rgb(85, 67, 67);
+  }
+  to {
+    box-shadow: 0;
+  }
+}
+header {
+  height: 30px;
+  padding: 10px;
+  background-color: rgb(126, 108, 108);
+}
+header, header > * {
+  display: flex;
+  align-items: center;
+}
+header input {
+  height: 25px;
+}
+header a {
+  width: 30px;
+  height: 30px;
+  margin-left: 60px;
+  border-radius: 5px;
+  animation: shadowOut 0.3s;
+}
+header a:hover {
+  cursor: pointer;
+  animation: shadowIn 0.5s forwards;
+}
+
+#mainNav {
+  flex-grow: 1;
+}
+
+#mainSearchBtn {
+  width: 800px;
+  padding-left: 20px;
+  border-radius: 5px;
+  background-color: rgb(85, 67, 67);
+}
+#mainSearchBtn::-moz-placeholder {
+  color: white;
+}
+#mainSearchBtn::placeholder {
+  color: white;
+}
+
+#logo {
+  width: 30px;
+  height: 30px;
+}
+
+#profileBtn {
+  width: 120px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+/*
+#navbar{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    height: 70px;
+    p{
+        font-size:xx-large;
+        font-weight:bolder;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        transition:1s;
+        color: rgb(184, 79, 179);
+    }
+    p:hover{
+        text-shadow: 10px 10px 10px rgb(209, 151, 206);
+        animation: hoverTitle 200ms ease-in-out;
+    }
+}
+
+@keyframes hoverTitle {
+    from {
+        text-shadow: 0px 0px 0px rgb(209, 151, 206);
+    }
+    30%{
+        text-shadow: 3px 3px 3px rgb(209, 151, 206)
+    }
+    60%{
+        text-shadow: 6px 6px 6px rgb(209, 151, 206);
+    }
+    to{
+        text-shadow: 10px 10px 10px rgb(209, 151, 206);
+    }
+}
+*/
+#profileSection {
+  flex-grow: 1;
+  position: relative;
+}
+#profileSection:hover #profileDropDown {
+  display: block;
+  height: 400px;
+  transition: height 1s;
+}
+
+#profileDropDown {
+  width: 400px;
+  height: 0;
+  position: absolute;
+  overflow: hidden;
+  left: -260px;
+  top: 40px;
+  background-color: red;
+  transition: height 0.5s;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+#profileDropDown > * {
+  display: flex;
+}
+
+#profileTitle img {
+  width: 45px;
+  border-radius: 25px;
+}
+#profileTitle p {
+  margin: auto 10px auto auto;
+}
+
+:root {
+  background-color: #1c1e1b;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+main button {
+  margin-bottom: 100px;
+  margin-top: 100px;
+  background-color: #21BF46;
+  width: 150px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  transition: 500ms;
+}
+main button:hover {
+  box-shadow: 0 0 13px #00EB37;
+}
+main .collection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+main .collection .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  padding: 10px;
+  width: 300px;
+  height: 400px;
+  box-shadow: 0 0 12px black;
+  margin-bottom: 50px;
+  border-radius: 12px;
+  background-color: #329649;
+  transition: 500ms;
+}
+main .collection .card .card-header {
+  font-size: large;
+}
+main .collection .card .card-img {
+  width: 60%;
+  border-radius: 12px;
+}
+main .collection .card:hover {
+  transform: scale(1.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#container {
+  margin: auto;
+  color: white;
+}/*# sourceMappingURL=app.css.map */
