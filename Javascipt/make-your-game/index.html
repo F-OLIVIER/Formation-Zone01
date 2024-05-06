@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bomberman</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+    <div id="modal">
+        <div id="typeMenu"></div>
+        <!-- Encart de saisie du pseudo -->
+        <div id='nameScore' class='display nameScore'>
+            <div id="scoreMsg"></div>
+            <div class='inputScore'>
+                Entrez votre pseudo :
+            </div>
+            <form id="formScore" method='POST' class='formScore'>
+                <input id='inputScore' class='inputScore' type='input' placeholder='Pseudo' name="playerName"
+                    required></input>
+                <div name="score" style="display: none;"></div>
+                <button id='buttonScore' class='button buttonScore' type='button'>Valider</button>
+            </form>
+        </div>
+        <!-- Boutton -->
+        <button id='Resume' class='button display' type='button'>Reprendre</button>
+        <button id='NextLevel' class='button display' type='button'>Level suivant</button>
+        <button id='startButton' class='button display' type='button'>Commencer</button>
+        <button id='scoreTable' class='button display' type='button'>Tableau des scores</button>
+
+        <div id="scoringPage" class="display">
+            <button id='page1' class="button display" type='button'>Précédent</button>
+            <button id='page2' class="button" type='button'>Suivant</button>
+        </div>
+        <table id="tableScoreTable" class="display tableScoreTable">
+            <thead>
+                <tr class="entete">
+                    <th>Rang</th>
+                    <th>Pseudo joueur</th>
+                    <th>Score</th>
+                    <th>Temps</th>
+                </tr>
+            </thead>
+        </table>
+
+
+        <button id='Restart' class='button display Restart' type='button'>Redémarrer</button>
+    </div>
+
+    <div class="title">
+        <div class="titleName">BOMBERMAN</div>
+    </div>
+
+    <div class="container">
+        <div class="containerGame">
+            <div id="map" class="map"></div>
+        </div>
+
+        <div class="containerOther">
+            <div class="handler">
+                <div class="timer">
+                    <span class="timer-label">Temps:</span>
+                    <span id="timer">00:00</span>
+                </div>
+
+                <div class="lives">
+                    <span class="lives-label">Vies:</span>
+                    <span id="heart1" class="heart">❤️</span>
+                    <span id="heart2" class="heart">❤️</span>
+                    <span id="heart3" class="heart">❤️</span>
+                </div>
+
+                <div class="score">
+                    <span class="score-label">Score:</span>
+                    <span id="numberscore"></span>
+                </div>
+
+                <div id="fps">
+                    <span class="fps-label">FPS:<span>
+                            <span id="numberfps"></span>
+                </div>
+            </div>
+
+            <div class="control">
+                <h1>Commandes</h1>
+                <div class="img">
+                    <div class="wrap"><img src="./sprites/controlKey/direction.png" /></div>
+                    <p>Touches directionnelles</p>
+                </div>
+                <div class="img img2">
+                    <div class="wrap"><img src="./sprites/controlKey/space.png" /></div>
+                    <p>Poser une bombe</p>
+                </div>
+                <div class="img img3">
+                    <div class="wrap"><img src="./sprites/controlKey/echap.png" /></div>
+                    <p>Menu pause</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vous pouvez inclure des liens vers des scripts JavaScript ici -->
+    <script type="module" src="./js/main.js">
+    </script>
+</body>
+
+</html>

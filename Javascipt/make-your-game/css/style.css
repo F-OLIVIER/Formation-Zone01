@@ -1,0 +1,674 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: url('../sprites/all_level/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+    z-index: 0;
+    font-family: Agbalumo, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+/* ---------------------------------------------- */
+/* --- div du jeux (couche 0 : environnement) --- */
+/* ---------------------------------------------- */
+
+.containerGame {
+    /* width: 75%; */
+    padding-top: 20px;
+    padding-left: 100px;
+    margin-right: 40px;
+}
+
+.map {
+    width: 850px;
+    height: 850px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+.line {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 50px;
+}
+
+.floor.wall {
+    /* background-image: url('../sprites/breakable_wall.jpg'); */
+    width: 50px;
+    height: 50px;
+    /* background-image: url('../sprites/wall_animed2.png'); */
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    /* background-position: -50px -0px; */
+}
+
+.floor.wall.destroyed {
+    animation: wall-animation 0.3s steps(6) infinite;
+}
+
+@keyframes wall-animation {
+    from {
+        background-position: -0px -0px;
+    }
+
+    to {
+        background-position: -400px -0px;
+    }
+}
+
+.floor {
+    width: 50px;
+    height: 50px;
+    /* background-image: url('../sprites/ground.png'); */
+    background-size: cover;
+    z-index: 1;
+}
+
+.floor.block {
+    /* background-image: url('../sprites/wall2.png'); */
+    /* background-size: 44px 50px; */
+    background-repeat: no-repeat;
+}
+
+.floor.door {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+/* --------------------------------------------- */
+/* ---- div du jeux (couche 1 : div animé) ----- */
+/* --------------------------------------------- */
+
+:root {
+    --player-direction: -64px;
+}
+
+.player {
+    width: 32px;
+    height: 32px;
+    background-image: url('../sprites/all_level/player.gif');
+    background-repeat: no-repeat;
+    background-position: -0px -64px;
+    will-change: transform;
+    transform: scale(1.9);
+    position: absolute;
+    z-index: 2;
+}
+
+.player.animate {
+    animation: player-animation 0.7s steps(7) infinite;
+}
+
+@keyframes player-animation {
+    from {
+        background-position: -0px var(--player-direction);
+    }
+
+    to {
+        background-position: -224px var(--player-direction);
+    }
+}
+
+.player.dead {
+    background-image: url('../sprites/all_level/deadBomberman.png');
+    animation: player-death 0.3s steps(9) infinite;
+}
+
+@keyframes player-death {
+    from {
+        background-position: -0px -0px;
+    }
+
+    to {
+        background-position: -297px -0px;
+    }
+}
+
+.player.damage {
+    background-image: url('../sprites/all_level/damage_player.gif');
+    animation: player-damage 0.3s steps(2) infinite;
+}
+
+@keyframes player-damage {
+    from {
+        background-position: -0px -0px;
+    }
+
+    to {
+        background-position: -60px -0px;
+    }
+}
+
+/* --------------------------------------------- */
+/* ----------- Gestion des ennemies ------------ */
+/* --------------------------------------------- */
+
+.enemy {
+    width: 16px;
+    height: 16px;
+    will-change: transform;
+    transform: scale(3);
+    position: absolute;
+    z-index: 2;
+    animation: enemy-animation 0.7s steps(3) infinite;
+    transition: transform 0.8s linear;
+}
+
+@keyframes enemy-animation {
+    from {
+        background-position: -0px -16px;
+    }
+
+    to {
+        background-position: -51px -16px;
+    }
+}
+
+.enemy.dead {
+    animation: enemy-death 0.3s steps(4) infinite;
+}
+
+@keyframes enemy-death {
+    from {
+        background-position: -0px -16px;
+    }
+
+    to {
+        background-position: -68px -16px;
+    }
+}
+
+.miniboss.damageboss,
+.bigboss.damageboss {
+    animation: miniboss-damage 0.3s steps(2) infinite;
+}
+
+@keyframes miniboss-damage {
+    from {
+        background-position: -0px -16px;
+    }
+
+    to {
+        background-position: -34px -16px;
+    }
+}
+
+.miniboss.deadboss,
+.bigboss.deadboss {
+    animation: boss-death 0.8s steps(7);
+}
+
+@keyframes boss-death {
+    from {
+        background-position: -0px -16px;
+    }
+
+    to {
+        background-position: -119px -16px;
+    }
+}
+
+.viewer {
+    width: 16px;
+    height: 16px;
+    background-image: url('../sprites/level_4/enemy.png');
+    transform: scale(3.2);
+    position: absolute;
+    z-index: 2;
+    animation: enemy-viewer 0.7s steps(5) infinite;
+    transition: transform 0.8s linear;
+}
+
+@keyframes enemy-viewer {
+    from {
+        background-position: -0px -16px;
+    }
+
+    to {
+        background-position: -64px -16px;
+    }
+}
+
+.trone {
+    width: 124px;
+    height: 194px;
+    background-image: url('../sprites/level_4/trone.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: scale(0.6);
+    position: absolute;
+    z-index: 1;
+}
+
+/* --------------------------------------------- */
+/* ------------ Gestion de la bombe ------------ */
+/* --------------------------------------------- */
+
+.bomb {
+    width: 16px;
+    height: 16px;
+    /* background-image: url('../sprites/bomb.png'); */
+    background-image: url('../sprites/all_level/bomb_burn.png');
+    animation: bomb-burn 0.8s steps(6) infinite;
+    background-repeat: no-repeat;
+    transform: scale(2.3);
+    position: absolute;
+    z-index: 1;
+}
+
+#explosion {
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    transform: scale(3.125);
+    position: absolute;
+    z-index: 1;
+}
+
+@keyframes bomb-burn {
+    from {
+        background-position: -0px -0px;
+    }
+
+    to {
+        background-position: -96px -0px;
+    }
+}
+
+
+.expLeft1,
+.expLeft2,
+.expRight1,
+.expRight2,
+.expUp1,
+.expUp2,
+.expDown1,
+.expDown2,
+.expCentral {
+    background-image: url('../sprites/all_level/bomb.png');
+    animation-direction: normal, reverse;
+}
+
+.expLeft1,
+.expRight1 {
+    animation: bomb-expLeft1 0.2s steps(3);
+}
+
+@keyframes bomb-expLeft1 {
+    from {
+        background-position: -64px -48px;
+    }
+
+    to {
+        background-position: -112px -48px;
+    }
+}
+
+.expLeft2 {
+    animation: bomb-expLeft2 0.2s steps(3);
+}
+
+@keyframes bomb-expLeft2 {
+    from {
+        background-position: -0px -48px;
+    }
+
+    to {
+        background-position: -48px -48px;
+    }
+}
+
+.expRight2 {
+    animation: bomb-expRight2 0.2s steps(3);
+}
+
+@keyframes bomb-expRight2 {
+    from {
+        background-position: -0px -32px;
+    }
+
+    to {
+        background-position: -48px -32px;
+    }
+}
+
+.expUp1,
+.expDown1 {
+    animation: bomb-expUp1 0.2s steps(3);
+}
+
+@keyframes bomb-expUp1 {
+    from {
+        background-position: -64px -32px;
+    }
+
+    to {
+        background-position: -112px -32px;
+    }
+}
+
+.expUp2 {
+    animation: bomb-expUp2 0.2s steps(3);
+}
+
+@keyframes bomb-expUp2 {
+    from {
+        background-position: -64px -0px;
+    }
+
+    to {
+        background-position: -112px -0px;
+    }
+}
+
+.expDown2 {
+    animation: bomb-expDown2 0.2s steps(3);
+}
+
+@keyframes bomb-expDown2 {
+    from {
+        background-position: -64px -16px;
+    }
+
+    to {
+        background-position: -112px -16px;
+    }
+}
+
+.expCentral {
+    background-position: -0px -16px;
+    animation: bomb-expCentral 0.2s steps(3);
+}
+
+@keyframes bomb-expCentral {
+    from {
+        background-position: -0px -16px;
+    }
+
+    to {
+        background-position: -48px -16px;
+    }
+}
+
+
+/* --------------------------------------------- */
+/* -- Menu latéral (timer, vies, score, etc.) -- */
+/* --------------------------------------------- */
+
+.containerOther {
+    padding-top: 20px;
+    padding-top: 20px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    width: 15%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.handler {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #797676;
+    opacity: 80%;
+    font-size: 27px;
+    border-radius: 50px;
+    width: 100%;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 50px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.timer-label,
+.lives-label,
+.score-label,
+.fps-label {
+    padding-left: 1.5em;
+    color: #fff;
+    margin-right: 5px;
+}
+
+#timer,
+#numberscore,
+#numberfps {
+    font-size: 1.5em;
+    color: #020202;
+}
+
+.control {
+    background-color: #797676;
+    opacity: 80%;
+    border-radius: 50px;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.img {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 30px;
+    margin-bottom: 20px;
+
+}
+
+img {
+    width: 70%;
+    height: auto;
+    margin-right: 40px;
+
+}
+
+.img2 img {
+    width: 60%;
+}
+
+.img3 img {
+    width: 50%;
+}
+
+.wrap {
+    width: 40%;
+}
+
+p {
+    width: 60%;
+    text-align: left;
+}
+
+/* -------------------------------------------- */
+/* ---------------- Menu modal ---------------- */
+/* -------------------------------------------- */
+
+#modal {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    will-change: opacity;
+    opacity: 0%;
+    position: absolute;
+    z-index: 3;
+    color: white;
+    text-shadow: 1px 1px 5px rgb(255, 255, 255), 0 0 1em rgb(255, 255, 255), 0 0 0.2em rgb(255, 255, 255);
+    font-size: 50px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+#modal::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    position: absolute;
+    z-index: 1;
+}
+
+#inputScore {
+    width: 400px;
+    height: 50px;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.button {
+    background-color: rgb(102, 102, 102);
+    height: 5%;
+    min-height: 20px;
+    min-width: 100px;
+    width: 30%;
+    font-weight: bolder;
+    font-size: medium;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border-style: double;
+    box-shadow: 0px 5px #666;
+    border-color: rgb(255, 255, 255);
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    cursor: pointer;
+    z-index: 2;
+}
+
+#scoringPage {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 70%;
+    z-index: 2;
+}
+
+/* Boutton Preview */
+#page1 {
+    width: 150px;
+    height: 40px;
+}
+
+/* Boutton Next */
+#page2 {
+    width: 150px;
+    height: 40px;
+    left: calc(100% - 150px);
+    position: relative;
+}
+
+#typeMenu {
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+    max-width: 80%;
+    margin-top: 50px;
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    z-index: 2;
+
+}
+
+#typeMenu::after {
+    content: '';
+    padding-bottom: 40px;
+    border-bottom: 10px double;
+    display: block;
+    width: 60%;
+    margin: 0 auto 40px;
+}
+
+.nameScore {
+    font-size: 20px;
+    text-align: center;
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    z-index: 2;
+}
+
+.title {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 45px;
+    font-size: 45px;
+    opacity: 70%;
+    text-shadow: 1px 1px 5px rgb(255, 255, 255), 0 0 1em rgb(255, 255, 255), 0 0 0.2em rgb(255, 255, 255);
+    background-color: #797676;
+    width: 100%;
+}
+
+.titleName {
+    width: 30%;
+}
+
+table {
+    width: 100%;
+    max-width: 70%;
+    height: 35%;
+    font-family: Agbalumo, sans-serif;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    margin-bottom: 30px;
+    border-collapse: collapse;
+}
+
+td {
+    font-size: 20px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.button {
+    margin-bottom: 20px;
+}
+
+.display,
+#scoringPage.display {
+    display: none;
+}
