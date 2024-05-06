@@ -1,0 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+#Login{
+    background-color: rgb(117, 228, 117); 
+    border-radius: 12px;
+    width: 300px;
+}
+body {
+    font-family: Agbalumo, sans-serif;
+    background-image: url("/assets/img/salade.jpg");
+    background-size: cover;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/* --------------------------------------- */
+/* --------------- en-tête --------------- */
+/* --------------------------------------- */
+
+.bandeau {
+    margin: auto;
+    /* margin-top: 5px; */
+    margin-bottom: 10px;
+    width: 100%;
+    height: 150px;
+    background-image: url("/assets/img/charcuterie1rogner.jpg");
+    background-position: 10%;
+    background-size: cover;
+    display: flex;
+    font-size: 50px;
+    padding: 30px 40px;
+    justify-content: space-between;
+
+    position: fixed;
+    z-index: 998;
+}
+
+.bandeauDroite{
+    margin-top: 0px;
+    width: 20%;
+    text-align: center;
+    flex-direction: column;
+}
+.bandeauDroite .buttonconnexion {
+    min-height: 50px;
+}
+.bandeauDroite form {
+    width: 100%;
+}
+
+#bandeauGauche {
+    background-image: url("/assets/img/salade.jpg");
+    background-size: cover;
+    background-position: 10%;
+    border-radius: 35% 58% 35% 52%;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    z-index: 999;
+    height: 175%;
+    width: 25%;
+    min-width: 250px;
+    padding-top: 25px;
+    padding-right: 15px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+    font-size: 150%;
+    
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+#bandeauGauche:hover {
+    border-color: black;
+    color: rgba(146, 169, 53, 0.8);
+    cursor: pointer;
+}
+
+.sousBandeau {
+    height: 210px;
+    opacity: 0%;
+}
+
+.search {
+    background-color: rgba(146, 169, 53, 0.6);
+    border-color: aliceblue;
+    width: 42%;
+    margin-top: auto;
+    text-align: center;
+    font-size: large;
+    border-radius: 20px;
+    border-color: black;
+    border-style: solid;
+
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+.inputsearch {
+    height: 30px;
+    width: 60%;
+    font-size: large;
+    border-radius: 9px;
+    margin-right: 15px;
+}
+
+.buttonFilter {
+    background-color: rgba(146, 169, 53, 0.8);
+    min-width: 300px;
+    min-height: 40px;
+    font-weight: bolder;
+    font-size: medium;
+    margin-top: 30px;
+    border-radius: 50%;
+    border-style: double;
+    box-shadow: 0px 5px #666;
+    border-color: rgb(255, 255, 255);
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.buttonconnexion {
+    background-color: rgba(146, 169, 53, 0.8);
+    height: 30%;
+    min-height: 20px;
+    min-width: 100px;
+    width: 80%;
+    font-weight: bolder;
+    font-size: medium;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border-style: double;
+    box-shadow: 0px 5px #666;
+    border-color: rgb(255, 255, 255);
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.buttonconnexion:hover {
+    background-color: rgb(146, 169, 53);
+    cursor: pointer;
+}
+
+.buttonsearch:hover {
+    background-color: rgb(146, 169, 53);
+    cursor: pointer;
+}
+
+/* --------------------------------------- */
+/* --------------- contenu --------------- */
+/* --------------------------------------- */
+
+.body {
+    background-image: url("/assets/img/potagerAromatiquen&b.jpg");
+    min-height: 60vh;
+    background-size: cover;
+    background-position: 50%;
+    margin: auto;
+    margin-top: 20px;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+    margin-top: 40px;
+    height: auto;
+    padding: 20px;
+    margin-left: 19%;
+    margin-right: 19%;
+    width: 60%;
+    background-color: #fff;
+    justify-content: center;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+    border-style: solid;
+    border-color: black;
+    border-radius: 50px;
+}
+
+.group {
+    margin-top: 5px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+.divMargintop {
+    text-align: center;
+    height: 500px;
+    opacity: 0;
+}
+
+.post {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 40px;
+    border-style: solid;
+    border-width:2px;
+    border-color:black;
+    border-radius: 20px;
+    padding-left: 20px;
+    background-color: rgba(146, 169, 53, 0.8);
+}
+
+.user {
+    margin-top: 100px;
+    width: 15%;
+    text-align: center;
+}
+
+.contenu {
+    width: 83%;
+    margin-right: 2%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.title {
+    text-align: center;
+    font-size: 50px;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    margin-bottom: 15px;
+}
+.message {
+    background-color: aliceblue;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 15px;
+    word-break: break-all;
+}
+.postPhoto {
+    width: 100%;
+    text-align: center;
+}
+.postPhoto img {
+    max-width: 100%;
+    max-height: 500px;
+}
+.Infomsg {
+    text-align: left;
+    width: 33%;
+}
+.comment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+    width: 33%;
+}
+.social {
+    text-align: right;
+    width: 33%;
+}
+.buttonsocials {
+    background-color: rgba(146, 169, 53, 0.8);
+    font-size: 30px;
+    vertical-align: middle;
+}
+.buttonsocials:hover {
+    cursor: pointer;
+}
+
+.buttoncomment {
+    min-height: 50px;
+}
+
+/* ------------------------------------------------ */
+/* ---------------- editeur de post ----------------*/
+/* ------------------------------------------------ */
+#postComment {
+    display: none;
+    width: 80%;
+    text-align: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 0px;
+}
+#noneButtonComment {
+    display: none;
+}
+
+form {
+    margin: right;
+    align-items: center;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+.ZoneTextEditor {
+    background-color: rgba(82, 82, 82);
+    opacity: 90%;
+    border-radius: 50px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    font-size: 60px;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+.textarea {
+    background-color: white;
+}
+h1 {
+    margin: 0px;
+    padding: 15px;
+}
+.inputRecette {
+    width: 70%;
+    margin-bottom: 20px;
+    border-radius: 9px;
+}
+.endPost {
+    background-color: rgba(82, 82, 82);
+    opacity: 90%;
+    border-radius: 50px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    width: 100%;
+    padding-bottom: 25px;
+    padding-top: 15px;
+}
+
+.boutonEnvoiePost {
+    text-align: center;
+}
+.EnvoiePost {
+    justify-content: center;
+    background-color: rgba(146, 169, 53, 0.8);
+    height: 50px;
+    min-height: 20px;
+    min-width: 50px;
+    width: 50%;
+    font-weight: bolder;
+    font-size: medium;
+    margin-top: 30px;
+    border-radius: 50%;
+    border-style: double;
+    box-shadow: 0px 5px #666;
+    border-color: rgb(255, 255, 255);
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.EnvoiePost:hover {
+    background-color: rgb(146, 169, 53);
+    cursor: pointer;
+}
+.ChargerImage {
+    text-align: left;
+    padding-left: 20px;
+}
+.Upload {
+    margin-left: 10px;
+}
+#categories {
+    text-align: left;
+}
+
+#checkbox_categories{
+    margin-left: 40px;
+    display: inline-block; /* Limite la largeur au contenu */
+    height: 20%;
+    min-height: 15px;
+    min-width: 15px;
+    cursor: pointer;
+}
+#ChoixDesTags{
+    margin-left: 20px;
+}
+
+/* ------------------------------------------------ */
+/* ---------- Affichage des commentaires -----------*/
+/* ------------------------------------------------ */
+
+.titlePostComment {
+    background-color: aliceblue;
+    border-radius: 10px;
+    width: 85%;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    min-height: 50px;
+}
+.displayComment {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 15px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    margin-bottom: 5px;
+    border-style: solid;
+    border-width:2px;
+    border-color:black;
+    border-radius: 20px;
+    padding-left: 20px;
+    background-color: rgba(146, 169, 53, 0.8);
+}
+.userComment {
+    width: 15%;
+    text-align: center;
+    vertical-align: top;
+}
+.contentComment {
+    width: 85%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.messageComment {
+    background-color: aliceblue;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 15px;
+    margin-right: 25px;
+    min-height: 100px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.infomsgComment {
+    width: 50%;
+    text-align: left;
+}
+.socialComment {
+    width: 47%;
+    text-align: right;
+    margin-right: 3%;
+}
+
+
+@media (max-width: 1280px) {
+    .user {
+        width: 100%;
+    }
+    .contenu {
+        width: 100%;
+    }
+}

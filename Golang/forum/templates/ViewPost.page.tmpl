@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/static/viewPost.css" /> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'><!--Permet d'importer des emotes a mettre sur les barres de recherche ou autre-->
+    <script src="https://cdn.tiny.cloud/1/z0qo87v80pictlpqd5ba08864de83fv6jplmq1967gimsgsi/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <title>Voir une recette</title>
+</head>
+<script>
+    tinymce.init({
+      selector: '#mytextarea'
+    });
+
+    var limit = 3;
+    $('input[type=checkbox]').on('change', function(e) {
+        if($('input[type=checkbox]:checked').length >= limit) {
+            $(this).prop('cheched', false);
+            alert('maximum 3 catégories')
+        }
+    });
+  </script>
+<body>
+    <!--------------------------------------------------------------------->
+    <!-------------------------- BANDEAU EN TETE -------------------------->
+    <!--------------------------------------------------------------------->
+    <div class="bandeau">
+        <a href="/" id="bandeauGauche">
+            <div>
+                CouiiERRE Burgond
+            </div>
+        </a>
+
+        <div class="bandeauDroite">
+            {{ if .UserData.Logged }}
+                <a href="/Compte">
+                    <button class="buttonconnexion">
+                        Mon compte
+                    </button>
+                </a>
+                    <form method="post">
+                        <button class="buttonconnexion" type="submit" name="logout" value="logout">
+                            Déconnexion
+                        </button>
+                    </form>
+            {{ else }}
+                    <a href="/Register">
+                        <button class="buttonconnexion">
+                            S'enregistrer
+                        </button>
+                    </a>
+                    <a href="/Login">
+                        <button class="buttonconnexion">
+                            se connecter
+                        </button>
+                    </a>
+            {{ end }}
+        </div>
+    </div>
+    <div class="sousBandeau"> c'est ici</div>
+    
+    <!--------------------------------------------------------------------->
+    <!------------------------- CONTENU DE LA PAGE ------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="body">
+        
+        {{ if .UserData.Msgerr }}
+            <div class="error">
+                {{ .UserData.Msgerr }}
+            </div>
+        {{ else }}
+            <div class="divMargintop">test</div>
+        {{ end }}
+
+
+        <div class="post">
+            <div class="user">
+                <img src="{{ .PostData.PhotoAuthor }}" />
+                <br>
+                Auteur : {{ .PostData.Author }}
+            </div>
+            <div class="contenu">
+                <div class="title">
+                    {{ .PostData.Title }}
+                </div>
+                <div class="message">
+                    {{ .PostData.Content }}
+                    {{ if .PostData.ContentPhoto }}
+                        <div class="postPhoto">
+                            <img src="{{ .PostData.ContentPhoto }}"/>
+                        </div>
+                    {{ end }}
+                    {{ if .PostData.ContentFile }}
+                        <br>
+                        Fichier joint à la recette :&nbsp;
+                        <a href="{{ .PostData.ContentFile }}" download="{{ .PostData.ContentFile }}">
+                            cliquer ici pour le télécharger
+                        </a>
+                    {{ end }}
+                </div>
+                <div class="Infomsg">
+                    Date de publication : {{ .PostData.Date }}
+                    <br>
+                    Catégorie du post : 
+                    {{ range .PostData.Categorie }}
+                        &nbsp;{{.}}&nbsp;
+                    {{ end }}
+                </div>
+                <div class="comment">
+                    {{ if .UserData.Logged }}
+                        <button type="submit" class="buttonconnexion buttoncomment" onclick="document.getElementById('postComment').style.display = 'block', document.getElementById('noneButtonComment').style.display = 'block'">Commenter le Post</button>
+                        <br>
+                        <button type="submit" class="buttonconnexion buttoncomment" id="noneButtonComment" onclick="document.getElementById('postComment').style.display = 'none', document.getElementById('noneButtonComment').style.display = 'none'">Masquer l'éditeur de commentaire</button>
+                    {{ else }}
+                        Connectez-vous pour interagir !
+                    {{ end }}
+                </div>
+                <div class="social">
+                    {{ if .UserData.Logged }}
+                        <form method="post">
+                            <div class="actions">
+                                Like : {{ .PostData.Likes }}&nbsp;&nbsp;
+                                <button type="submit" name="socials" value="liked" class="buttonsocials">👍</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                Dislike : {{ .PostData.Dislikes }}&nbsp;&nbsp;
+                                <button type="submit" name="socials" value="disliked" class="buttonsocials">👎</button> 
+                            </div>
+                        </form>
+                    {{ else }} 
+                        <div>
+                            Like : {{ .PostData.Likes }}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            Dislike : {{ .PostData.Dislikes }}&nbsp;&nbsp;
+                        </div>
+                    {{ end }}
+                </div>
+            </div>  
+        </div>
+
+        <!------------------------- Pour commenter le post ------------------------>
+        
+        {{ if .UserData.Logged }}
+            <div id="postComment">
+                <form method="post">
+                    <div class="ZoneTextEditor">
+                        <h1>
+                            Commenter la recette
+                            <br>
+                            {{ .PostData.Title }}
+                        </h1>
+                    </div>
+                    <div class="textarea">
+                        <textarea id="mytextarea" name="newComment" type="text"></textarea>
+                    </div>
+                    <div class="endPost">
+                        <div class="boutonEnvoiePost"><!---les espaces dans les "class" permettent d'attribuer plusieurs classes -->
+                            <button class="EnvoiePost" type="submit" value="{{.PostData.ID}}" name="post_id"><b>Publier le commentaire</b></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {{ end }}
+
+        <!------------------------- Affichage des commentaires du post ------------------------>
+           
+           
+        {{ if .PostData.Comments }} <!-- Si un commentaire present -->
+            <div class="titlePostComment">
+                Commentaire(s) du Post
+            </div>
+            {{ if .UserData.Logged }} <!-- Si utilisateur logger -->
+                {{ range .PostData.Comments }}
+                    <div class="displayComment">
+                        <div class="userComment">
+                            <img src="{{ .PhotoAuthor }}" />
+                            <br>
+                            Auteur : {{ .Author }}
+                        </div>
+                        <div class="contentComment">
+                            <div class="messageComment">
+                                {{ .Content }}
+                            </div>
+                            <div class="infomsgComment">
+                                Date du commentaire : {{ .Date }}
+                            </div>
+                            <div class="socialComment">
+                                <form method="post">
+                                    Like : {{ .Likes }}&nbsp;&nbsp;
+                                    <button type="submit" name="socialsLikeComment" value="{{.ID}}" class="buttonsocials">👍</button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    Dislike : {{ .Dislikes }}&nbsp;&nbsp;
+                                    <button type="submit" name="socialsDislikeComment" value="{{.ID}}" class="buttonsocials">👎</button> 
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {{ end }}
+            {{ else }} <!-- Si utilisateur non logger -->
+                {{ range .PostData.Comments }}
+                    <div class="displayComment">
+                        <div class="userComment">
+                            <img src="{{ .PhotoAuthor }}" />
+                            <br>
+                            Auteur : {{ .Author }}
+                        </div>
+                        <div class="contentComment">
+                            <div class="messageComment">
+                                {{ .Content }}
+                            </div>
+                            <div class="infomsgComment">
+                                Date du commentaire : {{ .Date }}
+                            </div>
+                            <div class="socialComment">
+                                Like : {{ .Likes }}
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                Dislike : {{ .Dislikes }}&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                {{ end }}
+            {{ end }}
+        {{ end }}
+
+
+
+    </div>
+</body>
+<div class="group">@copyright, site créé par un super bon groupe de la mort qui tue (Arthour, t'as une bonne vue :)</div>
+</html>

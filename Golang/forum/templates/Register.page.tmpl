@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/static/login.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'><!--Permet d'importer des emotes a mettre sur les barres de recherche ou autre-->
+    <title>Register</title>
+</head>
+<body>
+<!--------------------------------------------------------------------->
+<!-------------------------- BANDEAU EN TETE -------------------------->
+<!--------------------------------------------------------------------->
+
+<div class="bandeau">
+    <a href="/" id="bandeauGauche">
+        <div>
+            CouiiERRE Burgond
+        </div>
+    </a>
+    <!-- <div class="search">
+        <form method="POST">
+            <input name="search" placeholder="Search bar" type="search" class="inputsearch"></input>
+            <button type="submit" class="buttonsearch">search</button>
+        </form>
+     </div> -->
+    <div class="bandeauDroite">
+        <a href="/Login">
+            <button class="buttonconnexion">
+                se connecter
+            </button>
+        </a>
+    </div>
+</div>
+<div class="sousBandeau"></div>
+
+<!--------------------------------------------------------------------->
+<!------------------------- CONTENU DE LA PAGE ------------------------>
+<!--------------------------------------------------------------------->
+    <div class="body">
+
+        {{if .Msgerr}}
+            <div class="error">
+                {{ .Msgerr }}
+            </div>
+        {{ end }}        
+
+        <div class="box">
+            <div class="container">
+                <div class="top-header">
+                    <header>Formulaire d'enregistrement</header>
+                </div>
+                <form method="POST" class="input-field">
+                    <div id="divinput">
+                        <input type="email" size="30" class="input" placeholder="Adresse e-mail" name="mail" required>
+                        <i class="bx bx-user"></i>
+
+                        <input type="password" class="input" placeholder="Mot de passe" name="pass" required>
+                        <i class="bx bx-lock-alt"></i>
+                        <input type="password" class="input" placeholder="Confirmer le mot de passe" name="confirmPass"  required>
+                        <i class="bx bx-lock-alt"></i>
+
+                        <input type="text" class="input" placeholder="Pseudo" name="username" required>
+                        <i class="bx bx-user-circle"></i>
+
+                        <input type="submit" class="submit" value="S'enregistrer" name="enregistrer">
+                    </div>
+                </form>
+                <div class="bottom">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="group">@copyright, site créé par un super bon groupe de la mort qui tue (Arthour, t'as une bonne vue :)</div>
+</body>
+</html>

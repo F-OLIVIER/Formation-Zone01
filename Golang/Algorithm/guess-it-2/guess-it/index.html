@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guess the Number</title>
+    <meta charset="utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.0/chart.min.js"></script>
+
+    <style>
+      body {
+        background: linear-gradient(
+          180deg,
+          rgb(20, 20, 20) 100%,
+          rgba(0, 0, 0, 0.75) 0%
+        );
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        margin: 0;
+      }
+
+      .title {
+        font-size: 50px;
+        font-weight: bold;
+        color: antiquewhite;
+      }
+
+      .center {
+        display: flex;
+        justify-content: center;
+      }
+
+      .guesser {
+        height: 800px;
+        width: 30%;
+
+        margin: 0 20px;
+        padding: 10px 15px;
+
+        border-radius: 3px;
+        box-shadow: 0px 0px 8px rgb(70, 70, 70);
+
+        background: black;
+
+        white-space: pre;
+        overflow: auto;
+
+        position: relative;
+      }
+
+      .pl1 {
+        color: rgb(151, 247, 151);
+      }
+
+      .pl2 {
+        color: rgb(151, 165, 247);
+      }
+
+      .buttons {
+        width: 70%;
+        margin: 0 auto;
+      }
+
+      .guesser-name {
+        margin-top: 20px;
+        font-size: large;
+        font-weight: bolder;
+      }
+
+      .green-text {
+        color: darkorchid;
+      }
+
+      .blue-text {
+        color: dodgerblue;
+      }
+
+      .final-result {
+        margin-top: 15px;
+      }
+
+      .options-wrapper {
+        margin-top: 50px;
+      }
+
+      .options-wrapper button {
+        margin-right: 30px;
+        padding: 2px 5px;
+
+        font-size: 17px;
+      }
+
+      .options-wrapper button:active {
+        background: rgb(121, 121, 121);
+        border-radius: 5px;
+      }
+
+      .options-wrapper button:last-child {
+        margin-right: 0px;
+      }
+
+      .btn-wrapper {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .quick-btn {
+        box-shadow: inset 0px 1px 3px 0px #91b8b3;
+        background: linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+        background-color: #768d87;
+        border-radius: 5px;
+        border: 1px solid #566963;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 11px 23px;
+        text-decoration: none;
+        text-shadow: 0px -1px 0px #2b665e;
+      }
+      .quick-btn:hover {
+        background: linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+        background-color: #6c7c7c;
+      }
+      .quick-btn:active {
+        position: relative;
+        top: 1px;
+      }
+
+      .info-box {
+        justify-content: space-between;
+        flex-direction: column;
+        display: flex;
+      }
+
+      /*loader*/
+      .loader-wrapper {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(29, 29, 29, 0.801);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loader {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        border: 4px solid #fff;
+        animation: loader 2s infinite ease;
+      }
+      .loader-inner {
+        vertical-align: top;
+        display: inline-block;
+        width: 100%;
+        background-color: hsla(278, 12%, 49%, 0.733);
+        animation: loader-inner 2s infinite ease-in;
+      }
+      @keyframes loader {
+        0% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(180deg);
+        }
+        50% {
+          transform: rotate(180deg);
+        }
+        75% {
+          transform: rotate(360deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes loader-inner {
+        0% {
+          height: 0%;
+        }
+        25% {
+          height: 0%;
+        }
+        50% {
+          height: 100%;
+        }
+        75% {
+          height: 100%;
+        }
+        100% {
+          height: 0%;
+        }
+      }
+
+      .graph {
+        margin-top: 100px;
+        padding: 30px;
+        background: #242929;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="title center">
+      <p>Guess the Number</p>
+    </div>
+
+    <div class="center">
+      <div style="display: contents">
+        <div>
+          <div class="guesser-name green-text">Student</div>
+          <div id="final-result-1" class="final-result green-text"></div>
+        </div>
+        <div id="guesser-1" class="guesser pl1"></div>
+      </div>
+      <div style="display: contents">
+        <div id="guesser-2" class="guesser pl2"></div>
+        <div class="info-box">
+          <div>
+            <div class="guesser-name blue-text">Guesser Name</div>
+            <div id="final-result-2" class="final-result blue-text"></div>
+          </div>
+          <div class btn-wrapper>
+            <button id="quick-btn" class="quick-btn">Quick</button>
+            <button class="quick-btn" onclick="window.location.reload()">
+              Clean
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="options-wrapper">
+      <div class="buttons center"></div>
+    </div>
+
+    <div class="graph center">
+      <canvas id="graph" width="1000" height="600"></canvas>
+    </div>
+
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

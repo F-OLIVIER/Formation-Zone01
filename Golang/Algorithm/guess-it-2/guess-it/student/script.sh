@@ -1,0 +1,1 @@
+go run /home/fabien/Zone01/guess-it-2/guess-it/student/main.go

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="300" />
+    <link rel="stylesheet" href="/assets/static/style.css"/>
+    <title>Home</title>
+</head>
+<body>
+<!--------------------------------------------------------------------->
+<!-------------------------- BANDEAU EN TETE -------------------------->
+<!--------------------------------------------------------------------->
+
+<div class="bandeau">
+    <a href="/" id="bandeauGauche">
+        <div>
+            CouiiERRE Burgond
+        </div>
+    </a>
+    <div class="search">
+        <form method="POST">
+            {{range .UserData.StructCategories}}<!---Les inputs peuvent aussi être placer dans une boucle afin d'en créer autant qu'il y a de données--->
+                <input type="checkbox" name="categorieFilter" id="checkbox_categories" value="{{.Id}}">
+                    <label for="categorie_post">{{.Name}}</label>
+                </input>
+            {{end}} 
+            <button type="submit" class="buttonFilter">Filtrer par catégorie</button>
+        </form>
+     </div>
+    <div class="bandeauDroite">
+        {{ if .UserData.Logged }} <!--- permet de rediriger en fonction de ce qui ce trouve dans .Logged--->
+            <a href="/Compte">
+                <button class="buttonconnexion">
+                    Mon compte
+                </button>
+            </a>
+                <form method="post">
+                    <button class="buttonconnexion" type="submit" name="logout" value="logout">
+                        Déconnexion
+                    </button>
+                </form>
+        {{ else }}
+                <a href="/Register">
+                    <button class="buttonconnexion">
+                        S'enregistrer
+                    </button>
+                </a>
+                <a href="/Login">
+                    <button class="buttonconnexion">
+                        se connecter
+                    </button>
+                </a>
+        {{ end }}
+    </div>
+</div>
+<div class="sousBandeau"></div>
+
+<!--------------------------------------------------------------------->
+<!------------------------- CONTENU DE LA PAGE ------------------------>
+<!--------------------------------------------------------------------->
+    <div class="body">
+
+        {{ if .UserData.Msgerr }}
+            <div class="error">
+                {{ .UserData.Msgerr }}
+            </div>
+        {{ end }}
+    
+        <div class="buttonLogged">
+            {{ if .UserData.Logged }}
+                <a href="/PostEditor">
+                    <button class="buttonconnexion buttonCreatePost">
+                        Crée un nouveau post
+                    </button>
+                </a>
+            {{ end }}
+        </div>
+
+        <div class="listPost">
+            {{ range .PostListData}} 
+                <a class="linkhtml" href="ViewPost?id={{ .ID }}">
+                    <button class="post" method="POST" value="{{ .ID }}" name="idPost">
+                        <div class="title">
+                                
+                            {{.Title}}
+                        </div> 
+                        <div class="postGauche">
+                            Date de parution : {{.Date}}
+                            <br>
+                            Categories :
+                            {{ range .Categorie}}
+                            &nbsp;{{.}}&nbsp;
+                            {{end}}
+                        </div>
+                        <div class="postDroite">
+                        Auteur : {{.Author}}
+                        <br>
+                        
+                        
+                        Likes :&nbsp;&nbsp;{{ .Likes }}&nbsp;&nbsp;-&nbsp;&nbsp;Dislikes :&nbsp;&nbsp;{{ .Dislikes }}
+                        </div>
+                    </button>
+                </a>
+            {{end}}
+        </div>
+    </div>
+    <div class="group">@copyright, site créé par un super bon groupe de la mort qui tue (Arthour, t'as une bonne vue :)</div>
+</body>
+</html>

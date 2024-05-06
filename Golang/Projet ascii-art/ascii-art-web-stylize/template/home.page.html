@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<!-- Définition de la langue de la page -->
+<html lang="fr">
+
+    <!-- En-tête -->
+    <head>
+        <link href="template/style.css" rel="stylesheet" type="text/css">
+
+
+        <!-- Définition de l'encodage -->
+        <meta charset="UTF-8">
+
+        <!-- Nom de l'onglet de la page -->
+        <title>Ascii-Art-Web</title>
+    </head>
+
+    <body id="body" background="https://wallpapercave.com/wp/wp2754860.jpg" >
+
+        <!-- Titre affiché-->
+        <h1 id="titre">ASCII-ART-WEB</h1>
+
+        <form action="/" method="POST">
+
+            <div id="corps">
+
+                    <label id="Textarea"><h3>Transformez votre texte en caractères ASCII-ART</h3></label>
+
+                    <!-- Volet déroulant pour le détail du programme -->
+                    <details>
+                        <summary id="summary">Caractères pris en charge</summary>
+                        <p>
+                            Les caractères suivants sont accepté :<br>
+                            abcdefghijklmnopqrstuvwxyz<br>
+                            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+                            0123456789<br>
+                            {}!:;,?./%$+-<>'"~&[]@`\*=()_|#<br>
+                            [espace]<br>
+                            <br>                
+                            \n sont 2 caractères qui lorsqu'il ce suivent sont considéré comme un retour à la ligne<br>
+            
+                        </p>
+                    </details>
+            
+                    <!-- Zone de teste à renseigner -->
+                    <textarea id="txt" name="txt" cols="15" rows="5" wrap="hard"></textarea><br><br>
+                    <!-- placeholder="le texte suivant" -->
+
+                    <label for="Choix de la police">Choix de la police : </label>
+
+                    <!-- Création d'un volet déroulant -->
+                    <select name="Polices" id="Polices"> 
+                        <option value="standard">Standard</option>
+                        <option value="shadow">Shadow</option>
+                        <option value="thinkertoy">Thinkertoy</option>
+                        <option value="varsity">Varsity</option>
+                    </select><br><br>
+            </div><br>
+
+            {{if .}}
+                <audio id="audio" src="/template/tadaxp.mp3" autoplay="true">
+                </audio>
+                    <table>
+                        <td>
+                            <pre>{{.}}</pre>
+                        </td>
+                    </table>
+            {{end}}
+            <br>
+
+            <!-- Création d'un boutton qui envoie une requête -->
+            <button id="gobutton" type="submit">
+                <span>
+                    Go
+                </span>
+            </button>
+        </form>
+    </body>
+</html>

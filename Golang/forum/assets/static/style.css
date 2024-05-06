@@ -1,0 +1,290 @@
+/*
+class = appel en .
+id = appel en #
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+#Login{
+    background-color: rgb(117, 228, 117); 
+    border-radius: 12px;
+    width: 300px;
+}
+body {
+    font-family: Agbalumo, sans-serif;
+    background-image: url("/assets/img/salade.jpg");
+    background-size: cover;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/* --------------------------------------- */
+/* --------------- en-tête --------------- */
+/* --------------------------------------- */
+
+.bandeau {
+    margin: auto;
+    /* margin-top: 5px; */
+    margin-bottom: 10px;
+    width: 100%;
+    height: 150px;
+    background-image: url("/assets/img/charcuterie1rogner.jpg");
+    background-position: 10%;
+    background-size: cover;
+    display: flex;
+    font-size: 50px;
+    padding: 30px 40px;
+    justify-content: space-between;
+
+    position: fixed;
+    z-index: 998;
+}
+
+.bandeauDroite{
+    margin-top: 0px;
+    width: 20%;
+    text-align: center;
+    flex-direction: column;
+}
+.bandeauDroite .buttonconnexion {
+    min-height: 50px;
+}
+.bandeauDroite form {
+    width: 100%;
+}
+
+#bandeauGauche {
+    background-image: url("/assets/img/salade.jpg");
+    background-size: cover;
+    background-position: 10%;
+    border-radius: 35% 58% 35% 52%;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    z-index: 999;
+    height: 175%;
+    width: 25%;
+    min-width: 250px;
+    padding-top: 25px;
+    padding-right: 15px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+    font-size: 150%;
+    
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+#bandeauGauche:hover {
+    border-color: black;
+    color: rgba(146, 169, 53, 0.8);
+    cursor: pointer;
+}
+
+.sousBandeau {
+    height: 210px;
+    opacity: 0%;
+}
+
+.search {
+    background-color: rgba(146, 169, 53, 0.6);
+    border-color: aliceblue;
+    width: 42%;
+    margin-top: auto;
+    text-align: center;
+    font-size: large;
+    border-radius: 20px;
+    border-color: black;
+    border-style: solid;
+
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+.inputsearch {
+    height: 30px;
+    width: 60%;
+    font-size: large;
+    border-radius: 9px;
+    margin-right: 15px;
+}
+
+.buttonFilter {
+    background-color: rgba(146, 169, 53, 0.8);
+    min-width: 300px;
+    min-height: 40px;
+    font-weight: bolder;
+    font-size: medium;
+    margin-top: 30px;
+    border-radius: 50%;
+    border-style: double;
+    box-shadow: 0px 5px #666;
+    border-color: rgb(255, 255, 255);
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.buttonconnexion {
+    background-color: rgba(146, 169, 53, 0.8);
+    height: 30%;
+    min-height: 20px;
+    min-width: 100px;
+    width: 80%;
+    font-weight: bolder;
+    font-size: medium;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border-style: double;
+    box-shadow: 0px 5px #666;
+    border-color: rgb(255, 255, 255);
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.buttonconnexion:hover {
+    background-color: rgb(146, 169, 53);
+    cursor: pointer;
+}
+
+.buttonsearch:hover {
+    background-color: rgb(146, 169, 53);
+    cursor: pointer;
+}
+
+/* --------------------------------------- */
+/* --------------- contenu --------------- */
+/* --------------------------------------- */
+
+.body {
+    background-image: url("/assets/img/potagerAromatiquen&b.jpg");
+    min-height: 60vh;
+    background-size: cover;
+    background-position: 50%;
+    margin: auto;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+    margin-top: 40px;
+    height: auto;
+    padding: 20px;
+    margin-left: 19%;
+    margin-right: 19%;
+    width: 60%;
+    background-color: #fff;
+    justify-content: center;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+    border-style: solid;
+    border-color: black;
+    border-radius: 50px;
+}
+
+.group {
+    margin-top: 5px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+.buttonLogged {
+    width: 95%;
+    height: 75px;
+    text-align: right;
+    margin-top: 30px;
+    
+}
+
+.buttonCreatePost {
+    height: 60px;
+    width: 250px;
+}
+
+
+.listPost {
+    padding-top: 5px;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column-reverse;
+}
+.formulaire {
+    width: 100%;
+}
+.post {
+    display: flex;
+    flex-wrap: wrap;
+    width:100%;
+    padding-bottom: 40px;
+    margin-bottom: 15px;
+    border-style: solid;
+    border-width:2px;
+    border-color:black;
+    border-radius: 20px;
+    padding-left: 20px;
+    background-color: rgba(146, 169, 53, 0.8);
+}
+
+.post:hover {
+    background-color: rgb(146, 169, 53);
+    cursor: pointer;
+}
+
+.title {
+    width: 100%;
+    font-family: Agbalumo, sans-serif;
+    color:white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    font-size: 35px;
+
+
+}
+
+.postGauche{
+    width: 50%;
+    font-family: Agbalumo, sans-serif;
+    color:white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    font-size: 22px;
+}
+
+.postDroite{
+    width: 50%;
+    font-family: Agbalumo, sans-serif;
+    color:white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    font-size: 22px;
+}
+
+.linkhtml {
+    text-decoration : none;
+}

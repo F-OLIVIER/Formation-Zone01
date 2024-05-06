@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <link href="templates/style.css" rel="stylesheet" type="text/css">
+		<title>Groupie Tracker</title>
+	</head>
+    <body class="body">
+
+        <div class="bandeau">
+            <div class="projogauche">
+                <img src="https://i43.servimg.com/u/f43/15/76/70/95/projog11.png">
+            </div>
+            <div class="projocentre">
+                <h1>Ticket Groupie Tracker</h1>
+                <h1>{{ .GArt_name }}</h1>
+                <button class="button"><a href="http://127.0.0.1:8080/" style="color: aliceblue;">Retour à l'accueil</a></button>
+
+            </div>
+            <div class="projodroite">
+                <img src="https://i43.servimg.com/u/f43/15/76/70/95/projod10.png">
+            </div>
+        </div>
+        
+        <center>
+        <div class="boite2">
+
+                    <div>
+                        <br>
+                        <div class="boitegauche">
+                            <img class="ArtImage" src="{{ .GArt_image }}">
+                            <br>
+                            <p><u>Nom du groupe</u> : <b>{{ .GArt_name }}</b></p>
+                            <br>
+                            <u>Membre du groupe</u> :<br><br>
+                            <div class="members">
+                                {{ range .GArt_members }} <li> {{ . }} </li> {{ end }}
+                            </div>
+                            <br>
+                            <u>Date de création du groupe</u> :
+                            {{ .GArt_creationDate }}
+                            <br><br>
+                            <u>Date du premier album</u> :
+                            {{ .GArt_firstAlbum }}
+                            <br>
+                        </div>
+
+                        <div class="boitedroite">
+                            {{ $loc := .GLoc_locations }}
+                            {{ $gps := .GPS }}
+                            {{ $map := .GRel_datesLocations }}
+    
+                            <br>
+                            <b class="Artname">Lieu de Concert</b><br><br>
+                                        {{ range $loc }}
+                                            <div class="sous-sous-boite">
+                                                
+                                                <b class="Artname">{{ . }}</b> (coordonnée GPS : {{ index $gps . }})
+
+                                                <br>
+                                                <details>
+                                                    <summary>Afficher sur une carte</summary>
+                                                    <!-- Carte google map : https://developers.google.com/maps/documentation/embed/get-started?hl=fr
+                                                        Console google développeur : https://console.cloud.google.com/apis/credentials -->
+                                                        <iframe
+                                                            width="90%"
+                                                            height="500px"
+                                                            style="border: 10px;"
+                                                            loading="lazy"
+                                                            allowfullscreen
+                                                            referrerpolicy="no-referrer-when-downgrade"
+                                                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAlN9UWYxSRnlX-eBh5umoXGD1V0DGzCHc&q={{ . }}">
+                                                        </iframe>
+                                                </details>
+                                                <br>
+                                                <b class="Artname">Date de concert : </b><br>
+                                                    {{ range index $map . }}
+                                                        • {{ . }} &nbsp;&nbsp;
+                                                    {{ end }}
+                                                <br>
+                                            </div><br>
+                                    {{ end }}
+
+                            </center>
+                        </div>
+                    </div>
+                    
+                    <br>
+                    <!-- <div class="boitebasdroite">
+                        <br>
+
+
+
+                        <iframe
+                            width="90%"
+                            height="92%"
+                            style="border: 10px;"
+                            loading="lazy"
+                            allowfullscreen
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAlN9UWYxSRnlX-eBh5umoXGD1V0DGzCHc&q=new_south_wales-australia">
+                        </iframe>
+
+                    </div> -->
+        </div>    
+        </center>
+	</body>
+</html>

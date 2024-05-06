@@ -1,0 +1,59 @@
+{
+    "results" : [
+       {
+          "address_components" : [
+             {
+                "long_name" : "Noum\u00e9a",
+                "short_name" : "Noum\u00e9a",
+                "types" : [ "locality", "political" ]
+             },
+             {
+                "long_name" : "South Province",
+                "short_name" : "South Province",
+                "types" : [ "administrative_area_level_1", "political" ]
+             },
+             {
+                "long_name" : "New Caledonia",
+                "short_name" : "NC",
+                "types" : [ "country", "political" ]
+             },
+             {
+                "long_name" : "98800",
+                "short_name" : "98800",
+                "types" : [ "postal_code" ]
+             }
+          ],
+          "formatted_address" : "Noum\u00e9a 98800, New Caledonia",
+          "geometry" : {
+             "bounds" : {
+                "northeast" : {
+                   "lat" : -22.2162913,
+                   "lng" : 166.5041114
+                },
+                "southwest" : {
+                   "lat" : -22.3124234,
+                   "lng" : 166.3856221
+                }
+             },
+             "location" : {
+                "lat" : -22.2734912,
+                "lng" : 166.4480887
+             },
+             "location_type" : "APPROXIMATE",
+             "viewport" : {
+                "northeast" : {
+                   "lat" : -22.2162913,
+                   "lng" : 166.5041114
+                },
+                "southwest" : {
+                   "lat" : -22.3124234,
+                   "lng" : 166.3856221
+                }
+             }
+          },
+          "place_id" : "ChIJyzIaP2niJ2wRAN0S8yqy8Xs",
+          "types" : [ "locality", "political" ]
+       }
+    ],
+    "status" : "OK"
+ }

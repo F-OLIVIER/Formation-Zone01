@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <link href="templates/style.css" rel="stylesheet" type="text/css">
+		<title>Groupie Tracker</title>
+	</head>
+    <body class="body">
+
+        <div class="bandeau">
+            <div class="projogauche">
+                <img src="https://i43.servimg.com/u/f43/15/76/70/95/projog11.png">
+            </div>
+            <div class="projocentre">
+                <h1>Ticket Groupie Tracker</h1>
+                <form action="/groupe" method="post">
+                    <label class="textrecherche">Barre de recherche</label>
+                    <br>
+                    <input class="textrecherche" type="text" name="recherche" list="recherche-list" pattern="{{ range . }}Groupe {{ .Art_name }}|{{ end }}{{ range . }}{{ $id := .Art_id }}{{ $members := .Art_members }}{{ $name := .Art_name }}{{ range $members }}{{ . }} - membre {{ $name }}|{{ end }}{{ end }}" placeholder="Recherche">
+                    <datalist id="recherche-list">
+                        {{ range . }}
+                            <option>Groupe {{ .Art_name }}</option>
+                        {{ end }}
+
+                        {{ range . }}
+                        {{ $id := .Art_id }}
+                        {{ $members := .Art_members }}
+                        {{ $name := .Art_name }}
+                            {{ range $members }}
+                                <option>{{ . }} - membre {{ $name }}</option>
+                            {{ end }}
+                        {{ end }}
+                    </datalist>
+
+                    <br><br>
+                    <button type="submit" class="button" style="color: azure;">Rechercher</button>
+                </form>
+            </div>
+            <div class="projodroite">
+                <img src="https://i43.servimg.com/u/f43/15/76/70/95/projod10.png">
+            </div>
+        </div>
+
+        <center>
+        <div class="boite">
+            {{ range . }}
+                <form action="/groupe" method="post">
+                    <button type="submit" class="sous-boite" name="groupe" value="{{ .Art_id }}">
+                        <img src="{{ .Art_image }}">
+                        <br>
+                        <p class="Artname">Groupe : <b>{{ .Art_name }}</b></p> 
+                    </button>
+                </form>
+            {{ end }}
+        </div>    
+        </center>
+	</body>
+</html>

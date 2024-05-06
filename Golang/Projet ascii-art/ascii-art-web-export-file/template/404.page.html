@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<!-- Définition de la langue de la page -->
+<html lang="fr">
+
+    <!-- En-tête -->
+    <head> 
+        <link href="template/style.css" rel="stylesheet" type="text/css">
+
+        <!-- Définition de l'encodage -->
+        <meta charset="UTF-8">
+
+        <!-- Nom de l'onglet de la page -->
+        <title>Ascii-Art-Web</title>
+    </head>
+        <style>
+            #body{
+                background-size: 100%;
+            }
+            #bud{
+                font-weight: bold;
+                display: inline-block;
+                background-color: #000077;
+                border-top-left-radius:20px;
+                border-top-right-radius:20px;
+                border-end-end-radius:20px;
+                border-end-start-radius:20px;
+                border: 10px double #ffff00;
+                color: #ffffff;
+                font-size: 100%;
+                width: 35%;
+                height: 100%;
+                transition: all 0.5s;
+                opacity: 65%;
+            }
+            #bud:hover {
+                background-color: #770000;
+            }
+            #bud:hover span:after {
+                opacity: 1;
+                right: 0;
+            }
+            #tr{
+                opacity: 0;
+                width: 40%;
+            }
+        </style>
+
+    <body id="body" background="https://media.tenor.com/OxawvczDczUAAAAd/where-is-everyone-what-is-this-place.gif" >
+
+        <audio id="audio" autoplay="true">
+            <source src="/template/erro.mp3">
+        </audio>
+
+        <!-- Titre affiché-->
+        <h1 id="titre">ASCII-ART-WEB</h1><br>
+        <img id="tr" src="https://media.tenor.com/OxawvczDczUAAAAd/where-is-everyone-what-is-this-place.gif">
+        <center><br>
+        
+            <div id="bud">
+                <h2>404 : File Not Found</h2>
+            </div><br>
+                <font size="30%">
+                        <a id="gobutton" href="http://localhost:8080">Retour</a><br>
+                </font><br>
+        </center>   
+    </body>
+</html>

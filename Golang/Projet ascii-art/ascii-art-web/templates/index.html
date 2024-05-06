@@ -1,0 +1,92 @@
+<!doctype html>
+<html style="background-image: url(https://lapausephilo.fr/wp-content/uploads/2015/12/A-Matrix-couverture-article.jpg);">
+	<head>
+		<meta charset="utf-8">
+		<title>Ascii-Art</title>
+	</head>
+	<body>
+
+		<center>
+			<br><br><br>
+			<!-- Formulaire de saisie des caractéres et de l'option souhaité d'Ascii-Art -->
+			<table align= "center" width="70%" border="1" cellspacing="1" cellpadding="5" style="background-color: rgb(59, 155, 22);;">
+				<!-- Entête du tableau -->
+				<thead>
+					<th align= "center" colspan="2">Formulaire pour réaliser un Ascii-Art</th>
+				</thead>
+				<!-- Contenu du tableau -->
+				<tbody>
+					<tr>
+						<td width="15%">
+							<!-- Balise form = balise de création d'un formulaire -->
+							<form action="/home" method="post">
+								<div align= "center"></p>
+									<label>Texte souhaité en Ascii-Art</label>
+									</br>
+									<!-- Case texte pour la saisie du ou des mots avec enregistrement du contenu sous la variable "word" -->
+									<textarea required name="word" style="overflow:auto" wrap="hard" placeholder="Votre texte"></textarea>
+								</div>
+								<div align= "center"></p>
+									<label>Choix de l'option d'Ascii-Art</label>
+								</div>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<!-- input : ce sont les options (option en radio afin de n'avoir qu'une seule case saisie possible) -->
+								<!-- enregistrement du contenu sous la variable "option" -->
+								<input type="radio" name="option" value="standard" checked> standard
+								</br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="radio" name="option" value="shadow"> shadow 
+								</br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="radio" name="option" value="thinkertoy"> thinkertoy
+								<div align= "center">
+									</br>
+									<!-- Affichage d'un bouton "submit" pour soumettre le formulaire -->
+									<button type="submit">Réaliser l'Ascii-Art</button>
+								</div>
+								</br>
+							</form>
+						</td>
+						<td width="65%" style="background-color: rgb(2, 2, 2);">
+							</br>
+							<font align="center" color="white">
+								<!-- Balise pre pour préformaté, c'est a dire texte non insterpréte mais afficher tels quel -->
+								<pre>
+									<!-- Affichage du résultats d'Ascii-Art -->
+									{{ .AsciiArt }}
+								</pre>
+							</font>
+							</br>
+						</td>
+			</table>
+
+			</br></br>
+
+			<!-- Balise detail pour masquer les exemple et ne les afficher que si l'utilisateur souhaite les afficher -->
+			<details>
+				<!-- Onglet detail pour avoir des exemple de résultats d'Ascii-Art -->
+				<summary><li><mark style="background-color: rgb(59, 155, 22);">Cliquer ici pour voir des examples de résultats d'Ascii-Art en fonction de l'option choisie </mark></li></summary>
+				<br>
+				<table align= "center" width="70%" border="1" cellspacing="1" cellpadding="5" style="background-color: rgb(59, 155, 22);">
+					<!-- Entête du tableau -->
+					<thead>
+						<th align= "center" colspan="3">Exemple d'Ascii-Art</th>
+					</thead>
+					<!-- Contenu du tableau -->
+					<tbody>
+						<tr>
+							<td align= "center">Standard</td>
+							<td align= "center">Shadow</td>
+							<td align= "center">Thinkertoy</td>
+						</tr>
+						<tr>
+							<td align= "center"><img src="https://i43.servimg.com/u/f43/15/76/70/95/image_11.png"></td>
+							<td align= "center"><img src="https://i43.servimg.com/u/f43/15/76/70/95/captur22.png"></td>
+							<td align= "center"><img src="https://i43.servimg.com/u/f43/15/76/70/95/image_12.png"></td>
+						</tr>    
+					</tbody>
+				</table>
+			</details>
+		</center>
+	</body>
+</html>

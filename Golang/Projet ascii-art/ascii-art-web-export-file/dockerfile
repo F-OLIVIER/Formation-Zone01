@@ -1,0 +1,33 @@
+# La syntaxe du dockerfile s'écrit comme ceci : 
+# COMMANDE/INFO complement
+
+# Origine du langage pour l'image
+FROM golang:1.19
+
+# Metadata label
+LABEL projet="ascii_art_dockerize : http.//localhost:8080"
+LABEL fonction="ASCII-ART"
+LABEL authors="Fabien OLIVIER & Mickael MARCHAIS"
+LABEL promo="Z01 mai 2023"
+
+
+# Définition de la destination de la copie
+WORKDIR /app
+
+# Copie les fichiers spécifiés dans l'image ( "." pour "tous les fichiers")
+ADD . /app
+
+# Copie les fichiers spécifiés dans l'image ( "." pour "tous les fichiers" à l'emplacement du fichier dockerfile)
+# COPY . /app
+
+# Téléchargement des modules présents dans le go.mod
+#RUN go mod download
+
+# Build emplacement du main dans l'image + emplacement du main à renseigner
+RUN go build -o /ascii_web_dockerize ./cmd/web
+
+# Définition du port
+EXPOSE 8080
+
+# Création du container depuis l'image [emplacement du main dans l'image]
+CMD ["/ascii_web_dockerize"]

@@ -1,0 +1,221 @@
+.body {
+    background-image: url(./backgroung.jpg);
+}
+
+.boite {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    text-align: center;
+}
+.sous-boite:hover{
+    cursor: pointer;
+    
+}
+/* S'applique a tous les sous éléments de boite */
+.boite>* {
+    margin: 40px;
+    padding: 5px;
+    flex: 2;
+}
+
+.boite2 {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 90%;
+    text-align: center;
+}
+
+.Artname {
+    font-size: 20px;
+}
+
+.sous-boite {
+    border-style: inset;
+    border-radius: 5%;
+}
+.sous-boite:hover {
+    box-shadow: 8px 8px #666;
+    transform: translateY(5px);
+    transform: translateX(-5px);
+}
+
+.sous-sous-boite {
+    border-style: double;
+    border-radius: 5%;
+}
+.boitedroite>* {
+    width: 90%;
+    margin: auto;
+    padding: auto;
+}
+
+.boitegauche {
+    background-color: aliceblue;
+    border-style: inset;
+    border-radius: 5%;
+    float: left;
+    width: 20%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.boitedroite {
+    background-color: antiquewhite;
+    border-style: inset;
+    border-radius: 5%;
+    width: 75%;
+    margin-left: 25%;
+    text-align: center;
+}
+.boitebasdroite {
+    text-align: center;
+    background-color: rgb(58, 224, 43);
+    border-style: inset;
+    border-radius: 5%;
+    height: 500px;
+}
+
+table, tr, td {
+    table-layout: fixed;
+    width: 90%;
+    border-collapse: collapse;
+    border: 3px solid rgb(0, 0, 0);
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    border-style: double;
+}
+
+details {
+    cursor: pointer;
+}
+
+.members {
+    text-align: left;
+    padding-left: 15%;
+}
+
+.ArtImage {
+    width: 80%;
+}
+
+.bandeau {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+.bandeau>* {
+    margin: auto;
+    flex-flow: row wrap;
+}
+.projodroite img {
+    max-height: 170px;
+}
+.projocentre {
+    opacity: 80%;
+    background-image: url(https://i43.servimg.com/u/f43/15/76/70/95/ticket10.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-style: solid;
+    border-color: azure;
+    color: rgb(224, 217, 108);
+    border-radius: 50px;
+    width: 50%;
+    padding-bottom: 20px;
+    padding-right: 50px;
+    margin-bottom: 20px;
+}
+.projogauche img {
+    max-height: 170px;
+}
+
+.buttonselect {
+    border-style: inset;
+    border-radius: 10px;
+    background-color: rgb(61, 61, 248);
+    font-size: 18px;
+    color: azure;
+}
+
+.buttonselect:hover {
+    cursor: pointer;
+    background-color: #46022f;
+    transform: translateY(5px);
+    transform: translateX(-5px);
+}
+
+.button {
+    border-style: inset;
+    border-radius: 10px;
+    background-color: rgb(61, 61, 248);
+    font-size: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #46022f;
+    transform: translateY(5px);
+    transform: translateX(-5px);
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+}
+
+.textrecherche {
+    font-size: 20px;
+}
+
+.absence {
+    margin: auto;
+    margin-top: 5px;
+    border-style: inset;
+    border-radius: 5%;
+    background-color: black;
+    color: aliceblue;
+    max-width: 40%;
+    font-size: 25px;
+}
+
+input[type=range].custom-slider.custom-slider-bullet::-webkit-slider-thumb {
+   width: 200px;
+   border: 3px solid #757575;
+   border-radius: 50%;
+   box-shadow: 0 0 10em rgb(224, 217, 108) inset;
+}  
+
+@media (max-width: 1200px) {
+    .projocentre {
+        opacity: 70%;
+        background-image: none;
+        background-color: rgb(22, 26, 58);
+        padding-right: 0px;
+    }
+}
+
+@media (max-width: 900px) {
+    .projodroite img {
+        display: none;
+    }
+    .projogauche img {
+        display: none;
+    }
+    .projocentre {
+        opacity: 70%;
+        background-image: none;
+        background-color: rgb(22, 26, 58);
+        padding-right: 0px;
+    }
+    .textrecherche {
+        width: 90%;
+    }
+}

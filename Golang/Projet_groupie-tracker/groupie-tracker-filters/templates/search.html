@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <link href="templates/style.css" rel="stylesheet" type="text/css">
+		<title>Groupie Tracker</title>
+	</head>
+    <body class="body">
+
+        <div class="bandeau">
+            <div class="projogauche">
+                <img src="https://i43.servimg.com/u/f43/15/76/70/95/projog11.png">
+            </div>
+            <div class="projocentre">
+                <h1>Ticket Groupie Tracker</h1>
+                <form action="/search" method="post">
+                    <input class="textrecherche" type="text" name="recherche" list="recherche-list" placeholder="Barre de recherche">
+                    <datalist id="recherche-list">
+                        <optgroup label="Groupe"></optgroup>
+                        {{ range . }}
+                            <option>{{ .Art_name }}</option>
+                        {{ end }}
+
+                        {{ range . }}
+                        {{ $id := .Art_id }}
+                        {{ $members := .Art_members }}
+                        {{ $name := .Art_name }}
+                        {{ $location := .Art_locations}}
+                            {{ range $members }}
+                                <option>{{ . }} (membre {{ $name }})</option>
+                            {{ end }}
+                            <option>{{ .Art_creationDate }} (creation {{ $name }})</option>                           
+                            <option>{{ .Art_AnneeFirst_Album }} (premier album {{ $name }})</option> 
+                            {{ range $location}}
+                                <option>{{ . }} (concert {{ $name}})</option>
+                            {{ end }}
+                        {{ end }}
+                    </datalist>
+
+                    <br>
+                    <div class="textrecherche">
+                        <br> Rechercher par années de : <br>
+                        <input class="textrecherche" type="checkbox" name="rech_creation" id="creation">
+                        <label for="creation">de création </label>
+                        <input class="textrecherche" type="checkbox" name="rech_album" id="Album">
+                        <label for="Album">du 1er album </label><br>
+                        Période de recherche : de <span id="rangeValueMin">1950</span>
+                        à <span id="rangeValueMax">2023</span><br>
+                        <input class="custom-slider custom-slider-bullet" for="rangeValueMin" type="range" min="1950" max="2023" value="1950" name="rech_date_min" oninput="rangeValueMin.innerText = this.value">
+                        <input class="custom-slider custom-slider-bullet" for="rangeValueMax" type="range" min="1950" max="2023" value="2023" name="rech_date_max" oninput="rangeValueMax.innerText = this.value">
+                        <br>
+
+                    </div>
+ 
+                    <br>
+                    <div class="textrecherche">Recherche par nombre de membres :<br>
+                        <!-- Boutton de multiple selection -->
+                        <input type="button" onclick='selects()' class="buttonselect" value="Tout cocher"/>
+                            <script type="text/javascript">  
+                                function selects(){  
+                                    var ele=document.getElementsByClassName('chk');  
+                                    for(var i=0; i<ele.length; i++){  
+                                        if(ele[i].type=='checkbox')  
+                                            ele[i].checked=true;  
+                                    }  
+                                }            
+                            </script>  
+                        <input class="chk" type="checkbox" name="rech_nbmember1">
+                        <label>1</label>
+                        <input class="chk" type="checkbox" name="rech_nbmember2">
+                        <label>2</label>
+                        <input class="chk" type="checkbox" name="rech_nbmember3">
+                        <label>3</label>
+                        <input class="chk" type="checkbox" name="rech_nbmember4">
+                        <label>4</label>
+                        <input class="chk" type="checkbox" name="rech_nbmember5">
+                        <label>5</label>
+                        <input class="chk" type="checkbox" name="rech_nbmember6">
+                        <label>6</label>
+                        <input class="chk" type="checkbox" name="rech_nbmember7">
+                        <label>7</label>
+                        <input class="chk" type="checkbox" name="rech_nbmember8">
+                        <label>8</label>
+                    </div>
+                    <br>
+                    <button type="submit" class="button" style="color: azure;">Nouvelle recherche</button>&nbsp;&nbsp;
+                     <input type="button" class="button" onclick="window.location.href = 'http://localhost:8080';" style="color: #ffffff;" value="Retour à l'accueil">
+                </form>
+
+            </div>
+            <div class="projodroite">
+                <img src="https://i43.servimg.com/u/f43/15/76/70/95/projod10.png">
+            </div>
+        </div>
+
+        <center>
+            {{ if not . }}
+                <div class="absence">
+                    Absence de résultats
+                </div>
+            {{ else }}
+                <div class="absence">
+                    Résultats de la recherche
+                </div>
+                <br>
+            {{ end }}
+
+        <div class="boite">
+            {{ range . }}
+                <form action="/groupe" method="post">
+                    <button type="submit" class="sous-boite" name="groupe" value="{{ .Art_id }}">
+                        <img src="{{ .Art_image }}">
+                        <br>
+                        <p class="Artname">Groupe : <b>{{ .Art_name }}</b></p> 
+                    </button>
+                </form>
+            {{ end }}
+        </div>    
+        </center>
+	</body>
+</html>

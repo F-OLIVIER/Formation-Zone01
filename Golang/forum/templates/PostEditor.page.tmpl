@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="600" />
+    <link rel="stylesheet" href="/assets/static/postForum.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'><!--Permet d'importer des emotes a mettre sur les barres de recherche ou autre-->
+    <title>Editeur de post</title>
+    <script src="https://cdn.tiny.cloud/1/z0qo87v80pictlpqd5ba08864de83fv6jplmq1967gimsgsi/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+</head>
+<script language="JavaScript">
+    var limit = 3;
+    $('input[type=checkbox]').on('change', function(e) {
+        if($('input[type=checkbox]:checked').length >= limit) {
+            $(this).prop('cheched', false);
+            alert('maximum 3 catégories')
+        }
+    });
+</script>
+<body>
+<!--------------------------------------------------------------------->
+<!-------------------------- BANDEAU EN TETE -------------------------->
+<!--------------------------------------------------------------------->
+
+<div class="bandeau">
+    <a href="/" id="bandeauGauche">
+        <div>
+            CouiiERRE Burgond
+        </div>
+    </a>
+    <div class="bandeauDroite">
+        {{ if .UserData.Logged }}<!--- permet de rediriger en fonction de ce qui ce trouve dans .Logged--->
+            <a href="/Compte">
+                <button class="buttonconnexion">
+                    Mon compte
+                </button>
+            </a>
+                <form method="post">
+                    <button class="buttonconnexion" type="submit" name="logout" value="logout">
+                        Déconnexion
+                    </button>
+                </form>
+        {{ else }}
+                <a href="/Register">
+                    <button class="buttonconnexion">
+                        S'enregistrer
+                    </button>
+                </a>
+                <a href="/Login">
+                    <button class="buttonconnexion">
+                        se connecter
+                    </button>
+                </a>
+        {{ end }}
+    </div>
+</div>
+<div class="sousBandeau"></div>
+
+<!--------------------------------------------------------------------->
+<!------------------------- CONTENU DE LA PAGE ------------------------>
+<!--------------------------------------------------------------------->
+
+    <div class="body">
+        
+        {{if .UserData.Msgerr}}
+            <div class="error">
+                {{ .UserData.Msgerr }}
+            </div>
+        {{ end }}
+        
+        <form method="post" enctype="multipart/form-data">
+            <div class="ZoneTextEditor">
+                <h1>Publiez une recette</h1>
+                <label class="titlerecette">Nom de la recette :</label>
+                <input type="text" class="inputRecette" name="NomRecette"></input>
+            </div>
+            <div class="textarea">
+                <textarea id="mytextarea" name="texte" type="text"></textarea>
+            </div>
+            <div class="endPost">
+                <div class="ChargerImage">
+                    <label>Upload une image (format accepté : png, &nbsp;jpeg, &nbsp;jpg ou gif) :</label> <!--"&nbsp" forcer un espace en html-->
+                    <input type="file" class="Upload" name="UploadImage" accept=".png,.jpeg,.jpg,.gif"></input>
+                    <br><br><!--retour à la ligne-->
+                    <label>Upload un fichier (format accepté : word, pdf ou txt) :</label>
+                    <input type="file" class="Upload" name="UploadFile" accept=".pdf,.txt,.doc,.docx"></input>
+                    <br><br>
+                </div>
+
+                <div id="categories"><!---Si on utilise qu'une seule fois le css pour un élèment en particuliers on préfère l'id à la class-->
+                    <label id="ChoixDesTags">Choisissez votre ou vos catégorie(s) (au minimum 1 catégorie et au maximum 3 catégories) :</label>
+                    <br>
+                    {{range .UserData.StructCategories}}<!---Les inputs peuvent aussi être placer dans une boucle afin d'en créer autant qu'il y a de données--->
+                        <input type="checkbox" name="categoriePost" id="checkbox_categories" value="{{.Id}}">
+                            <label>{{.Name}}</label>
+                        </input>
+                    {{end}}
+                </div>
+
+                <div class="boutonEnvoiePost"><!---les espaces dans les "class" permettent d'attribuer plusieurs classes -->
+                    <button class="EnvoiePost" type="submit"><b>Publier</b></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="group">@copyright, site créé par un super bon groupe de la mort qui tue (Arthour, t'as une bonne vue :)</div>
+</body>
+</html>

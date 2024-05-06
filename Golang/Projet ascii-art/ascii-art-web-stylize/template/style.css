@@ -1,0 +1,137 @@
+#titre{  
+    display: inline-block;
+    background-color: #000077;
+    border-bottom-left-radius:20px;
+    border-bottom-right-radius:20px;
+    border-start-end-radius:100px;
+    border-start-start-radius:100px;
+    border: 10px double #ffff00;
+    color: #ffffff;
+    text-align: center;
+    font-size: 28px;
+    width: 40%;
+    transition: all 0.5s;
+    opacity: 65%;
+  }
+  #titre span {
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  #titre span:after {
+    content: "\00bb";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  #titre:hover {
+    background-color: #770000;
+  }
+  #titre:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+  #gobutton{  
+    font-weight: bold;
+    display: inline-block;
+    background-color: #000077;
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+    border-end-end-radius:100px;
+    border-end-start-radius:100px;
+    border: 10px double #ffff00;
+    color: #ffffff;
+    text-align: center;
+    font-size: 28px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    opacity: 65%;
+    
+  }
+  #gobutton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  #gobutton span:after {
+    font-weight: bold;
+    content: "\00bb";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  #gobutton:hover {
+    background-color: #770000;
+  }
+  #gobutton:hover span {
+    padding-right: 25px;
+  }
+  #gobutton:hover span:after {
+    opacity: 1;
+    right: 0;
+  
+  }
+  #corps{  
+    font-weight: bold;
+    display: inline-block;
+    background-color: #000077;
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+    border-end-end-radius:20px;
+    border-end-start-radius:20px;
+    border: 10px double #ffff00;
+    color: #ffffff;
+    font-size: 100%;
+    width: 35%;
+    height: 100%;
+    transition: all 0.5s;
+    opacity: 65%;
+  }
+  #corps:hover {
+    background-color: #770000;
+  }
+  #corps:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+  #summary{
+    cursor: pointer;
+}
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: center;
+
+}
+
+table{  
+  font-weight: bold;
+  display: inline-block;
+  background-color: #000077;
+  border-top-left-radius:20px;
+  border-top-right-radius:20px;
+  border-end-end-radius:20px;
+  border-end-start-radius:20px;
+  border: 10px double #ffff00;
+  color: #ffffff;
+  font-size: 80%;
+  height: 100%;
+  transition: all 0.5s;
+  text-align: center;
+  opacity: 80%;
+  padding: 0.75%;
+}
+table:hover {
+  background-color: #770000;
+}
+body{
+  text-align: center;
+  background-size: 100%;
+}

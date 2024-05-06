@@ -1,0 +1,1 @@
+go mod init forum && go mod tidy && go build -o forum cmd/main.go 

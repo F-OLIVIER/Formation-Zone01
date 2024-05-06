@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="30" />
+    <link rel="stylesheet" href="/assets/static/account.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'><!--Permet d'importer des emotes a mettre sur les barres de recherche ou autre-->
+    <title>Register</title>
+</head>
+<body>
+<!--------------------------------------------------------------------->
+<!-------------------------- BANDEAU EN TETE -------------------------->
+<!--------------------------------------------------------------------->
+
+<div class="bandeau">
+    <a href="/" id="bandeauGauche">
+        <div>
+            CouiiERRE Burgond
+        </div>
+    </a>
+    <div class="bandeauDroite">
+        {{if .UserData.Logged}}<!--- permet de rediriger en fonction de ce qui ce trouve dans .Logged--->
+                <form method="post">
+                    <button class="buttonconnexion" type="submit" name="logout" value="logout">
+                        Déconnexion
+                    </button>
+                </form>
+        {{else}}
+                <a href="/Register">
+                    <button class="buttonconnexion">
+                        S'enregistrer
+                    </button>
+                </a>
+                <a href="/Login">
+                    <button class="buttonconnexion">
+                        se connecter
+                    </button>
+                </a>
+        {{end}}
+    </div>
+</div>
+<div class="sousBandeau"></div>
+
+<!--------------------------------------------------------------------->
+<!------------------------- CONTENU DE LA PAGE ------------------------>
+<!--------------------------------------------------------------------->
+    <div class="body">
+
+        {{if .UserData.Msgerr}}
+            <div class="error">
+                {{ .UserData.Msgerr }}
+            </div>
+        {{ end }}
+
+        <div class="box">
+            <div class="container">
+                <div class="top-header">
+                    <header>Information du compte</header>
+                </div>
+
+                <div class="input-field-compte">
+                    <div class="photo">
+                        <img src="{{ .UserData.Photo }}"></img>
+                    </div>
+                    <div class="info">
+                        E-mail &nbsp;:&nbsp;{{ .UserData.Email }}
+                        <br><br>
+                        Username &nbsp;:&nbsp;{{ .UserData.Username }}
+                        <br><br><br>
+                        <form method="post">
+                            <button value="postPublish" name="postPublish">
+                                Afficher mes posts publiés
+                            </button>
+                            <br><br>
+                            <button value="postLike" name="postLike">
+                                Afficher mes post likés
+                            </button>
+                        </form>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="container">
+                <div class="top-header">
+                    <header>Modifier le compte</header>
+                </div>
+
+                <form enctype="multipart/form-data" method="POST">
+                    <br>
+                    <div class="input-field">
+                        <details>
+                            <br>
+                            <summary>Changer de photo de profil</summary>
+                            <center>
+                            <label>Format accepté &nbsp;: &nbsp;png, &nbsp;jpeg, &nbsp;jpg, &nbsp;gif</label> <!--"&nbsp" forcer un espace en html-->
+                            <input type="file" class="Upload" name="uploadImage" accept=".png,.jpeg,.jpg,.gif" required />
+                            </center>
+                            <br>
+                            <button type="submit" class="submit">Changer de photo</button>
+                        </details>
+                    </div>
+                </form>
+
+                <form method="POST">
+                    <br>
+                    <div class="input-field">
+                        <details>
+                            <br>
+                            <summary>Changer de pseudo</summary>
+                            <input type="text" class="input" placeholder="Nouveau Username" name="newUsername" required>
+                            <i class="bx bx-user-circle"></i>
+                            <button type="submit" class="submit" required>Valider le changement de pseudo</button>
+                        </details>
+                    </div>
+                </form>
+
+                <form method="POST">
+                    <br>
+                    <div class="input-field">
+                        <details>
+                            <br>
+                            <summary>Changer de mot de passe</summary>
+                            <input type="password" class="input" placeholder="Ancien mot de passe" name="oldPass" required>
+                            <i class="bx bx-lock-alt"></i>
+                            <input type="password" class="input" placeholder="Nouveau mot de passe" name="newPass" required>
+                            <i class="bx bx-lock-alt"></i>
+                            <input type="password" class="input" placeholder="Confirmer le nouveau mot de passe" name="confirmNewPass"  required>
+                            <i class="bx bx-lock-alt"></i>
+                            <button type="submit" class="submit" required>Valider le changement de mot de passe</button>
+                        </details>
+                    </div>
+                </form>
+
+                <form method="POST">
+                    <br>
+                    <div class="input-field">
+                        <details>
+                            <br>
+                            <summary>Suprimer le compte</summary>
+                            <center>Veuillez saisir "DELETE" pour confirmer<br>la demande de suppression du compte</center>
+                            <br>
+                            <input type="text" class="input" placeholder="Encore un gland qui nous quitte" name="deleteAccount" required>
+                            <i class="bx bx-text"></i>
+                            <button type="submit" class="submit buttonDelete" required>Suprimer le compte</button>
+                        </details>
+                    </div>
+                    <br><br>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="group">@copyright, site créé par un super bon groupe de la mort qui tue (Arthour, t'as une bonne vue :)</div>
+</body>
+</html>
