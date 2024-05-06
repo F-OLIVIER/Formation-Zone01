@@ -1,0 +1,8 @@
+# Fichier binaire crée par le make
+***atm-system/atm
+***atm-system/src/auth.o
+***atm-system/src/main.o
+***atm-system/src/system.o
+***atm-system/src/register.o
+***atm-system/src/account.o
+***atm-system/src/transaction.o

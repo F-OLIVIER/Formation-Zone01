@@ -1,0 +1,18 @@
+users.txt = (id, name, password)
+records.txt = (id, user_id, user name, account id, date of creation, country, phone nº, balance, type of account) :
+
+Print d'une variable : printf("%d", variable)
+%d = nombre entier (int)
+%f = nombre flottant (float) --> astuce : pour présiser le nombre de décimale %2f (2 chiffres apres la virgule)
+%c = caractére (char)
+%s = chaine de caractéres (texte)
+
+const = constante, si la variable est modifier, la modification ne sera pas prise en compte
+cont float TVA = 20.0; (déclarer et ne peux plus être modifié)
+Par convension en C les variables constante sont en majuscule
+
+
+Pour les fonctions, si pas de paramétre, on met (void)
+
+
+Fichier h = contient les prototypes
