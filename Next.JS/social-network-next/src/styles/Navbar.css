@@ -1,0 +1,49 @@
+.navbar {
+    background-color: transparent; /* Arrière-plan transparent */
+    position: fixed; /* Position fixe */
+    top: 0; /* Aligner en haut */
+    left: 0; /* Aligner à gauche */
+    width: 100%; /* Pleine largeur */
+    z-index: 1000; /* Pour s'assurer qu'il est au-dessus de tout le reste */
+}
+
+.navbar-container {
+    display: flex; /* Utilisation de flexbox pour aligner les éléments */
+    justify-content: space-between; /* Répartir l'espace entre les éléments */
+    align-items: center; /* Aligner verticalement les éléments */
+    padding: 1rem; /* Ajouter un espacement autour du contenu */
+}
+
+.navbar-logo {
+    color: #000; /* Couleur du texte du logo */
+}
+
+.menu-icon {
+    cursor: pointer; /* Curseur pointeur */
+}
+
+.nav-menu {
+    list-style: none; /* Masquer les puces de liste */
+    padding: 0; /* Supprimer les marges intérieures */
+    margin: 0; /* Supprimer les marges extérieures */
+    display: flex; /* Utilisation de flexbox pour aligner les éléments */
+}
+
+.nav-item {
+    margin-right: 1rem; /* Espacement entre les éléments du menu */
+}
+
+.nav-links {
+    text-decoration: none; /* Supprimer la décoration de texte par défaut */
+    color: #000; /* Couleur du texte du menu */
+}
+
+.active {
+    display: flex; /* Afficher le menu lorsque isActive est vrai */
+    flex-direction: column; /* Afficher les éléments du menu en colonne */
+    position: absolute; /* Position absolue */
+    top: 4rem; /* Décalage par rapport au haut */
+    left: 0; /* Aligner à gauche */
+    background-color: #fff; /* Couleur de fond */
+    width: 100%; /* Pleine largeur */
+}
