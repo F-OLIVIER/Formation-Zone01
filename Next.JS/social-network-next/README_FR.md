@@ -2,30 +2,30 @@
 
 <div align="center" markdown>
 
-# Readme language
+# Langue du Readme
 🌏
-English | 
-[**Français**](https://github.com/F-OLIVIER/Formation-Zone01/README_FR.md)
+[**English**](https://github.com/F-OLIVIER/Formation-Zone01/README.md) | 
+Français
 
 </div>
 
-## 📝 Description
+## 📝 Descriptif
 
-The aim of the project is to recreate a social network like Facebook or Linkedin.
+Le but du projet est de recréer un réseau social tels que Facebook ou Linkedin.
 
-The project is split into 2 parts, a server in [golang](https://go.dev) and a front end in [Next.js](https://nextjs.org).
+Le projets est décomposé en 2 parties, un serveur en [golang](https://go.dev) et un front en [Next.js](https://nextjs.org).
 
-<li>An [SQL database migration system](https://github.com/golang-migrate/migrate)</li>
-<li>A user authentication system</li>
-<li>Creating and managing posts</li>
-<li>Post display management according to profile type (public, private, semi-private)</li>
-<li>A private chat room with emojis</li>
-<li>User group management</li>
-<li>Event management via groups</li>
-<li>Follow-up management for other members (followers & followings)</li>
-<li>Notification management (online and offline)</li>
+<li>Un système de [migration de la base de données SQL](https://github.com/golang-migrate/migrate)</li>
+<li>Un système d'authentification des utilisateurs</li>
+<li>Création est gestion des posts</li>
+<li>Gestion d'affichage des posts en fonction du type de profil (public, privée, semi-privée)</li>
+<li>Un chat de discussion privée avec des émojis</li>
+<li>Gestion de groupes d'utilisateurs</li>
+<li>Gestion d'événement via les groupes</li>
+<li>Gestion de suivi d'autres membres (follower & followings)</li>
+<li>Gestion des notifications (en ligne et hors ligne)</li>
 
-Project image
+Image du projet
 <table align= "center" width="95%">
     <tbody>
         <tr>
@@ -47,13 +47,13 @@ Project image
 ___
 ## ⚙️ Installation & usage
 
-The project run via [Docker](https://www.docker.com) with a `Docker Compose` which allows the 2 programs to be launched (the SQL database being in the backend), so make sure you [install Docker](https://docs.docker.com/compose/install/) before running the site launch command.
+Le projet est exécuté via [Docker](https://www.docker.com) avec un `Docker Compose` qui permet de lancer les 2 programmes (la base de données SQL étant dans le backend), assurez-vous [d'installer Docker](https://docs.docker.com/compose/install/) avant d'exécuter la commande de lancement du site.
 
 ```sh
 sh ./launch.sh
 ```
 
-To launch manually, use the following commands:
+Pour effectuer un lancement manuel, voici les commandes :
 ```sh
 # console 1 (serveur golang)
 cd back
@@ -66,16 +66,16 @@ npm i
 npm run dev
 ```
 ___
-## 🔗 Dependencies
+## 🔗 Dépendences
 
-**Golang server** <br>
-The server uses `version 22` of [golang](https://go.dev) and the following libraries:<br>
+**Le serveur golang** <br>
+Le serveur utilise la `version 22` de [golang](https://go.dev) et les librairies suivantes :<br>
 - [go-sqlite3](https://github.com/mattn/go-sqlite3)
 - [uuid](https://github.com/gofrs/uuid)
 - [gorilla/websocket](https://pkg.go.dev/github.com/gorilla/websocket)
 
 **Le front** <br>
-The frontend uses version 14 of [Next.js](https://nextjs.org), `html` and `css` and the following [npm](https://www.npmjs.com) dependencies:<br>
+Le front utilise la `version 14` de [Next.js](https://nextjs.org), `html` et `css` et les dépendances [npm](https://www.npmjs.com) suivantes :<br>
 - [@emotion/react](https://www.npmjs.com/package/@emotion/react)
 - [@emotion/styled](https://www.npmjs.com/package/@emotion/styled)
 - [@mui/icons-material](https://www.npmjs.com/package/@mui/icons-material)
