@@ -4,7 +4,7 @@
 
 # Langue du Readme
 🌏
-[**English**](https://github.com/F-OLIVIER/Formation-Zone01/README.md) | 
+[**English**](https://github.com/F-OLIVIER/Formation-Zone01/blob/main/Next.JS/social-network-next/README.md) | 
 Français
 
 </div>

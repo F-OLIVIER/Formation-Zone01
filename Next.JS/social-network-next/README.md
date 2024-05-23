@@ -5,7 +5,7 @@
 # Readme language
 🌏
 English | 
-[**Français**](https://github.com/F-OLIVIER/Formation-Zone01/README_FR.md)
+[**Français**](https://github.com/F-OLIVIER/Formation-Zone01/blob/main/Next.JS/social-network-next/README_FR.md)
 
 </div>
 
