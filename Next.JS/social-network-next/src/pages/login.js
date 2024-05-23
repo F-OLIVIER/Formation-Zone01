@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router'; 
-import { useToasts } from 'react-toast-notifications';
+//import { useToasts } from 'react-toast-notifications';
+import toast from 'react-hot-toast';
 import { loginUser } from '../services/useLogin';
 import LoginForm from '../components/LoginForm';
 import { startWS } from '@/services/useWebsocket';
@@ -11,7 +12,7 @@ const Login = (props) => {
     password: '',
   });
   const [formErrors, setFormErrors] = useState({});
-  const { addToast } = useToasts();
+  //const { addToast } = useToasts();
   const router = useRouter();
   const onButtonClick = async () => {
     let valid = true;
@@ -19,6 +20,12 @@ const Login = (props) => {
       setFormErrors(prevErrors => ({
         ...prevErrors,
         data: 'Please enter your email or username',
+      }));
+      valid = false;
+    }else if ((form.password).length < 8) {
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        password: 'The password must be 8 characters or longer'
       }));
       valid = false;
     }
@@ -36,38 +43,35 @@ const Login = (props) => {
       }));
       valid = false;
     }
-    if ((form.password).length < 8) {
-      setFormErrors(prevErrors => ({
-        ...prevErrors,
-        password: 'The password must be 8 characters or longer'
-      }));
-      valid = false;
-    }
+
     if (valid === true) {
-      console.log(form)
       try {
         const responseData = await loginUser(form);
         if (responseData.success === true) {
-          addToast('Authentication successful!', {
-            appearance: 'success',
-            autoDismiss: true,
+          toast.success('Authentication successful!', {
+            duration: 4000,
+            position: 'top-center',
+            style: {backgroundColor: 'rgba(0,255,34,0.5)', color: 'white'},
+            icon: '👏',
           });
           props.setLoggedIn(true);
           props.setId(responseData.id)
-          console.log(typeof responseData.id, responseData.id);
+          //console.log(typeof responseData.id, responseData.id);
           startWS(responseData.id);
           router.push('/');
         } else {
-          addToast('Authentication failed. Please check your credentials. Error: ' + responseData.message, {
-            appearance: 'error',
-            autoDismiss: true,
+          toast.error('Authentication failed. Please check your credentials. Error: ' + responseData.message, {
+            duration: 4000,
+            position: 'top-center',
+            style: {backgroundColor: 'rgba(255,0,0,0.5)', color: 'white'},
           });
         }
       } catch (error) {
         console.error(error);
-        addToast('Error during authentication: ' + error.message, {
-          appearance: 'error',
-          autoDismiss: true,
+        toast.error('Error during authentication: ' + error.message, {
+          duration: 4000,
+          position: 'top-center',
+          style: {backgroundColor: 'rgba(255,0,0,0.5)', color: 'white'},
         });
       }
     }

@@ -10,13 +10,6 @@ import (
 	"net/http"
 )
 
-var Sessions = map[string]SessionUser{}
-
-type SessionUser struct {
-	email  string
-	Cookie *http.Cookie
-}
-
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -38,7 +31,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer db.Close()
-	fmt.Println("loginData:", loginData)
+	//fmt.Println("loginData:", loginData)
 	err = db.QueryRow("SELECT ID, Nickname, Email, Password FROM USERS WHERE Nickname = ? OR Email = ?", loginData.Data, loginData.Data).Scan(&id, &username, &trueEmail, &truePassword)
 	loginEmail := loginData.Data
 	if err != nil {
@@ -111,13 +104,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 				}
 				// Ajoute le cookie à la réponse
 				http.SetCookie(w, cookie)
-
-				var val string
-				val = trueEmail
-				Sessions[val] = SessionUser{
-					email:  trueEmail,
-					Cookie: cookie,
-				}
 			}
 			_, err = db.Exec(`INSERT INTO SESSIONS (SessionToken, UserID) values(?, ?)`, cookie.Value, id)
 			if err != nil {
@@ -127,6 +113,15 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			/*postDataLogin := WebsocketMessage{Type: "login", Data: UserData}
 			broadcast <- postDataLogin*/
+
+			var val string
+			val = trueEmail
+			Sessions[val] = SessionUser{
+				email:  trueEmail,
+				Cookie: cookie,
+			}
+
+			//fmt.Println("Create Sessions:", Sessions)
 			jsonResponse := map[string]interface{}{
 				"success": true,
 				"message": "Connexion spécie",

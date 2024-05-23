@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+    background: red;
+
+}
+
+.main-container {
+    position: relative;
+    display: flex;
+}
+
+.inviteinmygroup {
+    position: absolute;
+    background: rebeccapurple;
+    margin-right: 270px;
+    margin-bottom: 30%;
+}
+
+.group-list {
+    position: absolute;
+    flex-direction: column;
+    width: 100vh;
+    margin-left: 100vh;
+    overflow:scroll;
+    max-height: 400px;
+    max-width: 40%;
+    background: whitesmoke;
+    margin-bottom: 27%;
+}
+
+
+.creategroupContainer {
+    position: absolute;
+    background: yellow;
+    margin-right: 1200px;
+    margin-bottom: 50px;
+}
+
+

@@ -48,7 +48,7 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("call ws")
+	//fmt.Println("call ws")
 
 	cookie, err := r.Cookie("session")
 	if err != nil {
@@ -72,7 +72,7 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		isReceiver: false, // true or false based on your logic to determine if the client is the receiver,
 	}
 
-	log.Println("Client isReceiver:", client.isReceiver)
+	//log.Println("Client isReceiver:", client.isReceiver)
 	client.hub.register <- client
 
 	// Allow collection of memory referenced by the caller by doing all work in
@@ -103,7 +103,7 @@ func (c *Client) readPump() {
 			break
 		}
 
-		log.Printf("Received message from client: %s", string(message))
+		//log.Printf("Received message from client: %s", string(message))
 
 		var msg Message
 		if err := json.Unmarshal(message, &msg); err != nil {
@@ -130,7 +130,7 @@ func (c *Client) readPump() {
 			break
 		}
 
-		log.Printf(string(sendMsg))
+		//log.Printf(string(sendMsg))
 
 		c.hub.broadcast <- sendMsg
 	}
@@ -153,7 +153,7 @@ func (c *Client) writePump() {
 	}()
 
 	for {
-		log.Print((c.send))
+		//log.Print((c.send))
 		select {
 		case message, ok := <-c.send:
 			c.conn.SetWriteDeadline(time.Now().Add(writeWait))
@@ -168,7 +168,7 @@ func (c *Client) writePump() {
 				return
 			}
 			w.Write(message)
-			log.Printf("Sended message from client: %s", string(message))
+			//log.Printf("Sended message from client: %s", string(message))
 
 			// Add queued chat messages to the current websocket message.
 			n := len(c.send)

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import { styled, useTheme } from '@mui/material/styles';
-import { useToasts } from 'react-toast-notifications';
+import toast from 'react-hot-toast';
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -21,8 +21,10 @@ import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
 import RegisterIcon from '@mui/icons-material/HowToReg';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import LogoutIcon from '@mui/icons-material/Logout'; // Nouvel import pour l'icône de déconnexion
+import LogoutIcon from '@mui/icons-material/Logout';
+import ChatIcon from '@mui/icons-material/Chat';
 import { cookie } from '../services/useCookie';
+import Groups2Icon from '@mui/icons-material/Groups2';
 
 
 const drawerWidth = 240;
@@ -93,7 +95,6 @@ export default function MiniDrawer({ loggedIn, setLoggedIn, id }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const router = useRouter(); // Using Next.js's useRouter hook
-  const { addToast } = useToasts();
   const onButtonClick = async () => {
     if (loggedIn) {
       try {
@@ -102,23 +103,27 @@ export default function MiniDrawer({ loggedIn, setLoggedIn, id }) {
         };
         const responseData = await cookie(data);
         if (responseData.success === true) {
-          addToast('Logout successful!', {
-            appearance: 'success',
-            autoDismiss: true,
+          toast.success('Logout successful!', {
+            duration: 4000,
+            position: 'top-center',
+            style: {backgroundColor: 'rgba(0,255,34,0.5)', color: 'white'},
+            icon: '👏',
           });
           setLoggedIn(false);
           router.push('/');
         } else {
-          addToast('Logout failed.Error: ' + responseData.message, {
-            appearance: 'error',
-            autoDismiss: true,
+          toast.error('Logout failed.Error: ' + responseData.message, {
+            duration: 4000,
+            position: 'top-center',
+            style: {backgroundColor: 'rgba(255,0,0,0.5)', color: 'white'},
           });
         }
       } catch (error) {
         console.error(error);
-        addToast('Error during logout: ' + error.message, {
-          appearance: 'error',
-          autoDismiss: true,
+        toast.error('Error during logout: ' + error.message, {
+          duration: 4000,
+          position: 'top-center',
+          style: {backgroundColor: 'rgba(255,0,0,0.5)', color: 'white'},
         });
       }
     } else {
@@ -168,12 +173,6 @@ export default function MiniDrawer({ loggedIn, setLoggedIn, id }) {
                 </ListItemIcon>
                 <ListItemText primary="Home" />
               </ListItemButton>
-              <ListItemButton onClick={onButtonClick}>
-                <ListItemIcon>
-                  <LogoutIcon />
-                </ListItemIcon>
-                <ListItemText primary="Logout" />
-              </ListItemButton>
               <ListItemButton 
     selected={router.pathname === '/user?id=' + id.toString()} 
     component={Link} 
@@ -183,6 +182,31 @@ export default function MiniDrawer({ loggedIn, setLoggedIn, id }) {
                 </ListItemIcon>
                 <ListItemText primary="Profile" />
               </ListItemButton>
+              <ListItemButton 
+    selected={router.pathname === '/chat?id=' + id.toString()} 
+    component={Link} 
+    href={'/chat?id=' + id.toString()}
+>                <ListItemIcon>
+                  <ChatIcon />
+                </ListItemIcon>
+                <ListItemText primary="Chat" />
+              </ListItemButton>
+
+              <ListItemButton selected={router.pathname === '/'} component={Link} to="/group">
+                <ListItemIcon>
+                  <Groups2Icon/>
+                </ListItemIcon>
+                <ListItemText primary="Group" />
+              </ListItemButton>
+
+              <ListItemButton onClick={onButtonClick}>
+                <ListItemIcon>
+                  <LogoutIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+
+
             </>
           ) : (
             <>

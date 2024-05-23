@@ -1,10 +1,12 @@
 package pkg
+
 import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
 	"net/http"
 )
+
 // Appelé lors d'une ouverture de navigateur pour check si cookie valide et auto-log l'user.
 func SessionHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/session" {
@@ -19,7 +21,6 @@ func SessionHandler(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 	// Retrieve user ID from session cookie
 	cookie, err := r.Cookie("session")
-
 	if err != nil {
 		jsonResponse := map[string]interface{}{
 			"success": false,
@@ -31,15 +32,15 @@ func SessionHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-
+	//fmt.Println("cookie:", cookie)
 	isGood := false
-
+	//fmt.Println("Sessions:", Sessions)
 	for _, v := range Sessions {
 		if v.Cookie.Value == cookie.Value {
 			isGood = true
 		}
 	}
-
+	//fmt.Println("isGood:", isGood)
 	if !isGood {
 		jsonResponse := map[string]interface{}{
 			"success": false,
@@ -51,7 +52,6 @@ func SessionHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-
 	foundVal := cookie.Value
 	// Requête SQL pour rechercher l'UserID correspondant au sessionToken
 	var userID int

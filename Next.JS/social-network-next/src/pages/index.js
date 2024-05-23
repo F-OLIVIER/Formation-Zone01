@@ -6,9 +6,6 @@ import usePosts from '../services/usePosts';
 import useComments from '../services/useComments';
 import useUsers from '../services/useUsers';
 import { conn, sendMsg } from '../services/useWebsocket';
-import ChatContainer from '../components/ChatContainer';
-import UserContainer from '../components/UserContainer';
-import { getUsers, updateUsers } from '../services/useWebsocket';
 
 
 const Home = ({ loggedIn, id }) => {
@@ -27,10 +24,7 @@ const Home = ({ loggedIn, id }) => {
     if (loggedIn) {
     console.log(id)
     fetchPosts(id);
-    getUsers().then(function () {
-      updateUsers(id);
-  });
-}
+  }
   }, [loggedIn]);
 
   const handleCreatePost = async (formData) => {
@@ -74,10 +68,7 @@ const Home = ({ loggedIn, id }) => {
       <>
         {loggedIn ? (
           <>
-
             <div className='test'>
-              <UserContainer />
-              <ChatContainer />
               <CreatePostForm handleCreatePost={handleCreatePost} fetchUsers={fetchUsers} id={id} users={users}/>
               <PostContainer posts={posts} handleCreateComment={handleCreateComment} handlePostLike={handlePostLike} />
             </div>

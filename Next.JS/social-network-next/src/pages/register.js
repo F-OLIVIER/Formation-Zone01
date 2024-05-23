@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useToasts } from 'react-toast-notifications';
 import RegisterForm from '../components/RegisterForm';
 import { RegisterUser } from '../services/useRegister';
+import toast from 'react-hot-toast';
 
 const Register = (props) => {
     const [form, setForm] = useState({
@@ -18,18 +18,16 @@ const Register = (props) => {
     });
     const router = useRouter();
     const [formErrors, setFormErrors] = useState({});
-
-    let valid = true;
-    const { addToast } = useToasts();
     const onRegisterClick = async () => {
+        let valid = true;
+
         if ('' === form.email) {
             setFormErrors(prevErrors => ({
                 ...prevErrors,
                 email: 'Please enter your email',
             }));
             valid = false;
-        }
-        if (!form.email.includes('@') || !form.email.includes('.')) {
+        }else if (!form.email.includes('@') || !form.email.includes('.')) {
             setFormErrors ( prevErrors => ({
                 ...prevErrors,
                 email: "Please enter a valid email address",
@@ -42,75 +40,85 @@ const Register = (props) => {
                 password: "Please enter a password",
             }));
             valid = false;
+        }else if ((form.password).length < 7) {
+            setFormErrors(prevErrors =>({
+                ...prevErrors,
+                password : 'The password must be 8 characters or longer',
+            }));
+            valid = false;
         }
         if ('' === form.firstname) {
             setFormErrors(prevErrors => ({
-                firstname : 'Please enter your first name'
+                ...prevErrors,
+                firstname : 'Please enter your first name',
             }));
             valid = false;
         }
         if ('' === form.lastname) {
             setFormErrors(prevErrors => ({
+                ...prevErrors,
                 lastname : 'Please enter your last name',
             }));
             valid = false;
         }
         if ('' === form.dateofbirth) {
             setFormErrors(prevErrors => ({
+                ...prevErrors,
                 dateofbirth : 'Please enter your date of birth',
-            }));
-            valid = false;
-        }
-        if ((form.password).length < 7) {
-            setFormErrors(prevErrors =>({
-                password : 'The password must be 8 characters or longer',
             }));
             valid = false;
         }
         if (/[!@#$%^&*(),.?":{}|<>]/.test(form.nickname)) {
             setFormErrors( prevErrors => ({
+                ...prevErrors,
                 nickname : 'Nickname should not contain special characters.',
             }));
             valid = false;
         }
         if ((form.aboutme).length > 200) {
             setFormErrors(prevErrors => ({
+                ...prevErrors,
                 aboutme : 'Bio should not exceed 200 characters.',
             }));
             valid = false;
         }
         if (valid === true) {
-        try {
-            const responseData = await RegisterUser(form);
-            if (responseData.success === true) {
-                addToast('Registration successful!', {
-                    appearance: 'success',
-                    autoDismiss: true,
-                });
-                router.push('/login');
-            } else {
-                addToast('Registration failed. Please check your credentials. Error: ' + responseData.message, {
-                    appearance: 'error',
-                    autoDismiss: true,
+            try {
+                const responseData = await RegisterUser(form);
+                if (responseData.success === true) {
+                    toast.success('Registration successful!', {
+                        duration: 4000,
+                        position: 'top-center',
+                        icon: '👏',
+                        style: {backgroundColor: 'rgba(0,255,34,0.5)', color: 'white'},
+                    });
+                    router.push('/login');
+                } else {
+                    toast.error('Registration failed. Please check your credentials. Error: ' + responseData.message, {
+                        duration: 4000,
+                        position: 'top-center',
+                        style: {backgroundColor: 'rgba(255,0,0,0.5)', color: 'white'},
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+                toast.error('Error during registration: ' + error.message, {
+                    duration: 4000,
+                    position: 'top-center',
+                    style: {backgroundColor: 'rgba(255,0,0,0.5)', color: 'white'},
                 });
             }
-        } catch (error) {
-            console.error(error);
-            addToast('Error during registration: ' + error.message, {
-                appearance: 'error',
-                autoDismiss: true,
-            });
-        }
-    };
+        };
     }
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
 
         <RegisterForm
             form={form}
-            formErrors={formErrors}
-            onRegisterClick={onRegisterClick}
             setForm={setForm}
+            formErrors={formErrors}
+            setFormErrors={setFormErrors}
+            onRegisterClick={onRegisterClick}
         />
         </div>
     );

@@ -18,7 +18,7 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer db.Close()
-	
+
 	// Supprimer le cookie de session
 	cookie := &http.Cookie{
 		Name:     "session",

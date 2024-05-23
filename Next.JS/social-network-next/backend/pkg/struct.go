@@ -1,5 +1,13 @@
 package pkg
 
+import "net/http"
+
+var Sessions = map[string]SessionUser{}
+
+type SessionUser struct {
+	email  string
+	Cookie *http.Cookie
+}
 
 type User struct { //Sert a Register et le profil
 	Id              int    `json:"id"`
@@ -87,6 +95,7 @@ type OnlineUsers struct {
 }
 
 type Group struct {
+	IdGroup        int
 	NameGroup      string
 	Description    string
 	UserID_Creator int
@@ -99,4 +108,9 @@ type EventGroup struct {
 	Title              string
 	Date               string
 	Description        string
+}
+
+type InviteInTheGroup struct {
+	NameOfGroup     string `json:"nameOfGroup"`
+	NameOfThePerson string `json:"nameOfThePerson"`
 }

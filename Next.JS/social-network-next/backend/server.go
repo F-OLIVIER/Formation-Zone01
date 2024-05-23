@@ -60,6 +60,9 @@ func StartServer() {
 	r.HandleFunc("/follow", pkg.FollowHandler)
 	r.HandleFunc("/logout", pkg.LogoutHandler)
 	r.HandleFunc("/session", pkg.SessionHandler)
+	r.HandleFunc("/creategroup", pkg.CreateGroupHandler)
+	r.HandleFunc("/getallgroups", pkg.GetAllGroups)
+	r.HandleFunc("/inviteinmygroup", pkg.Inviteinmygroup)
 	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		pkg.ServeWs(hub, w, r)
 	})

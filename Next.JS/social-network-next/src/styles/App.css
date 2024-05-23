@@ -46,6 +46,15 @@
   height: 100vh;
 }
 
+.mainContainer.fixed {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+
 .titleContainer {
   display: flex;
   flex-direction: column;

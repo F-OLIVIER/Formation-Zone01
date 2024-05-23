@@ -1,11 +1,10 @@
-import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 
 export var firstId = 512;
 export var offset = 0;
 export let counter = 0
 export var unread = []
-export var currId = 0
 export var currUsername = ""
 export var allUsers = []
 export var online = []
@@ -56,12 +55,9 @@ export async function updateUsers(currId) {
 }
 
 
-
-
 export function startWS(currId) {
-
-
     console.log("call startWS JS")
+    console.log(currId)
     if (window["WebSocket"]) {
         conn = new WebSocket("ws://localhost:8080/ws");
 
@@ -83,6 +79,18 @@ export function startWS(currId) {
             if (data.msg_type === "post") {
                 // Nouveau post, on notifie les autres utilisateurs d'un nouveau post, pas géré pour les commentaires.
                 console.log("new post")
+                toast(
+                    <span>
+                        New post !Click <a href="/" onClick={() => window.location.reload()}>here</a>
+                    </span>,
+                    {
+                        duration: 4000,
+                        position: 'top-center',
+                        icon: '👏',
+                    }
+                );
+
+
             } else if (data.msg_type === "msg") {
                 // Message chat, on regarde si on est l'émetteur ou le destinataire, on créé la div correspondante, et on "append" le message.
                 var senderContainer = document.createElement("div");
@@ -104,7 +112,25 @@ export function startWS(currId) {
                     return u[0] == id;
                 });
 
-                if (document.querySelector('.chat-wrapper').style.display == "none") {
+
+                const chatWrapper = document.querySelector('.chat-wrapper');
+                if (!chatWrapper || chatWrapper.style.display !== 'flex') {
+                    toast(
+                        <span>
+                        New message from {data.sender_id}!
+                    </span>,
+                        {
+                            duration: 4000,
+                            position: 'top-center',
+                            icon: '💻',
+                            style: {
+                                backgroundColor: 'rgba(157,161,157,0.5)', color: 'white',
+                            },
+                        }
+                    );
+                }
+
+                if (chatWrapper && chatWrapper.style.display === 'none') {
                     if (unreadMsgs.length == 0) {
                         unread.push([data.sender_id, 1]);
                     } else {
@@ -116,9 +142,7 @@ export function startWS(currId) {
             } else if (data.msg_type === "online") {
                 // Connexion d'un utilisateur, on met à jour des liste des contacts, et les statuts.
                 online = data.user_ids;
-                getUsers().then(function () {
-                    updateUsers(currId);
-                });
+                getUsers()
             }
         };
     } else {
@@ -161,13 +185,14 @@ export function sendMsg(conn, rid, msg, msg_type) {
 export async function createUsers(userdata, conn, currId) {
     await sleep(1000);
     const offlineUsers = document.querySelector('.offline-users');
-
-    offlineUsers.innerHTML = ""
+    if (offlineUsers) {
+        offlineUsers.innerHTML = ""
+    }
     if (userdata == null) {
         return
     }
 
-    userdata.map(({ id, nickname }) => {
+    userdata.map(({id, nickname}) => {
 
         // Pour ne pas s'afficher soit même
         if (id == currId) {
@@ -180,11 +205,12 @@ export async function createUsers(userdata, conn, currId) {
         // Répartition des users selon leur statut.
 
 
-
         var chatusername = document.createElement("p");
         chatusername.innerText = nickname
         user.appendChild(chatusername)
-        offlineUsers.appendChild(user)
+        if (offlineUsers) {
+            offlineUsers.appendChild(user)
+        }
         /*         var msgNotification = document.createElement("div");
                 msgNotification.className = "msg-notification"
                 msgNotification.innerText = 1
@@ -203,28 +229,32 @@ export async function createUsers(userdata, conn, currId) {
 
         // En cas de click sur un utilisateur, on check la DB message et on ouvre une fenêtre de chat.
         user.addEventListener("click", function (e) {
-            resetScroll();
-            if (typeof conn === "undefined") {
-                // Protection si problème de WS.
-                return;
-            }
-            // On récupère les logs si ils existent.
-            let resp = getData('http://localhost:8080/message?receiver=' + id + '&firstId=' + firstId);
-            resp.then(value => {
-                let rIdStr = user.getAttribute("id");
-                const regex = /id/i;
-                const rId = parseInt(rIdStr.replace(regex, ''));
-                if (value && value.length > 0) {
-                    const lastIndex = value.length - 1;
-                    firstId = value[lastIndex].id;
-                    lastFetchedId = firstId;
-                }
-                counter = 0;
-                // Ouverture d'une fenêtre de chat.
-                OpenChat(rId, conn, value, currId, firstId);
-            }).catch();
+            GetElementToOpenChat(id, user, currId)
         });
     })
+}
+
+export function GetElementToOpenChat(id, user, currId) {
+    resetScroll();
+    if (typeof conn === "undefined") {
+        // Protection si problème de WS.
+        return;
+    }
+    // On récupère les logs si ils existent.
+    let resp = getData('http://localhost:8080/message?receiver=' + id + '&firstId=' + firstId);
+    resp.then(value => {
+        let rIdStr = user.getAttribute("id");
+        const regex = /id/i;
+        const rId = parseInt(rIdStr.replace(regex, ''));
+        if (value && value.length > 0) {
+            const lastIndex = value.length - 1;
+            firstId = value[lastIndex].id;
+            lastFetchedId = firstId;
+        }
+        counter = 0;
+        // Ouverture d'une fenêtre de chat.
+        OpenChat(rId, conn, value, currId, firstId);
+    }).catch();
 }
 
 let log;
@@ -235,10 +265,10 @@ if (typeof document !== 'undefined') {
     log = document.querySelector(".chat")
 }
 
-export { log };
+export {log};
 
 
-export function appendLog(container, msg, date) {
+export function appendLog(container, msg, date, prepend = false) {
     // Retrieve the log element
     var log = document.querySelector(".chat");
     if (!log) {
@@ -253,14 +283,20 @@ export function appendLog(container, msg, date) {
     }
 
     var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
-    log.appendChild(container);
-    container.append(msg);
-    msg.append(date)
-
-    // Scroll to bottom if necessary
-    if (doScroll) {
-        log.scrollTop = log.scrollHeight - log.clientHeight;
+    if (prepend) {
+        if (log.firstChild) {
+            log.insertBefore(container, log.firstChild);
+        } else {
+            log.appendChild(container);
+        }
+    } else {
+        log.appendChild(container);
     }
+    container.appendChild(msg);
+    msg.appendChild(date);
+
+    // Scroll to bottom regardless of prepend or append
+    log.scrollTop = log.scrollHeight;
 }
 
 export function resetScroll() {
@@ -308,7 +344,6 @@ export function OpenChat(rid, conn, data, currId, firstId) {
     });
 
 
-
     // Envoi du message si click.
     document.querySelector("#send-btn").addEventListener("click", function () {
         // On fait un envoi msg via WS avec le type "msg" (donc message chat)
@@ -324,30 +359,35 @@ export function OpenChat(rid, conn, data, currId, firstId) {
                 firstId = value[lastIndex].id;
                 lastFetchedId = firstId;
             }
-            CreateMessages(value, currId);
+            OpenChat(rid, conn, value, currId, firstId)
             chatBox.scrollTop = chatBox.scrollHeight;
         }).catch();
     });
 
-    // Même chose pour "entrée".
-    document.querySelector("#chat-input").addEventListener("keydown", function (event) {
-        if (event.keyCode === 13) {
-
-            offset = 0;
-            sendMsg(conn, rid, msg, 'msg');
-            firstId = firstId + 10;
-            let resp = getData('http://localhost:8080/message?receiver=' + rid + '&firstId=512' + '&offset=10');
-            resp.then(value => {
-                if (value && value.length > 0) {
-                    const lastIndex = value.length - 1;
-                    firstId = value[lastIndex].id;
-                    lastFetchedId = firstId;
-                }
-                CreateMessages(value, currId);
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }).catch();
-        }
+    document.querySelector(".emoji-icon").addEventListener("click", function () {
+        var chatBox = document.querySelector('.chat');
+        chatBox.scrollTop = chatBox.scrollHeight;
     });
+
+    // Même chose pour "entrée".
+    /*     document.querySelector("#chat-input").addEventListener("keydown", function (event) {
+            if (event.keyCode === 13) {
+
+                offset = 0;
+                sendMsg(conn, rid, msg, 'msg');
+                firstId = firstId + 10;
+                let resp = getData('http://localhost:8080/message?receiver=' + rid + '&firstId=512' + '&offset=10');
+                resp.then(value => {
+                    if (value && value.length > 0) {
+                        const lastIndex = value.length - 1;
+                        firstId = value[lastIndex].id;
+                        lastFetchedId = firstId;
+                    }
+                    OpenChat(rid, conn, value, currId, firstId)
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }).catch();
+            }
+        }); */
 
     var offset = 10;
     var lastFetchedId = null;
@@ -358,7 +398,15 @@ export function OpenChat(rid, conn, data, currId, firstId) {
         if (chatBox.scrollTop === 0) {
             let resp = getData('http://localhost:8080/message?receiver=' + rid + '&firstId=' + firstId + '&offset=' + offset);
             resp.then(value => {
+                if (value == null) {
+                    return;
+                }
+                if (value.length == 0) {
+                    return;
+
+                }
                 value = value.filter(message => message.id !== lastFetchedId);
+
 
                 if (value.length > 0) {
                     const lastIndex = value.length - 1;
@@ -393,33 +441,35 @@ export function OpenChat(rid, conn, data, currId, firstId) {
 
 export function CreateMessages(data, currId) {
     const chatBox = document.querySelector('.chat');
-    // On scrute en descendant pour écrire le plus ancien en premier.
-    for (let i = data.length - 1; i >= 0; i--) {
-        const { id, sender_id, content, date } = data[i];
 
-        // Check doublon
+    // Iterate over the data array from the beginning
+    for (let i = 0; i < data.length; i++) {
+        const {id, sender_id, content, date} = data[i];
+
+        // Check for duplicates
         if (document.getElementById(`message-${id}`)) {
             continue;
         }
+        // Create message elements
+        const messageContainer = document.createElement("div");
+        messageContainer.className = sender_id === currId ? "sender-container" : "receiver-container";
 
-        // Création du message avec la mise en forme correspondate si "receiver" ou "sender".
-        const receiverContainer = document.createElement("div");
-        receiverContainer.className = sender_id == currId ? "sender-container" : "receiver-container";
+        const message = document.createElement("div");
+        message.className = sender_id === currId ? "sender" : "receiver";
+        message.innerText = content;
 
-        const receiver = document.createElement("div");
-        receiver.className = sender_id == currId ? "sender" : "receiver";
-        receiver.innerText = content;
+        const messageDate = document.createElement("div");
+        messageDate.className = sender_id === currId ? "chat-time-left" : "chat-time";
+        messageDate.innerText = date.slice(0, -3);
 
-        const messagedate = document.createElement("div");
-        messagedate.className = sender_id == currId ? "chat-time-left" : "chat-time";
-        messagedate.innerText = date.slice(0, -3);
+        messageContainer.id = `message-${id}`;
 
-        receiverContainer.id = `message-${id}`;
-
-        // On "append" avec la fonction ci-dessus dans notre container "chat".
-        appendLog(receiverContainer, receiver, messagedate, true);
-        chatBox.scrollTop = chatBox.scrollHeight;
+        // Append message elements to the chat box
+        appendLog(messageContainer, message, messageDate, true);
     }
+
+    // Scroll to the bottom of the chat box
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 
