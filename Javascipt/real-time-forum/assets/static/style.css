@@ -1,0 +1,591 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+#Login {
+    background-color: rgb(117, 228, 117);
+    border-radius: 12px;
+    width: 300px;
+}
+
+body {
+    font-family: Agbalumo, sans-serif;
+    min-height: 100vh;
+}
+
+/* --------------------------------------- */
+/* --------------- en-tête --------------- */
+/* --------------------------------------- */
+
+.bandeau {
+    margin: auto;
+    /* margin-top: 5px; */
+    margin-bottom: 10px;
+    width: 100%;
+    height: 150px;
+    background-image: url("/assets/img/charcuterie1rogner.jpg");
+    background-position: 10%;
+    background-size: cover;
+    display: flex;
+    font-size: 50px;
+    padding: 30px 40px;
+    justify-content: space-between;
+
+    position: fixed;
+    z-index: 998;
+}
+
+.bandeauDroite {
+    margin-top: 0px;
+    width: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bandeauDroite>div {
+    width: 100%;
+    height: 50px;
+}
+
+.bandeauDroite>div button {
+    width: 40%;
+    float: left;
+}
+
+.bandeauDroite>div button:first-child {
+    margin-right: 20px;
+}
+
+.bandeauDroite .buttonconnexion {
+    min-height: 50px;
+}
+
+.bandeauDroite form {
+    width: 100%;
+}
+
+#bandeauGauche {
+    background-image: url("/assets/img/salade.jpg");
+    background-size: cover;
+    background-position: 10%;
+    border-radius: 35% 58% 35% 52%;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    z-index: 999;
+    height: 175%;
+    width: 25%;
+    min-width: 250px;
+    padding-top: 25px;
+    padding-right: 15px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+    font-size: 150%;
+
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+#bandeauGauche:hover {
+    border-color: black;
+    color: rgba(146, 169, 53, 0.8);
+    cursor: pointer;
+}
+
+.sousBandeau {
+    height: 210px;
+    opacity: 0%;
+}
+
+.search {
+    background-color: rgba(146, 169, 53, 0.6);
+    border-color: aliceblue;
+    width: 42%;
+    margin-top: auto;
+    text-align: center;
+    font-size: large;
+    border-radius: 20px;
+    border-color: black;
+    border-style: solid;
+
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+.inputsearch {
+    height: 30px;
+    width: 60%;
+    font-size: large;
+    border-radius: 9px;
+    margin-right: 15px;
+}
+
+.buttonFilter {
+    background-color: rgba(146, 169, 53, 0.8);
+    min-width: 300px;
+    min-height: 40px;
+    font-weight: bolder;
+    font-size: medium;
+    margin-top: 30px;
+    border-radius: 50%;
+    border-style: double;
+    box-shadow: 0px 5px #666;
+    border-color: rgb(255, 255, 255);
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.buttonconnexion {
+    background-color: rgba(146, 169, 53, 1);
+    height: 50px;
+    font-weight: bolder;
+    font-size: medium;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    /* box-shadow: 0px 5px #666; */
+    border-color: rgb(255, 255, 255);
+    font-size: 20px;
+    color: #fff;
+    font-family: Agbalumo, sans-serif;
+    /* text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0); */
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.buttonconnexion:hover {
+    background-color: rgb(146, 169, 53);
+    cursor: pointer;
+}
+
+.buttonsearch:hover {
+    background-color: rgb(146, 169, 53);
+    cursor: pointer;
+}
+
+/* --------------------------------------- */
+/* --------------- contenu --------------- */
+/* --------------------------------------- */
+
+.body {
+    /* background-image: url("/assets/img/potagerAromatiquen&b.jpg"); */
+    min-height: 75vh;
+    background-size: cover;
+    background-position: 50%;
+    margin: auto;
+    padding-top: 60px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.error {
+    display: none;
+    margin-top: 40px;
+    height: auto;
+    padding: 20px;
+    margin-left: 19%;
+    margin-right: 19%;
+    width: 60%;
+    background-color: #fff;
+    justify-content: center;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+    border-style: solid;
+    border-color: black;
+    border-radius: 50px;
+}
+
+.group {
+    margin-top: 5px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-family: Agbalumo, sans-serif;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+}
+
+/* .buttonLogged {
+    width: 95%;
+    height: 75px;
+    text-align: right;
+    margin-top: 30px;
+
+} */
+
+.buttonCreatePost {
+    height: 60px;
+    width: 250px;
+}
+
+#Container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.listPost {
+    padding-top: 5px;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.formulaire {
+    width: 100%;
+}
+#Container .titlePostComment,
+#Container .displayComment{
+    width: 60%;
+}
+.post {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    padding-bottom: 40px;
+    margin-bottom: 15px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 20px;
+    padding-left: 20px;
+    background-color: rgba(146, 169, 53, 0.8);
+}
+
+.post:hover {
+    background-color: rgb(146, 169, 53);
+    cursor: pointer;
+}
+
+.post .contenu>div {
+    margin-bottom: 20px;
+}
+
+.title {
+    width: 100%;
+    font-family: Agbalumo, sans-serif;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    font-size: 35px;
+
+
+}
+
+.postGauche {
+    width: 50%;
+    font-family: Agbalumo, sans-serif;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    font-size: 22px;
+}
+
+.postDroite {
+    width: 50%;
+    font-family: Agbalumo, sans-serif;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
+    font-size: 22px;
+}
+
+.linkhtml {
+    text-decoration: none;
+}
+
+/* --------------------------------------- */
+/* ----------------- FORM ---------------- */
+/* --------------------------------------- */
+#Container .box {
+    background: rgba(146, 169, 53, 1);
+    border-radius: 10px;
+    padding: 60px;
+    width: 60%;
+}
+
+.top-header header {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.divinput {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.divinput>span .input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 15px 20px 15px 50px;
+    border-radius: 50px;
+    border: 2px solid #FFF;
+    font-size: 16px;
+    background: #FCFCFC;
+}
+
+.divinput span {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.divinput span.spanfirstname,
+.divinput span.spanlastname,
+.divinput span.spanage,
+.divinput span.spangender,
+.divinput span.spanpassword,
+.divinput span.spanconfirmpass {
+    width: 48%;
+}
+
+.login-box .divinput span.spanpassword,
+.account-box .divinput span.spanpassword {
+    width: 100%;
+}
+
+.divinput span.spangender label {
+    margin-bottom: 15px;
+}
+
+.divinput span.spangender select {
+    padding: 15px 20px;
+    border-radius: 50px;
+    border: 2px solid #FFF;
+    font-size: 16px;
+    background: #FCFCFC;
+}
+
+.divinput span:before {
+    font-family: 'boxicons' !important;
+    position: absolute;
+    left: 20px;
+    font-size: 20px;
+}
+
+.divinput .spanpassword::before,
+.divinput .spanconfirmpass::before {
+    content: '\eb4a';
+}
+
+.divinput .spanemail::before {
+    content: '\eac1';
+}
+
+.divinput .spanusername::before,
+.divinput span.spanfirstname:before,
+.divinput span.spanlastname:before {
+    content: '\ec63';
+}
+
+.divinput .spanage::before {
+    content: '\ea15';
+}
+
+.divinput button {
+    padding: 15px 60px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    margin: 0 auto;
+}
+
+
+/* --------------------------------------- */
+/* -------------- WebSocket -------------- */
+/* --------------------------------------- */
+
+/* #formWebSocket {
+    overflow: hidden;
+    flex-direction: row;
+} */
+
+/* --------------------------------------- */
+/* -------------- CHAT ------------------- */
+/* --------------------------------------- */
+
+.body #chat {
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 750px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: -750px;
+    font-size: 18px;
+    transition: all ease-in-out 0.5s;
+    z-index: 999;
+}
+
+#chat #userConnected {
+    width: calc(35% - 30px);
+    height: calc(100% - 30px);
+    display: flex;
+    flex-direction: column;
+    background: #92A935;
+    padding: 15px;
+}
+
+#chat #userConnected p:first-child {
+    font-size: 15px;
+    ;
+}
+
+#chat #chatContent {
+    width: 65%;
+    height: 100%;
+    position: relative;
+}
+
+#typinprogress {
+    width: calc(100% - 10px);
+    position: absolute;
+    height: 20px;
+    top: -30px;
+    left: 0;
+    padding: 5px;
+}
+
+#chat #log {
+    width: calc(100% - 30px);
+    height: calc(100% - 118px);
+    background: #F2F2F2;
+    overflow-y: auto;
+    position: relative;
+    padding: 15px;
+}
+
+#chat #formWebSocket {
+    width: calc(100% - 30px);
+    height: 10%;
+    background: #C2C2C2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#chat #formWebSocket #buttonWebSocket {
+    display: none;
+}
+
+#chat #formWebSocket #msg {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 2px solid #AAA;
+}
+
+#chat .btn-chat {
+    width: 75px;
+    height: 75px;
+    background: #92A935;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    border-bottom-left-radius: 10px;
+}
+
+#chat .btn-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    font-size: 42px;
+    font-family: 'boxicons' !important;
+}
+
+#chat .btn-icon:before {
+    content: "\ea4d";
+}
+
+#chat .privateTO {
+    width: 100%;
+    text-align: center;
+    background-color: #92A935;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#chat #chatContent p {
+    padding: 10px 20px;
+    border-radius: 50px;
+    margin: 5px 0 30px;
+    position: relative;
+    min-width: 250px;
+}
+
+#chat #chatContent .sender {
+    float: right;
+    clear: both;
+    background: #92A935;
+}
+
+#chat #chatContent .receiver {
+    float: left;
+    clear: both;
+    background: #666;
+}
+#chat #chatContent  p span {
+    font-size: 12px;
+    position: absolute;
+    bottom: -20px;
+}
+#chat #chatContent .receiver span{
+    left: 0
+}
+#chat #chatContent .sender span{
+    right: 0;
+}
+.clicked {
+    background: red;
+}

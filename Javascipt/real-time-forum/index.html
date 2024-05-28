@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="300" /> -->
+    <link id="linkcss" rel="stylesheet" href="css/style.css" type="text/css">
+    <!--Permet d'importer des emotes a mettre sur les barres de recherche ou autre-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!--Permet d'importer un éditeur de texte amélioré-->
+    <script src="https://cdn.tiny.cloud/1/z0qo87v80pictlpqd5ba08864de83fv6jplmq1967gimsgsi/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <title>CouiiERRE Burgond</title>
+</head>
+
+<body>
+
+    <!--------------------------------------------------------------------->
+    <!-------------------------- BANDEAU EN TETE -------------------------->
+    <!--------------------------------------------------------------------->
+
+    <div class="bandeau">
+        <button id="bandeauGauche">
+            <div>
+                CouiiERRE Burgond
+            </div>
+        </button>
+        <div class="bandeauDroite">
+            <!-- Utilisateur connecté -->
+            <div id="connected">
+                <button id="AccountButton" class="buttonconnexion">
+                    Mon compte
+                </button>
+
+                <button id="DisconnectButton" class="buttonconnexion" type="submit" name="logout" value="logout">
+                    Déconnexion
+                </button>
+            </div>
+            <!-- Utilisateur non connecté -->
+            <div id="notConnected">
+                <button id="RegisterButton" class="buttonconnexion">
+                    S'enregistrer
+                </button>
+
+                <button id="LoginButton" class="buttonconnexion">
+                    se connecter
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="sousBandeau"></div>
+
+    <!--------------------------------------------------------------------->
+    <!------------------------- CONTENU DE LA PAGE ------------------------>
+    <!--------------------------------------------------------------------->
+    <div id="bodyContainer" class="body">
+        <!-- Div d'affichade des erreurs -->
+        <div id="error" class="error"></div>
+
+        <!-- Bouton permettant de crée un nouveau post (utilisateur connecté) -->
+        <div id="buttonNewPost" class="buttonLogged"></div>
+
+        <!-- Container contenant le contenu de la page -->
+        <div id="Container" class="container"></div>
+
+        <!-- Container pour le chat de discussion -->
+
+        <div id="chat" class="chat">
+            <div id="chatContent" class="chat-content">
+                <div id="log"></div>
+                <form id="formWebSocket" onsubmit="return false;">
+                    <div id="typinprogress"></div>
+                    <input type="text" id="msg" size="64" autofocus placeholder="Taper votre message" />
+                </form>
+            </div>
+            <div id="userConnected"></div>
+        </div>
+    </div>
+
+</body>
+</div>
+<script type="module" src="../js/main.js"></script>
+
+</html>
