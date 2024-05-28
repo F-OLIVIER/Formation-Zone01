@@ -5,7 +5,7 @@ import { userNotConnected } from "./main.js";
 import { register } from "./register.js";
 export let chatusername = '';
 
-export function commonBlock(data) {
+export function commonBlock(data, confirmcomment = false) {
     badRequest();
     if (data.UserData.Logged) {
         document.getElementById('notConnected').style.display = 'none';
@@ -28,7 +28,7 @@ export function commonBlock(data) {
         LoginButton();
 
     }
-    msgError(data)
+    msgError(data, confirmcomment)
 
     var container = document.getElementById('Container');
     // Supprime tous les éléments enfants de la div
@@ -39,11 +39,15 @@ export function commonBlock(data) {
     container.innerHTML = '';
 }
 
-export function msgError(data) {
+export function msgError(data, confirmcomment) {
     let divError = document.getElementById('error');
     if (data.UserData.Msgerr !== "") {
         divError.innerHTML = data.UserData.Msgerr;
         divError.style.display = "block";
+    } else if (confirmcomment) {
+        divError.textContent = "Votre commenntaire a bien été enregistré";
+        divError.style.display = "block";
+        window.scrollTo(0, 0);
     } else {
         divError.style.display = "none";
     }

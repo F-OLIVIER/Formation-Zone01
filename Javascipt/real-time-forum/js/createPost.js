@@ -80,6 +80,7 @@ export function createPost() {
     createpost.type = 'button';
     createpost.id = 'createpost'
     createpost.className = 'submit';
+    createpost.classList.add('buttonconnexion');
     createpost.textContent = "Publier";
     endPost.appendChild(createpost);
     form.appendChild(endPost);

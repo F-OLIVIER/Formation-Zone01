@@ -4,7 +4,7 @@ import { chatusername } from "./useful.js";
 
 let username_to_send = '';
 let typingTimeout;
-let timerThrottlebutton = 0;
+let timerThrottlebutton = new Date();
 
 export async function initChat(username) {
     socket = new WebSocket("ws://localhost:8080/ws");
@@ -55,16 +55,15 @@ export async function initChat(username) {
 
     // gestionnaire d'événement pour pouvoir envoyer des message via 'enter' sans recharger la page
     document.getElementById("formWebSocket").addEventListener("submit", function (event) {
+        console.log("username_to_send : ", username_to_send, timerThrottlebutton);
         const now = new Date();
-        if (now - timerThrottlebutton > 2000) {
+        if (username_to_send === '') { // gestion d'erreur, si pas de destinataire
+            alert('Merci de préciser à qui le message doit être envoyé !')
+        } else if (now - timerThrottlebutton > 2000) {
             timerThrottlebutton = now;
             event.preventDefault(); // Empêche la soumission par défaut du formulaire (evite le rechargement de page)
-            if (username_to_send === '') { // gestion d'erreur, si pas de destinataire
-                alert('Merci de préciser à qui le message doit être envoyé !')
-            } else {
-                sendMessage(); // Appelle la fonction sendMessage lors de la soumission
-            }
-        } else{
+            sendMessage(); // Appelle la fonction sendMessage lors de la soumission du formulaire
+        } else {
             alert('Trop rapide pour le piaf voyageur !!!!!')
         }
     });

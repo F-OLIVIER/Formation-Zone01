@@ -1,8 +1,8 @@
-import { commonBlock } from "./useful.js";
+import { commonBlock, msgError } from "./useful.js";
 import { cookieName, userNotConnected } from "./main.js";
 import { home } from "./home.js";
 
-export function viewPost(postId) {
+export function viewPost(postId,  confirmcomment = false) {
     // Check la precence du cookie, si il n'existe pas ou si le fragment est absent redirection automatique vers "/"
     if (!document.cookie.split(";").some((item) => item.trim().startsWith(cookieName + "=")) || postId === "") {
         userNotConnected();
@@ -32,7 +32,7 @@ export function viewPost(postId) {
                     document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     userNotConnected();
                 } else {
-                    containerViewPost(data, postId);
+                    containerViewPost(data, postId, confirmcomment);
                 }
             } else {
                 throw new Error('Réponse invalide du serveur (non-JSON)');
@@ -43,8 +43,8 @@ export function viewPost(postId) {
         });
 }
 
-function containerViewPost(data, postId) {
-    commonBlock(data);
+function containerViewPost(data, postId, confirmcomment) {
+    commonBlock(data, confirmcomment);
 
     let Container = document.getElementById('Container');
 
@@ -53,15 +53,6 @@ function containerViewPost(data, postId) {
     // ------------------------------------------------------------------
     let post = document.createElement('div');
     post.className = 'post';
-
-    // div de l'utilisateur qui a crée la post
-    let user = document.createElement('div');
-    user.className = 'user';
-    let userImg = document.createElement('img');
-    userImg.src = data.PostData.PhotoAuthor;
-    userImg.textContent = 'Auteur : ' + data.PostData.Author;
-    user.appendChild(userImg);
-    post.appendChild(user);
 
     // div de contenu du post
     let contenu = document.createElement('div');
@@ -90,7 +81,8 @@ function containerViewPost(data, postId) {
     Infomsg.className = 'Infomsg';
     // date du post
     let InfomsgDate = document.createElement('div');
-    InfomsgDate.textContent = 'Date de publication : ' + data.PostData.Date;
+    // InfomsgDate.textContent = 'Auteur : ' + data.PostData.Author;
+    InfomsgDate.innerHTML = 'Auteur : ' + data.PostData.Author + '</br>Date de publication : ' + data.PostData.Date;
     InfomsgDate.className = 'InfomsgDate';
     Infomsg.appendChild(InfomsgDate);
     // catégorie du post
@@ -186,6 +178,7 @@ function containerViewPost(data, postId) {
     EnvoiePost.id = 'postNewComment';
     EnvoiePost.className = 'EnvoiePost';
     EnvoiePost.type = 'button';
+    EnvoiePost.classList.add('buttonconnexion');
     EnvoiePost.textContent = 'Publier le commentaire';
     endPost.appendChild(EnvoiePost)
     formPost.appendChild(endPost);
@@ -205,7 +198,7 @@ function containerViewPost(data, postId) {
         Container.appendChild(titlePostComment);
 
         // range de l'array pour crée toutes les div de commentaire
-        for (let index = 0; index < data.PostData.Comments.length; index++) {
+        for (let index = data.PostData.Comments.length-1; index >= 0 ; index--) {
             const CurrentComment = data.PostData.Comments[index];
 
             let displayComment = document.createElement('div');
@@ -289,8 +282,11 @@ function sendFormNewComment() {
                 if (data.UserData.Redirect !== "") {
                     home();
                 } else {
-                    msgError(data);
-                    addNewComment();
+                    if (data.UserData.Msgerr != ""){
+                        msgError(data);
+                    } else{
+                        viewPost(postId, true);
+                    }
                 }
             } else {
                 throw new Error('Réponse invalide du serveur (non-JSON)');
@@ -301,6 +297,7 @@ function sendFormNewComment() {
         });
 }
 
-function addNewComment() {
-    console.log("ajout du nouveau commentaire a faire !!!!")
-}
+// function addNewComment(data) {
+//     viewPost(postId)
+//     console.log("ajout du nouveau commentaire a faire !!!!")
+// }

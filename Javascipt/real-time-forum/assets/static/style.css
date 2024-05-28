@@ -99,7 +99,7 @@ body {
     border-style: solid;
     border-color: rgb(255, 255, 255);
     font-size: 150%;
-
+    transition: all ease-in-out 0.2s;
     color: rgb(255, 255, 255);
     font-family: Agbalumo, sans-serif;
     text-shadow: 1px 1px 5px rgba(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
@@ -157,8 +157,12 @@ body {
     text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);
     cursor: pointer;
 }
-
+button{
+    padding: 8px 10px;
+    background: #FFF;
+}
 .buttonconnexion {
+    margin-top: 10px;
     background-color: rgba(146, 169, 53, 1);
     height: 50px;
     font-weight: bolder;
@@ -174,10 +178,15 @@ body {
     /* text-shadow: 1px 1px 5px black, 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0); */
     cursor: pointer;
     padding: 5px 10px;
+    transition: all ease-in-out 0.2s;
+}
+.bandeauDroite .buttonconnexion:hover{
+    background-color: rgba(146, 169, 53, .85);
 }
 
 .buttonconnexion:hover {
-    background-color: rgb(146, 169, 53);
+    background-color: rgba(146, 169, 53, .5);
+    color: #000;
     cursor: pointer;
 }
 
@@ -268,6 +277,9 @@ body {
 #Container .titlePostComment,
 #Container .displayComment{
     width: 60%;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000;
 }
 .post {
     display: flex;
@@ -284,7 +296,6 @@ body {
 }
 
 .post:hover {
-    background-color: rgb(146, 169, 53);
     cursor: pointer;
 }
 
