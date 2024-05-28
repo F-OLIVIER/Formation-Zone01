@@ -2,7 +2,7 @@
 
 ## 📝 Descriptif
 
-Le projet consiste à créer un forum en one page ou les utilisateurs peuvent s'enregistrer. Les utilisateurs connectés peuvent créer des posts et mettre des commentaires sur les posts. Les utilisateurs non connectés ne peuvent rien faire et n'accéde a rien.
+Le projet consiste à créer un forum en one page ou les utilisateurs peuvent s'enregistrer, crée des posts et mettre des commentaires sur les posts, communiquer en temps réel via une connexion [websocket](https://en.wikipedia.org/wiki/WebSocket), couramment appeler "un chat de discussion". Les utilisateurs non connectés ne peuvent rien faire et n'accède à rien.
 
 <img src="./home.png">
 
