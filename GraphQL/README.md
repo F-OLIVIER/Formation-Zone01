@@ -12,8 +12,7 @@ _______
 
 ### Usage
 _______
-Page hébergé via <a href="https://pages.github.com" target="blank">GitHub Pages</a><br>
-Lien d'accées : <a href="https://f-olivier.github.io/GraphQL_Zone01/" target="blank">https://f-olivier.github.io/GraphQL_Zone01/</a>
+Utiliser un live serveur pour exécuter le programme.
 
 ### Dépendance
 _______
