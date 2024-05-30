@@ -1,0 +1,164 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 95vh;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.home {
+    height: 80vh;
+}
+
+.divError {
+    width: 80%;
+    padding: 20px;
+    color: red;
+    border-radius: 20px;
+    text-align: center;
+    border: 3px black solid;
+    background-color: rgb(0, 0, 0, 0.3);
+    font-size: 50px;
+    margin-bottom: 50px;
+}
+
+.divConnexion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 40%;
+    background-color: rgb(0, 0, 0, 0.3);
+    border-radius: 20px;
+    border: 3px black solid;
+    text-align: center;
+    padding: 10px;
+}
+
+.titledivConnexion {
+    font-size: 40px;
+    margin: 20px;
+}
+
+.divConnexion input,
+.divConnexion button {
+    width: 70%;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 20px;
+    font-size: 20px;
+    border: 2px white solid;
+}
+
+.divConnexion button:hover {
+    cursor: pointer;
+    background-color: rgb(0, 0, 0, 0.7);
+    color: white;
+}
+
+
+/* ------------------------------------------- */
+/* ---------------- Contenu  ----------------- */
+/* ------------------------------------------- */
+
+.divUser {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    height: 20%;
+}
+
+.logout {
+    background-color: blue;
+    border-radius: 20px;
+    font-size: 40px;
+    color: white;
+    border: 3px blue solid;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+.logout:hover {
+    background-color: white;
+    color: blue;
+}
+
+h3,
+h4 {
+    margin: 0;
+    padding: 15px;
+}
+
+.divInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.divName, .divxp {
+    background-color: rgb(0, 0, 0, 0.3);
+    border-radius: 20px;
+    font-size: 40px;
+    border: 3px black solid;
+    text-align: center;
+    padding: 10px;
+    margin: 5px;
+}
+
+.divaudit {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    min-height: 100%;
+    background-color: rgb(0, 0, 0, 0.3);
+    border-radius: 20px;
+    font-size: 40px;
+    border: 3px black solid;
+    text-align: center;
+    padding: 10px;
+    margin-left: 20px;
+}
+.XPdone {
+    color: yellow;
+}
+.XPreceived {
+    color: white;
+}
+
+.divaudit div {
+    text-align: left;
+    padding-left: 25px;
+}
+
+.divaudit svg {
+    width: 80%;
+    height: 35px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 25px;
+}
+
+.divgraph {
+    width: 60%;
+    background-color: rgb(0, 0, 0, 0.3);
+    border-radius: 20px;
+    border: 3px black solid;
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 25px;
+}
+
+.divgraph svg {
+    width: 95%;
+    height: 95%;
+}
