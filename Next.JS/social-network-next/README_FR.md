@@ -4,7 +4,7 @@
 
 # Langue du Readme
 🌏
-[**English**](https://github.com/F-OLIVIER/Formation-Zone01/blob/main/Next.JS/social-network-next/README.md) | 
+[**English**](https://zone01normandie.org/git/mcatelai/social-network-next/src/branch/master) | 
 Français
 
 </div>
@@ -29,20 +29,14 @@ Image du projet
 <table align= "center" width="95%">
     <tbody>
         <tr>
-            <td><img src="./readme_Img/"></td>
-            <td><img src="./readme_Img/"></td>
-        </tr>
-        <tr>
-            <td><img src="./readme_Img/"></td>
-            <td><img src="./readme_Img/"></td>
-        </tr>
-        <tr>
-            <td><img src="./readme_Img/"></td>
-            <td><img src="./readme_Img/"></td>
-        </tr>    
+            <td><img src="./readme_Img/home.png"></td>
+            <td><img src="./readme_Img/post.png"></td>
+        </tr> 
     </tbody>
 </table>
 
+
+Une application cross platform optionnelle a été réalisée et se trouve dans le dossier `/cross-platform`.
 
 ___
 ## ⚙️ Installation & usage
