@@ -4,7 +4,7 @@
 
 # Langue du Readme
 🌏
-[**English**](https://zone01normandie.org/git/mcatelai/social-network-next/src/branch/master) | 
+[**English**](https://github.com/F-OLIVIER/Formation-Zone01/blob/main/Next.JS/social-network-next/README.md) | 
 Français
 
 </div>
