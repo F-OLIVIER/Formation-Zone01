@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Messenger home for social-network</title>
+    <link id="linkcss" rel="stylesheet" href="static/css/home.css" type="text/css">
+    <title>Messenger home for social-network</title>
+</head>
+
+<body>
+    <div class="bandeau" id="bandeau">
+        <div class="userconnected" id="userconnected"></div>
+        <div class="offline" id="offline">Offline mode</div>
+        <div class="logout" id="logout">Logout</div>
+    </div>
+
+    <div class="resultsearch" id="resultsearch">
+        <span class="close-button" id="closeButton">&times;</span>
+        <p>Search result</p>
+        <div class="divresultsearch" id="divresultsearch"></div>
+    </div>
+    <div class="notif" id="notif"></div>
+    <div class="error" id="error"></div>
+    <div class="container" id="container">
+
+        <div class="listuser">
+            <input class="inputsearch" id="inputsearch" type="text" placeholder="Search" />
+            <div class="onlineuser" id="onlineuser"></div>
+            <div class="offlineuser" id="offlineuser"></div>
+        </div>
+
+        <div class="discussion">
+            <div class="messagecontainer" id="messagecontainer">
+                <div class="discussioncontent" id="discussioncontent"></div>
+            </div>
+            <div class="inputform" id="inputform">
+                <input type="hidden" id="userid" name="userid" />
+                <div class="emojis" id="emojis">😀</div>
+                <input class="message" id="inputmessage" type="text" placeholder="Your message" />
+            </div>
+            <div class="emoji-picker" id="emoji-picker"></div>
+        </div>
+
+    </div>
+
+    <script type="module" src="home.js"></script>
+</body>
+
+</html>
