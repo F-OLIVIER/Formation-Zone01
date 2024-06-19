@@ -26,6 +26,8 @@ type User struct { //Sert a Register et le profil
 	ListFollowings          []User `json:"listfollowings"`
 	ListFollowers           []User `json:"listfollowers"`
 	ListFollowersToValidate []User `json:"ListFollowersToValidate"`
+
+	Session_uuid string `json:"uuid"`
 }
 type Session struct {
 	Session_uuid string
@@ -99,20 +101,9 @@ type Message struct {
 	User_id         int    `json:"user_id"`
 	ImageData       string `json:"image_data"`
 	Targets         []int  `json:"targets"`
-}
 
-// type GroupMessage struct {
-// 	Id          int    `json:"id"`
-// 	Group_id    int    `json:"group_id"`
-// 	Sender_id   int    `json:"sender_id"`
-// 	Receiver_id int    `json:"receiver_id"`
-// 	Content     string `json:"content"`
-// 	Date        string `json:"date"`
-// 	Msg_type    string `json:"msg_type"`
-// 	User_id     int    `json:"user_id"`
-// 	ImageData   string `json:"image_data"`
-// 	Targets     []int  `json:"targets"`
-// }
+	Session_uuid string `json:"uuid"`
+}
 
 type Chat struct {
 	User_one int

@@ -19,6 +19,19 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
+	// for crossplatform
+	// lecture du cookie pour supprimer l'utilisateur de la liste des connectés
+	oldcookie, err := r.Cookie("session")
+	if err != nil {
+		return
+	}
+	curr, err := CurrentUser(oldcookie.Value)
+	if err != nil {
+		fmt.Println("no cookie.Value for ws")
+		return
+	}
+	ListOnline = RemoveSliceInt(ListOnline, curr.Id)
+
 	// Supprimer le cookie de session
 	cookie := &http.Cookie{
 		Name:     "session",

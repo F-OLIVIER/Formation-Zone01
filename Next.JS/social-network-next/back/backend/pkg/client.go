@@ -24,8 +24,7 @@ var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
 	CheckOrigin: func(r *http.Request) bool {
-		origin := r.Header.Get("Origin")
-		return origin == "http://localhost:3000"
+		return true
 	},
 }
 
@@ -50,16 +49,28 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 
 	//fmt.Println("call ws")
 
-	cookie, err := r.Cookie("session")
-	if err != nil {
-		return
+	var foundVal string
+	var msg Message
+	conn.ReadJSON(&msg)
+	fmt.Println("msg : ", msg)
+	if msg.Session_uuid == "" { // Si site internet
+		cookie, err := r.Cookie("session")
+		if err != nil {
+			return
+		}
+		foundVal = cookie.Value
+	} else { // si application crossPlatform
+		foundVal = msg.Session_uuid
 	}
-
-	foundVal := cookie.Value
-
+	// fmt.Println("\nnew msg cross Platform :\n", msg)
 	curr, err := CurrentUser(foundVal)
 	if err != nil {
+		fmt.Println("no cookie.Value for ws")
 		return
+	}
+	if msg.Session_uuid != "" && !ContainsID(curr.Id, ListOnline) {
+		ListOnline = append(ListOnline, curr.Id)
+		// fmt.Println("crossPlatform new user ListOnline : ", ListOnline)
 	}
 
 	client := &Client{
@@ -91,6 +102,7 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 
 func (c *Client) readPump() {
 	defer func() {
+		// Désenregistrer le client du hub
 		c.hub.unregister <- c
 		c.conn.Close()
 	}()
@@ -131,6 +143,11 @@ func (c *Client) readPump() {
 				log.Printf("Error storing new message: %v", err)
 				break
 			}
+		}
+
+		// for crossplatform
+		if msg.Msg_type == "userleave" {
+			ListOnline = RemoveSliceInt(ListOnline, c.userID)
 		}
 
 		sendMsg, err := json.Marshal(msg)

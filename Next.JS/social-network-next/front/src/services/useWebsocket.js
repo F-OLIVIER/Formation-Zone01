@@ -68,7 +68,17 @@ export function startWS(currId, setNotifications, router) {
         conn.onopen = function () {
             // Ouverture connexion websocket.
             console.log("WebSocket connection is open");
+            // for crossplatform
+            conn.send(JSON.stringify({ id: currId, msg_type: 'online' }));
         };
+
+        // EventListener pour send 'userleave' juste avant la fermeture du websocket (for cross-platform)
+        window.addEventListener('beforeunload', function (event) {
+            if (conn.readyState === WebSocket.OPEN) {
+                conn.send(JSON.stringify({ id: currId, msg_type: 'userleave' }));
+            }
+            conn.close();
+        });
 
         conn.onclose = function (evt) {
             // Fermeture connexion websocket.

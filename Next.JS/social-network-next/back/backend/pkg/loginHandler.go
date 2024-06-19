@@ -4,10 +4,11 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"net/http"
+
 	"github.com/gofrs/uuid"
 	_ "github.com/mattn/go-sqlite3"
 	"golang.org/x/crypto/bcrypt"
-	"net/http"
 )
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
@@ -119,6 +120,12 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			Sessions[val] = SessionUser{
 				email:  trueEmail,
 				Cookie: cookie,
+			}
+
+			// for crossplatform
+			if !ContainsID(id, ListOnline) {
+				ListOnline = append(ListOnline, id)
+				fmt.Println("crossPlatform new user ListOnline : ", ListOnline)
 			}
 
 			//fmt.Println("Create Sessions:", Sessions)
