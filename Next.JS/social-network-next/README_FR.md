@@ -13,9 +13,9 @@ Français
 
 Le but du projet est de recréer un réseau social tels que Facebook ou Linkedin.
 
-Le projets est décomposé en 2 parties, un serveur en [golang](https://go.dev) et un front en [Next.js](https://nextjs.org).
+Le projets est décomposé en 2 parties, un serveur en <a href="https://go.dev">golang</a> et un front en <a href="https://nextjs.org">Next.js</a>.
 
-<li>Un système de [migration de la base de données SQL](https://github.com/golang-migrate/migrate)</li>
+<li>Un système de <a href="https://github.com/golang-migrate/migrate">migration de la base de données SQL</a></li>
 <li>Un système d'authentification des utilisateurs</li>
 <li>Création est gestion des posts</li>
 <li>Gestion d'affichage des posts en fonction du type de profil (public, privée, semi-privée)</li>
@@ -49,7 +49,7 @@ Une application cross platform optionnelle a été réalisée et se trouve dans 
 ___
 ## ⚙️ Installation & usage
 
-Le projet est exécuté via [Docker](https://www.docker.com) avec un `Docker Compose` qui permet de lancer les 2 programmes (la base de données SQL étant dans le backend), assurez-vous [d'installer Docker](https://docs.docker.com/compose/install/) avant d'exécuter la commande de lancement du site.
+Le projet est exécuté via <a href="https://www.docker.com">Docker</a> avec un `Docker Compose` qui permet de lancer les 2 programmes (la base de données SQL étant dans le backend), assurez-vous <a href="https://docs.docker.com/compose/install/">d'installer Docker</a> avant d'exécuter la commande de lancement du site.
 
 ```sh
 sh ./launch.sh

@@ -13,9 +13,9 @@ English |
 
 The aim of the project is to recreate a social network like Facebook or Linkedin.
 
-The project is split into 2 parts, a server in [golang](https://go.dev) and a front end in [Next.js](https://nextjs.org).
+The project is split into 2 parts, a server in <a href="https://go.dev">golang</a> and a front end in <a href="https://nextjs.org">Next.js</a>.
 
-<li>An [SQL database migration system](https://github.com/golang-migrate/migrate)</li>
+<li>An <a href="https://github.com/golang-migrate/migrate">SQL database migration system</a></li>
 <li>A user authentication system</li>
 <li>Creating and managing posts</li>
 <li>Post display management according to profile type (public, private, semi-private)</li>
@@ -49,7 +49,7 @@ An optional cross platform application has been created and can be found in the 
 ___
 ## ⚙️ Installation & usage
 
-The project run via [Docker](https://www.docker.com) with a `Docker Compose` which allows the 2 programs to be launched (the SQL database being in the backend), so make sure you [install Docker](https://docs.docker.com/compose/install/) before running the site launch command.
+The project run via <a href="https://www.docker.com">Docker</a> with a `Docker Compose` which allows the 2 programs to be launched (the SQL database being in the backend), so make sure you <a href="https://docs.docker.com/compose/install/">install Docker</a> before running the site launch command.
 
 ```sh
 sh ./launch.sh
