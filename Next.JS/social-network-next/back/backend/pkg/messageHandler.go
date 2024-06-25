@@ -15,19 +15,22 @@ func MessageHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
+
+	// On récupère le sender s = utilisateur connecté via sa session cookie.
+	cookie, err := r.Cookie("session")
+	if err != nil {
+		return
+	}
+	foundVal := cookie.Value
+	curr, err := CurrentUser(foundVal)
+	if err != nil {
+		DeleteCookie(w)
+		return
+	}
+
 	// Si GET on récupère l'historique des messages d'un chat.
 	switch r.Method {
 	case "GET":
-		// On récupère le sender s = utilisateur connecté via sa session cookie.
-		cookie, err := r.Cookie("session")
-		if err != nil {
-			return
-		}
-		foundVal := cookie.Value
-		curr, err := CurrentUser(foundVal)
-		if err != nil {
-			return
-		}
 		s := strconv.Itoa(curr.Id)
 
 		// On récupère le receiver r = id dans l'url quand on a cliqué sur son username.

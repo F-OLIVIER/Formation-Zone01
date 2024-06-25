@@ -59,20 +59,24 @@ export async function updateUsers(currId) {
 export var currentOpenChatId = null;
 export var currentOpenChatType = null; // "user" or "group"
 
+async function fetchNotif(currId, setNotifications) {
+    await fetchNotification(currId, setNotifications);
+}
+
 export function startWS(currId, setNotifications, router) {
-    console.log("call startWS JS")
-    console.log(currId)
+    // console.log("call startWS JS")
+    // console.log(currId)
     if (window["WebSocket"]) {
         conn = new WebSocket("ws://localhost:8080/ws");
 
         conn.onopen = function () {
             // Ouverture connexion websocket.
             console.log("WebSocket connection is open");
-            // for crossplatform
+            // ajout for crossplatform
             conn.send(JSON.stringify({ id: currId, msg_type: 'online' }));
         };
 
-        // EventListener pour send 'userleave' juste avant la fermeture du websocket (for cross-platform)
+        // eventListener pour send 'userleave' juste avant la fermeture du websocket
         window.addEventListener('beforeunload', function (event) {
             if (conn.readyState === WebSocket.OPEN) {
                 conn.send(JSON.stringify({ id: currId, msg_type: 'userleave' }));
@@ -89,8 +93,8 @@ export function startWS(currId, setNotifications, router) {
         // En fonction du type de message on exécute une opération différente.
         conn.onmessage = async function (evt) {
             var data = JSON.parse(evt.data);
-            var currentURL = window.location.href;
-            console.log("Data websocket", data);
+            await fetchNotif(currId, setNotifications);
+            //console.log("Data websocket", data);
             //console.log(data.receiver_id)
 
             await fetchNotification(currId, setNotifications);
@@ -100,7 +104,7 @@ export function startWS(currId, setNotifications, router) {
                 if (data.targets && data.targets.includes(currId)) {
                     toast(
                         <span>
-                            New post! Click <a className="custom-link" onClick={() => router.push('/home')}>here</a>
+                            New post! Click <a className="custom-link" href="/">here</a>
                         </span>,
                         {
                             duration: 4000,
@@ -113,7 +117,7 @@ export function startWS(currId, setNotifications, router) {
                 if (data.targets && data.targets.includes(currId)) {
                     toast(
                         <span>
-                            New join request! Click <a className="custom-link" onClick={() => router.push('/notif')}>here</a>
+                            New join request! Click <a className="custom-link" href="/notif">here</a>
                         </span>,
                         {
                             duration: 4000,
@@ -127,13 +131,26 @@ export function startWS(currId, setNotifications, router) {
                 if (data.targets && data.targets.includes(currId)) {
                     toast(
                         <span>
-                            Your are invited to a new group ! Click <a className="custom-link"
-                                onClick={() => router.push('/notif')}>here</a>
+                            You are invited to a new group! Click <a className="custom-link" href="/notif">here</a>
                         </span>,
                         {
                             duration: 4000,
                             position: 'top-center',
                             icon: '🫂',
+                        }
+                    );
+                }
+            } else if (data.msg_type === "event") {
+                console.log("new event")
+                if (data.targets && data.targets.includes(currId)) {
+                    toast(
+                        <span>
+                            New event! Click <a className="custom-link" href="/notif">here</a>
+                        </span>,
+                        {
+                            duration: 4000,
+                            position: 'top-center',
+                            icon: '🎉',
                         }
                     );
                 }
@@ -144,8 +161,7 @@ export function startWS(currId, setNotifications, router) {
 
                     toast(
                         <span>
-                            You have a new follow ! Click <a className="custom-link"
-                                onClick={() => router.push('/notif')}>here</a>
+                            You have a new follow !
                         </span>,
                         {
                             duration: 4000,
@@ -159,8 +175,7 @@ export function startWS(currId, setNotifications, router) {
                 if (data.targets && data.targets.includes(currId)) {
                     toast(
                         <span>
-                            One follow stopped ! Click <a className="custom-link"
-                                onClick={() => router.push('/user')}>here</a>
+                            One follow stopped !
                         </span>,
                         {
                             duration: 4000,
@@ -174,8 +189,7 @@ export function startWS(currId, setNotifications, router) {
                 if (data.targets && data.targets.includes(currId)) {
                     toast(
                         <span>
-                            One follow canceled ! Click <a className="custom-link"
-                                onClick={() => router.push('/user')}>here</a>
+                            One follow canceled !
                         </span>,
                         {
                             duration: 4000,
@@ -186,14 +200,16 @@ export function startWS(currId, setNotifications, router) {
                 }
 
             } else if (data.msg_type === "msg" || data.msg_type === "groupmsg") {
+                console.log(currentOpenChatId, currentOpenChatType, data.msg_type, data.sender_id)
                 if (data.msg_type === "msg" && currentOpenChatType === "user" && currentOpenChatId === data.sender_id) {
+                    console.log("here")
                     displayChatMessage(data, currId);
                 } else if (data.msg_type === "groupmsg" && currentOpenChatType === "group" && currentOpenChatId === data.receiver_id) {
                     displayChatMessage(data, currId);
                 } else {
                     toast(
                         <span>
-                            You have a new message ! Click <a className="custom-link" onClick={() => router.push('/chat')}>here</a>
+                            You have a new message !
                         </span>,
                         {
                             duration: 4000,
@@ -214,8 +230,7 @@ export function startWS(currId, setNotifications, router) {
                 if (data.targets && data.targets.includes(currId)) {
                     toast(
                         <span>
-                            New Comment on your post !Click <a className="custom-link"
-                                onClick={() => router.push('/home')}>here</a>
+                            New Comment on your post !Click <a className="custom-link" href="/notif">here</a>
                         </span>,
                         {
                             duration: 4000,
@@ -225,15 +240,19 @@ export function startWS(currId, setNotifications, router) {
                     );
                 }
             } else if (data.msg_type === "") {
-
+                // autres type de messages
             }
+
         }
-            ;
     } else {
         var item = document.createElement("div");
         item.innerHTML = "<b>Your browser does not support WebSockets.</b>";
         appendLog(item);
     }
+}
+
+export function closesocket() {
+    conn.close();
 }
 
 function displayChatMessage(data, currId) {
@@ -265,11 +284,9 @@ export function sendMsg(conn, currId, msg, msg_type, target = undefined) {
 
     let rid = (currentOpenChatType === "user") ? currentOpenChatId : (currentOpenChatType === "group") ? currentOpenChatId : null;
 
-    if (!rid) {
+    if (!rid && target === null) {
         return false;
     }
-
-    console.log(rid)
 
 
     let msgData = {
@@ -337,6 +354,7 @@ export async function createUsers(userdata, conn, currId) {
         user.className = "user"
         user.setAttribute("id", ('id' + id))
 
+
         // Répartition des users selon leur statut.
 
 
@@ -401,7 +419,6 @@ export function GetElementToOpenChat(id, user, currId) {
             lastFetchedId = firstId;
         }
         counter = 0;
-        console.log(id)
         // Ouverture d'une fenêtre de chat.
         OpenChat(id, conn, value, currId, firstId);
     }).catch();
@@ -498,6 +515,7 @@ export function OpenChat(rid, conn, data, currId, firstId) {
         }
     }
 
+
     let oldElem = document.querySelector(".send-wrapper");
     let newElem = oldElem.cloneNode(true);
     oldElem.parentNode.replaceChild(newElem, oldElem);
@@ -505,6 +523,8 @@ export function OpenChat(rid, conn, data, currId, firstId) {
     document.querySelector(".chat-user-username").innerText = allUsers.filter(u => {
         return u.id == rid;
     })[0].nickname;
+
+    document.querySelector(".chat-user-username").id = rid;
 
     document.querySelector(".chat-wrapper").style.display = "flex";
     var msg = document.getElementById("chat-input");
@@ -526,8 +546,8 @@ export function OpenChat(rid, conn, data, currId, firstId) {
 
         offset = null;
         firstId = firstId + 10;
-        console.log("rid", rid)
-        let resp = getData('http://localhost:8080/message?receiver=' + rid + '&firstId=512' + '&offset=10');
+        console.log("currentopenchatid : ", currentOpenChatId)
+        let resp = getData('http://localhost:8080/message?receiver=' + currentOpenChatId + '&firstId=512' + '&offset=10');
         resp.then(value => {
             if (value && value.length > 0) {
                 const lastIndex = value.length - 1;
@@ -551,12 +571,12 @@ export function OpenChat(rid, conn, data, currId, firstId) {
 
     // Fonction pour charger les messages 10/10.
     /*     debouncedScrollHandler = debounce(function () {
-    
+
             if (chatBox.scrollTop === 0) {
                 let resp = getData('http://localhost:8080/message?receiver=' + rid + '&firstId=' + firstId + '&offset=' + offset);
                 resp.then(value => {
                     value = value.filter(message => message.id !== lastFetchedId);
-    
+
                     if (value.length > 0) {
                         const lastIndex = value.length - 1;
                         firstId = value[lastIndex].id;
@@ -566,14 +586,14 @@ export function OpenChat(rid, conn, data, currId, firstId) {
                     CreateMessages(value, currId);
                     var newScrollPos = chatBox.scrollHeight - currentScrollPos;
                     chatBox.scrollTop = newScrollPos;
-    
+
                     offset += value.length;
                 }).catch();
             }
         }, 300);
-    
+
         chatBox.addEventListener("scroll", debouncedScrollHandler);
-    
+
         function debounce(func, delay) {
             let timer;
             return function () {
@@ -724,7 +744,7 @@ export function OpenChatGroup(rid, conn, data, currId, firstId, Title) {
     }, 300); */
 
     /*     chatBox.addEventListener("scroll", debouncedScrollHandler);
-    
+
         function debounce(func, delay) {
             let timer;
             return function () {

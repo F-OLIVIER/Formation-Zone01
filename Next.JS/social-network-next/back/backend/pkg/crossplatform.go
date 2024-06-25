@@ -49,7 +49,7 @@ func CrossPlatformHandler(w http.ResponseWriter, r *http.Request) {
 				http.Error(w, "500 internal server error: Failed to connect to database. "+errjson.Error(), http.StatusInternalServerError)
 			}
 			// fmt.Println("jsondata getallmessage : ", jsondata)
-			globalData.UserData = crossGetuser(jsondata.Id, jsondata.Session_uuid, db)
+			globalData.UserData = crossGetuser(jsondata.Id, db)
 			globalData.UsersMessages = crossGetAllMessage(jsondata, db)
 			break
 
@@ -60,7 +60,7 @@ func CrossPlatformHandler(w http.ResponseWriter, r *http.Request) {
 				http.Error(w, "500 internal server error: Failed to connect to database. "+errjson.Error(), http.StatusInternalServerError)
 			}
 			// fmt.Println("jsondata getuser : ", jsondata)
-			globalData.UserData = crossGetuser(jsondata.Id, jsondata.Session_uuid, db)
+			globalData.UserData = crossGetuser(jsondata.Id, db)
 			break
 
 		case "/crossplatform/listuser":
@@ -105,33 +105,36 @@ func crosslogin(w http.ResponseWriter, r *http.Request, db *sql.DB) User {
 	// Par sécurité, supression du mot de passe blanc
 	userinfo.Password = ""
 
-	// Delete de la session-cookie dans la db si existant (session identique à celle du site internet).
-	_, err = db.Exec(`DELETE FROM SESSIONS WHERE UserID = ?`, userinfo.Id)
-	// _, err = db.Exec(`DELETE FROM SESSIONS WHERE UserID = ? WHERE app = 1`, userinfo.Id)
-	if err != nil {
-		fmt.Println("error cookie supp")
-		http.Error(w, "500 internal server error.", http.StatusInternalServerError)
-		return baduser
-	}
+	uuidExist := existuser(userinfo.Id, db)
+	// fmt.Println("uuidExist : ", uuidExist)
+	if uuidExist != "" { // Session par navigateur déja existante, récupération de l'uuid
+		userinfo.Session_uuid = uuidExist
+	} else { // Création de la nouvelle session pour l'application
+		sessionId, err := uuid.NewV4()
+		_, err = db.Exec(`INSERT INTO SESSIONS (SessionToken, UserID) values(?, ?)`, sessionId, userinfo.Id)
+		if err != nil {
+			fmt.Println("error DB cookie")
+			http.Error(w, "500 internal server error.", http.StatusInternalServerError)
+			return baduser
+		}
 
-	// Création de la nouvelle session pour l'apllication
-	sessionId, err := uuid.NewV4()
-	_, err = db.Exec(`INSERT INTO SESSIONS (SessionToken, UserID) values(?, ?)`, sessionId, userinfo.Id)
-	// _, err = db.Exec(`INSERT INTO SESSIONS (SessionToken, UserID, app) values(?, ?, ?)`, sessionId, userinfo.Id, 1)
-	if err != nil {
-		fmt.Println("error DB cookie")
-		http.Error(w, "500 internal server error.", http.StatusInternalServerError)
-		return baduser
+		userinfo.Session_uuid = sessionId.String()
 	}
-
-	userinfo.Session_uuid = sessionId.String()
 
 	return userinfo
 }
 
 // Récupération des informations de l'utilisateur demandé
-func crossGetuser(userID int, uuid string, db *sql.DB) (user User) {
-	user.Session_uuid = uuid
+func existuser(userID int, db *sql.DB) (uuid string) {
+	stmt, errdb := db.Prepare("SELECT SessionToken FROM SESSIONS WHERE UserID = ?")
+	CheckErr(errdb, "userInfo db prepare")
+	stmt.QueryRow(userID).Scan(&uuid)
+	return uuid
+}
+
+// Récupération des informations de l'utilisateur demandé
+func crossGetuser(userID int, db *sql.DB) (user User) {
+	user.Session_uuid = existuser(userID, db)
 	stmt, errdb := db.Prepare("SELECT ID, FirstName, LastName, Nickname FROM USERS WHERE id = ?")
 	CheckErr(errdb, "userInfo db prepare")
 	stmt.QueryRow(userID).Scan(&user.Id, &user.Firstname, &user.Lastname, &user.Nickname)
@@ -280,7 +283,6 @@ func RemoveSliceInt(slice []int, value int) []int {
 	}
 	if index == -1 {
 		// Si l'élément n'est pas trouvé, retourner le slice original
-		// fmt.Println("ERROR: no index in online users")
 		return slice
 	}
 	// Créer un nouveau slice sans l'élément

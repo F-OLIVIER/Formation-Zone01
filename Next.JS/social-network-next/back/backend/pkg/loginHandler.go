@@ -100,8 +100,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 					HttpOnly: true,
 					Path:     "/",
 					MaxAge:   60 * 60 * 24,
-					SameSite: http.SameSiteNoneMode,
-					Secure:   true,
+					// SameSite: http.SameSiteNoneMode,
+					// Secure:   true,
 				}
 				// Ajoute le cookie à la réponse
 				http.SetCookie(w, cookie)
@@ -125,7 +125,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			// for crossplatform
 			if !ContainsID(id, ListOnline) {
 				ListOnline = append(ListOnline, id)
-				fmt.Println("crossPlatform new user ListOnline : ", ListOnline)
 			}
 
 			//fmt.Println("Create Sessions:", Sessions)

@@ -16,26 +16,24 @@ func UserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Retrieve user ID from session cookie
+	cookie, err := r.Cookie("session")
+	if err != nil {
+		return
+	}
+
+	foundVal := cookie.Value
+	curr, err := CurrentUser(foundVal)
+	if err != nil {
+		DeleteCookie(w)
+		return
+	}
+
 	// On check dans la présence d'un param id dans l'url.
 
 	switch r.Method {
 	case "POST":
-
-		// Retrieve user ID from session cookie
-		cookie, err := r.Cookie("session")
-		if err != nil {
-			return
-		}
-
-		foundVal := cookie.Value
-		curr, err := CurrentUser(foundVal)
-		if err != nil {
-			return
-		}
 		id := curr.Id
-
-		fmt.Println("id current user:", id)
-
 		if id != 0 {
 
 			db, err := sql.Open("sqlite3", "backend/pkg/db/database.db")

@@ -98,6 +98,7 @@ func CommentHandler(w http.ResponseWriter, r *http.Request) {
 		foundVal := cookie.Value
 		curr, err := CurrentUser(foundVal)
 		if err != nil {
+			DeleteCookie(w)
 			return
 		}
 

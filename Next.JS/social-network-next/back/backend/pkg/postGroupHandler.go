@@ -43,9 +43,19 @@ func PostGroupHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Si POST on créé un nouveau post (postData(url:post)).
 	case "POST":
+		cookie, err := r.Cookie("session")
+		if err != nil {
+			return
+		}
+		foundVal := cookie.Value
+		curr, err := CurrentUser(foundVal)
+		if err != nil {
+			DeleteCookie(w)
+			return
+		}
 		var newPost PostGroup
 
-		err := r.ParseMultipartForm(10 << 20) // 10MB max size
+		err = r.ParseMultipartForm(10 << 20) // 10MB max size
 		if err != nil {
 
 			http.Error(w, "400 bad request: "+err.Error(), http.StatusBadRequest)
@@ -83,18 +93,6 @@ func PostGroupHandler(w http.ResponseWriter, r *http.Request) {
 			}
 
 			newPost.Image = fileBytes
-		}
-
-		// Retrieve user ID from session cookie
-		cookie, err := r.Cookie("session")
-		if err != nil {
-			return
-		}
-
-		foundVal := cookie.Value
-		curr, err := CurrentUser(foundVal)
-		if err != nil {
-			return
 		}
 
 		// Call the function to create a new post

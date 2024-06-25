@@ -3,14 +3,11 @@ import ProfileContainer from '../components/ProfileContainer';
 import useComments from '../services/useComments';
 import {conn, sendMsg} from '../services/useWebsocket';
 
-
 // import { useRouter } from 'next/router';
-
 
 const User = ({id}) => {
     const {users, userPosts, fetchUsers, fetchUserPosts} = useUsers();
     const {createComment} = useComments();
-
 
     const togglePrivacy = async () => {
         try {

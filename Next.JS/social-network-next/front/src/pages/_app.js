@@ -22,11 +22,12 @@ function MyApp({Component, pageProps}) {
             try {
                 const responseData = await session();
                 if (responseData.success === true) {
+
+                    startWS(responseData.id, setNotifications, router);
                     setLoggedIn(true);
                     setId(responseData.id);
-                    //console.log(typeof responseData.id, responseData.id);
-                    startWS(responseData.id, setNotifications, router);
-                    router.push('/');
+                    //console.log(typeof responseData.id, responseData.id)
+                    //router.push('/');
                 } else {
                     console.log('La demande de session n\'a pas réussi.');
                 }

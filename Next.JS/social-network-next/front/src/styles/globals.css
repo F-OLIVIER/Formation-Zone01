@@ -2,6 +2,8 @@
 @import url(../styles/index.css);
 @import url(../styles/password.css);
 @import url(../styles/style.css);
+@import url(../styles/notif.css);
+@import url(../styles/group.css);
 
 
 .password-strength-meter {
@@ -53,15 +55,15 @@
 
 .chat-wrapper {
     position: fixed;
-    z-index: 999;
+    z-index: 1;
     right: 0;
     bottom: 0;
     margin-right: 20px;
     margin-bottom: 20px;
     height: 750px;
     width: 40%;
-    background-color: rgba(255, 255, 255, 1);
-    border: black solid 2px;
+    background-color: var(--primary-dark);
+    border: var(--white) solid 2px;
     border-radius: 20px;
     display: none;
     flex-direction: column;
@@ -76,18 +78,20 @@
 }
 
 .chat-username-wrapper {
-    border-bottom: black solid 1.5px;
+    border-bottom: var(--white) solid 1.5px;
     top: 0;
     height: 60px;
     padding: 18px;
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 16px 16px 0px 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: var(--primary-yellow);
 }
 
 .close-chat {
     cursor: pointer;
+    color: var(--white);
 }
 
 .chat-user {
@@ -131,7 +135,8 @@
     max-width: 70%;
     /* Adjust the maximum width as per your preference */
     padding: 10px;
-    border: black solid 1.5px;
+    color: var(--white);
+    border: var(--white) solid 1.5px;
     border-radius: 10px;
     margin-bottom: 5px;
     margin-top: 5px;
@@ -143,14 +148,12 @@
 
 .sender {
     border-radius: 10px 10px 0px 10px;
-    background-color: rgba(22, 152, 238, 0.815);
-
-
+    background-color: var(--primary-yellow);
 }
 
 .receiver {
     border-radius: 10px 10px 10px 0px;
-    background-color: #f0f2f5;
+    background-color: var(--primary-blue);
 }
 
 .sender-username {
@@ -171,8 +174,9 @@
     bottom: -5px;
     /* Adjust the value to move the timestamp down */
     left: 8px;
-    color: black;
-    font-size: .8em;
+    color: var(--white);
+    font-size: .6em;
+    opacity: 0.5;
 }
 
 .chat-time-left {
@@ -180,8 +184,9 @@
     bottom: -5px;
     /* Adjust the value to move the timestamp down */
     right: 8px;
-    color: black;
-    font-size: .8em;
+    color: var(--white);
+    font-size: .6em;
+    opacity: 0.5;
 }
 
 
@@ -206,7 +211,7 @@
 }
 
 #chat-input {
-    width: 500px;
+    width: calc(100% - 100px);
     height: 50px;
     border: none;
     outline: none;
@@ -214,18 +219,26 @@
     padding-left: 20px;
     background-color: #f0f2f5;
     border: black solid 1.5px;
-    margin-left: 20px;
+    margin: 0 10px 0 0;
 }
 
 #send-btn {
-    width: 38px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     background-color: transparent;
-    border-radius: 18px;
     border: none;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    background-image: url('../styles/media/send.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-width: 30px;
+    min-height: 30px;
+    background-color: transparent;
+    box-shadow: none;
+    filter: invert();
+    margin: 0 10px ;
 }
 
 #emoji-btn {
@@ -248,11 +261,6 @@
     margin-left: 25px;
 }
 
-.online-list {
-    font-size: 1rem;
-    font-weight: bold;
-    color: black;
-}
 
 .title-users {
     font-size: 2rem;
@@ -261,22 +269,17 @@
     margin-bottom: 20px;
 }
 
-
-#offline-list {
-    padding-top: 20px;
-}
-
 .user {
     display: flex;
     align-items: center;
     gap: 15px;
     margin: 20px;
     margin-left: 0px;
-    color: black;
-    border: 1px solid black;
+    color: var(--white);
     border-radius: 10px;
     padding: 5px;
     cursor: pointer;
+    background-color: var(--primary-yellow);
 }
 
 .user img {
@@ -314,4 +317,34 @@
     height: 100vh;
     /* background-color: red; */
     overflow: hidden;
+}
+
+.test2 {
+    margin-right: 50vw;
+    overflow-y: hidden;
+}
+
+.test3 {
+    width: 48vw;
+    position: absolute;
+    top: 0;
+    left: 50vw;
+    margin: 20px;
+    margin-top: 190px;
+/*     height: calc(100vh - 700px); */
+    overflow-y: scroll;
+}
+
+.test3::-webkit-scrollbar {
+    width: 3px;
+}
+
+.test3::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.test3::-webkit-scrollbar-thumb {
+    background-color: var(--primary-yellow);
+    border-radius: 3px;
+    width: 3px;
 }

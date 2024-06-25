@@ -26,7 +26,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		var err error
 
 		param := r.URL.Query().Get("id")
-		fmt.Println(param)
+		// fmt.Println(param)
 
 		posts, err = FindPostByParam(param)
 		if err != nil {
@@ -104,6 +104,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		foundVal := cookie.Value
 		curr, err := CurrentUser(foundVal)
 		if err != nil {
+			DeleteCookie(w)
 			return
 		}
 
@@ -123,7 +124,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		listUser := WhoDisplayNotif(curr.Id, 0, "post", db)
 		dt := time.Now().Format("01-02-2006 15:04:05")
 
-		fmt.Println("List user autorized :", listuserautorized)
+		// fmt.Println("List user autorized :", listuserautorized)
 
 		if len(listuserautorized) == 0 {
 			for _, user := range listUser {

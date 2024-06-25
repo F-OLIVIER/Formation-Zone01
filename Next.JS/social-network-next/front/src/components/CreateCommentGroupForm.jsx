@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Button } from '@mui/material';
+import { Button } from '@mui/material';
 
 const CreateCommentGroupForm = ({ handleCreateGroupComment, Post_id }) => {
   const [content, setContent] = React.useState('');
@@ -17,16 +17,16 @@ const CreateCommentGroupForm = ({ handleCreateGroupComment, Post_id }) => {
 
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <h2>Create a New Comment</h2>
-      <TextField
-        label="Content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        multiline
-      />
-      <Button type="submit" variant="contained">
-        Create Comment
-      </Button>
+      <div className='commentInputContainer'>
+      <input
+          placeholder='Write a comment...'
+          className='inputBox commentinput'
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <Button className='commentbtn' type="submit" variant="contained">
+        </Button>
+        </div>
     </form>
   );
 };

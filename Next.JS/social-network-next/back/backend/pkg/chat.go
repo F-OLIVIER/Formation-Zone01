@@ -18,6 +18,19 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Retrieve user ID from session cookie
+	cookie, err := r.Cookie("session")
+	if err != nil {
+		return
+	}
+
+	foundVal := cookie.Value
+	_, err = CurrentUser(foundVal)
+	if err != nil {
+		DeleteCookie(w)
+		return
+	}
+
 	// On ne veut que une requête GET.
 	// updateUsers dans index.js
 	if r.Method != "GET" {

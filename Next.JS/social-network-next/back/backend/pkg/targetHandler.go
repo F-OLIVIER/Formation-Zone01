@@ -17,6 +17,17 @@ func TargetHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	cookie, err := r.Cookie("session")
+	if err != nil {
+		return
+	}
+	foundVal := cookie.Value
+	_, err = CurrentUser(foundVal)
+	if err != nil {
+		DeleteCookie(w)
+		return
+	}
+
 	var data Target
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

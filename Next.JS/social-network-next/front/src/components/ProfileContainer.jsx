@@ -1,10 +1,9 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import PostContainer from '../components/PostContainer';
-import { conn, sendMsg } from "@/services/useWebsocket";
 
 const ProfileContainer = ({ users, togglePrivacy, userPosts, follow, validatefollow, id, handleCreateComment, handlePostLike }) => {
-    console.log('users in ProfileContainer :', users)
+    //console.log('users in ProfileContainer :', users)
     const router = useRouter();
     const getPrivacyLabel = (privateprofile) => {
         privateprofile = parseInt(privateprofile);
@@ -37,14 +36,15 @@ const ProfileContainer = ({ users, togglePrivacy, userPosts, follow, validatefol
     };
 
     const followList = (title, list) => (
-        <details>
-            <summary>{title}</summary>
+        <div className='follower-list-container'>
             {list.map(follower => (
-                <div key={follower.id}>
-                    <a onClick={() => router.push(`/user?id=${follower.id}`)}>• {follower.firstname} {follower.lastname} {follower.nickname ? `(${follower.nickname})` : ''}</a>
+                <div key={follower.id} className='follower-container'>
+                    <div className='follower-pp pp'></div>
+                    <a className='follower-name' onClick={() => router.push(`/user?id=${follower.id}`)}>{follower.firstname} {follower.lastname}</a>
+                    <p className='follower-name nickname'>{follower.nickname}</p>
                 </div>
             ))}
-        </details>
+        </div>
     );
 
     const followRequestList = (list) => (
@@ -61,7 +61,7 @@ const ProfileContainer = ({ users, togglePrivacy, userPosts, follow, validatefol
 
     let filteredPosts
     if (userPosts !== null) {
-        filteredPosts = userPosts.filter(post => post.user_id === id);
+        filteredPosts = userPosts.filter(post => post.user_id === users.id);
 
     }
 
@@ -82,54 +82,73 @@ const ProfileContainer = ({ users, togglePrivacy, userPosts, follow, validatefol
 
 
             <div className='profilecontainer'>
-                <p className='white'>Profile</p>
-                <p className='white'>Nickname: {users.nickname}</p>
-                <p className='white'>Private Profile: {getPrivacyLabel(users.privateprofile)}</p>
-                {users.privateprofile === 1 || users.id === id &&
+                <p className='pagetitle white profilename'>{users.nickname}</p>
+                <div className='privacy'>
+
+                    <p className='white profileis'>Profile :</p>
+                    <button className='toggleprivacy' onClick={togglePrivacy}>{getPrivacyLabel(users.privateprofile)}</button>
+                </div>
+                {displayProfile &&
                     <>
-                        <p>Avatar: {users.avatar}</p>
-{/*                         <p className='white'>ID: {users.id}</p> */}
-{/*                         <p className='white'>Email: {users.email}</p> */}
-                        <p className='white'>{users.firstname} {users.lastname}</p>
-{/*                         <p className='white'>Date of Birth: {users.dateofbirth}</p> */}
-                        <p className='white'>About Me: {users.aboutme}</p>
-{/*                         <p className='white'>Point of Interest: {users.pointofinterest}</p> */}
+                        {users.avatar && (
+                            <img
+                                className='pp-profile'
+                                src={`data:image/jpeg;base64,${users.avatar}`}
+                                alt="Selected Image"
+                            />
+                        )}
+                        {/*                         <p className='white'>ID: {users.id}</p> */}
+                        <p className='white profileusername'>{users.firstname} {users.lastname}</p>
+                        <p className='white'>Email: {users.email}</p>
+                        <p className='white'>Date of Birth: {users.dateofbirth}</p>
+                        <p className='white aboutme'>{users.aboutme}</p>
+                        {/*                         <p className='white'>Point of Interest: {users.pointofinterest}</p> */}
                     </>
                 }
                 {users.id === id ? (
-                    <>
-                        <button className='' onClick={togglePrivacy}>Toggle Privacy</button>
-                        <p>Follow Section</p>
+                    <div className='follow-section'>
+                        <p className='white followtitle'>Followers</p>
                         {users.listfollowers && (
                             <div>{followList("List of followers", users.listfollowers)}</div>
                         )}
+                        <p className='white followtitle'>Followings</p>
+
                         {users.listfollowings && (
                             <div>{followList("List of followings", users.listfollowings)}</div>
                         )}
 
                         {users.ListFollowersToValidate && (
                             <div>
-                                <p>Accept/Reject Demands</p>
-                                <div>{followRequestList(users.ListFollowersToValidate)}</div>
+                                <p className='white followtitle'>Accept/Reject Demands</p>
+                                <div className='white followtitle'>{followRequestList(users.ListFollowersToValidate)}</div>
                             </div>
                         )}
-                    </>
+                    </div>
                 ) : (
                     <>
                         {followButton()}
 
-                        {users.privateprofile == 1 && users.listfollowers && (
+                        {/* {users.privateprofile == 1 && users.listfollowers && ( */}
+                        {displayProfile && (
+                            <>
+                            <p className='white followtitle'>Followers</p>
+
                             <div>{followList("List of followers", users.listfollowers)}</div>
+                            </>
                         )}
 
-                        {users.privateprofile == 1 && users.listfollowings && (
+
+                        {displayProfile && (
+                            <>
+                                                    <p className='white followtitle'>Followings</p>
                             <div>{followList("List of followings", users.listfollowings)}</div>
+                            </>
                         )}
                     </>
                 )}
 
 
-                {users.privateprofile === 1 || users.id === id && filteredPosts !== null &&
+                {displayProfile && filteredPosts !== null &&
                     <>
                         {filteredPosts && (
                             <PostContainer posts={filteredPosts} handleCreateComment={handleCreateComment} handlePostLike={handlePostLike} />

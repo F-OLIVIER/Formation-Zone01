@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import Box from '@mui/material/Box';
@@ -9,7 +9,7 @@ import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { cookie } from '../services/useCookie';
+import { cookie, session } from '../services/useCookie';
 import setTransiName from '@/services/setTransiName';
 let hoveredmenu = false;
 
@@ -77,8 +77,26 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 export default function MiniDrawer({ loggedIn, setLoggedIn, id }) {
   const router = useRouter();
+
+  // Vérification de la présence du cookies
+  const fetchData = async () => {
+    try {
+      const responseData = await session();
+      if (responseData.success === false) {
+        setLoggedIn(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  fetchData();
+
   const onButtonClick = async () => {
+    console.log('enter onButtonClick');
+
     if (loggedIn) {
+      console.log('enter onButtonClick loggedIn');
+
       try {
         const data = {
           test: 1,
@@ -108,10 +126,12 @@ export default function MiniDrawer({ loggedIn, setLoggedIn, id }) {
           style: { backgroundColor: 'rgba(255,0,0,0.5)', color: 'white' },
         });
       }
+
     } else {
       router.push('/login');
     }
   };
+
 
   const handleHovreMenu = () => {
     if (hoveredmenu) {
@@ -130,15 +150,6 @@ export default function MiniDrawer({ loggedIn, setLoggedIn, id }) {
       });
     }
   }
-
-  const handleDrawerSelected = (event) => {
-    const listItems = document.querySelectorAll('.Menu');
-    listItems.forEach((item) => {
-      item.classList.remove('selected');
-    });
-    event.currentTarget.classList.add('selected');
-  };
-
 
   return (
     <DrawerContainer>
@@ -183,14 +194,30 @@ export default function MiniDrawer({ loggedIn, setLoggedIn, id }) {
                 <span className='Menutxt'>Chat</span>
               </ListItemButton>
 
-               <ListItemButton className='Menu' component={Link} href={'/group?id='}>
+              <ListItemButton className='Menu' component={Link} href={'/group?id='}>
                 <ListItemIcon>
                   <div className='HomeIcon MenuIcon'>
                   </div>
                 </ListItemIcon>
                 <span className='Menutxt'>Group</span>
               </ListItemButton>
-              
+
+              <ListItemButton className='Menu' component={Link} href={'/chatgroup?id=' + id.toString()}>
+                <ListItemIcon>
+                  <div className='HomeIcon MenuIcon'>
+                  </div>
+                </ListItemIcon>
+                <span className='Menutxt'>Group Chat</span>
+              </ListItemButton>
+
+              <ListItemButton className='Menu' component={Link} href={'/notif'}>
+                <ListItemIcon>
+                  <div className='HomeIcon MenuIcon'>
+                  </div>
+                </ListItemIcon>
+                <span className='Menutxt'>Notifications</span>
+              </ListItemButton>
+
               <ListItemButton className='Menu' onClick={onButtonClick}>
                 <ListItemIcon>
                   <div className='HomeIcon MenuIcon'>
@@ -210,7 +237,7 @@ export default function MiniDrawer({ loggedIn, setLoggedIn, id }) {
                 </ListItemIcon>
                 <span className='Menutxt'>Home</span>
               </ListItemButton>
-              
+
               <ListItemButton className='Menu' component={Link} href="/login">
                 <ListItemIcon>
                   <div className='LoginIcon MenuIcon'>

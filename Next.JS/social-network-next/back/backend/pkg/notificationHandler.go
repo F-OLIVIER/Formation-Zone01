@@ -226,6 +226,35 @@ func GetNotif(UserID int, db *sql.DB) (ListFollowers, listMP, listPost, listComm
 		listGroupMsg = append(listGroupMsg, currentInformation)
 	}
 
+	listEvent = make([][]interface{}, 0)
+	stmtEvent, err := db.Prepare(`SELECT EVENTGROUPS.IDEvent, EVENTGROUPS.Title, EVENTGROUPS.Date,
+										USERS.ID, USERS.FirstName, USERS.LastName, USERS.Avatar, USERS.Nickname,
+										LISTGROUPS.IDGroup, LISTGROUPS.NameGroup, LISTGROUPS.AboutUs, LISTGROUPS.Image
+										FROM EVENTGROUPS
+										INNER JOIN USERS ON EVENTGROUPS.UserID_Sender = USERS.ID
+										INNER JOIN LISTGROUPS ON EVENTGROUPS.IDGroup = LISTGROUPS.IDGroup
+										INNER JOIN NOTIFICATIONS ON NOTIFICATIONS.IDEvent = EVENTGROUPS.IDEvent
+										WHERE NOTIFICATIONS.UserID_Receiver = ?`)
+	CheckErr(err, "GetNotif listEvent, db prepare")
+	rowsEvent, err := stmtEvent.Query(UserID)
+	CheckErr(err, "GetNotif listEvent, db query")
+	for rowsEvent.Next() {
+		var currentEvent Event
+		var currentUser User
+		var currentGroup Group
+		var currentInformation []interface{}
+		err = rowsEvent.Scan(&currentEvent.IdEvent, &currentEvent.Title, &currentEvent.Date,
+			&currentUser.Id, &currentUser.Firstname, &currentUser.Lastname, &currentUser.Avatar, &currentUser.Nickname,
+			&currentGroup.IdGroup, &currentGroup.Title, &currentGroup.AboutGroup, &currentGroup.Image)
+		CheckErr(err, "listEvent, db rowsEvent.Next scan")
+		currentInformation = append(currentInformation, currentUser)  // information sur l'utilisateur
+		currentInformation = append(currentInformation, currentGroup) // information sur le groupe
+		currentInformation = append(currentInformation, currentEvent) // information sur l'event
+		var category = "Event"
+		currentUser.Category = category
+		listEvent = append(listEvent, currentInformation)
+	}
+
 	// Récupération des notifications des demandes de groupe
 	listAskGroup = make([][]interface{}, 0)
 	stmtAskGroup, err := db.Prepare(`SELECT USERS_SENDER.ID, USERS_SENDER.FirstName, USERS_SENDER.LastName, USERS_SENDER.Avatar, USERS_SENDER.Nickname,

@@ -79,13 +79,7 @@ func StartServer() {
 
 	r.HandleFunc("/target", pkg.TargetHandler)
 
-	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		pkg.ServeWs(hub, w, r)
-	})
-	
-	endpoints := []string{
-		"/crossplatform/login", "/crossplatform/getuser", "/crossplatform/getallmessage", "/crossplatform/listuser",
-	}
+	endpoints := []string{"/crossplatform/login", "/crossplatform/getuser", "/crossplatform/getallmessage", "/crossplatform/listuser"}
 	for _, endpoint := range endpoints {
 		r.HandleFunc(endpoint, pkg.CrossPlatformHandler)
 	}

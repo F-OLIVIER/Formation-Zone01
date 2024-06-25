@@ -81,6 +81,7 @@ type Followers struct {
 type Resp struct {
 	Msg      string `json:"msg"`
 	Receiver int    `json:"receiver"`
+	Target   []int  `json:"target"`
 }
 
 type Like struct {
@@ -103,6 +104,25 @@ type Message struct {
 	Targets         []int  `json:"targets"`
 
 	Session_uuid string `json:"uuid"`
+}
+
+// type GroupMessage struct {
+// 	Id          int    `json:"id"`
+// 	Group_id    int    `json:"group_id"`
+// 	Sender_id   int    `json:"sender_id"`
+// 	Receiver_id int    `json:"receiver_id"`
+// 	Content     string `json:"content"`
+// 	Date        string `json:"date"`
+// 	Msg_type    string `json:"msg_type"`
+// 	User_id     int    `json:"user_id"`
+// 	ImageData   string `json:"image_data"`
+// 	Targets     []int  `json:"targets"`
+// }
+
+type Event struct {
+	IdEvent int
+	Title   string
+	Date    string
 }
 
 type Chat struct {

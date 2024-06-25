@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Select, MenuItem, Checkbox, FormControlLabel } from '@mui/material';
+import { Button, Select, MenuItem, Checkbox, FormControlLabel } from '@mui/material';
 
 const CreatePostForm = ({ handleCreatePost, fetchUsers, id, users }) => {
   const [title, setTitle] = useState('');
@@ -66,13 +66,6 @@ const CreatePostForm = ({ handleCreatePost, fetchUsers, id, users }) => {
           <svg className='addpost' xmlns="http://www.w3.org/2000/svg" width="30%" height="50%" fill="#FFC700" viewBox="0 0 868 970">
             <path stroke="#FFC700" stroke-width="20" d="m479 22.528 333.013 192.265a90 90 0 0 1 45 77.942v384.53a90 90 0 0 1-45 77.942L479 947.472a90 90 0 0 1-90 0L55.987 755.207a90 90 0 0 1-45-77.942v-384.53a90 90 0 0 1 45-77.942L389 22.528a90 90 0 0 1 90 0Z" />
           </svg>
-
-
-
-
-
-
-
         </div>
       </div>
 
@@ -85,7 +78,7 @@ const CreatePostForm = ({ handleCreatePost, fetchUsers, id, users }) => {
             {!image && (
               <div>
                 <input id='file' className={'inputBox file-input'} type="file" onChange={handleImageChange} />
-                <label className="input-file-label" for="file">Add a picture</label>
+                <label className="input-file-label" for="file"></label>
               </div>
             )}
             {image && (

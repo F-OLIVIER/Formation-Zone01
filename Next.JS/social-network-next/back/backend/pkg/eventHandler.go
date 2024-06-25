@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 func EventHandler(w http.ResponseWriter, r *http.Request) {
@@ -41,9 +42,22 @@ func EventHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Si POST on créé un nouveau post (postData(url:post)).
 	case "POST":
+
+		// Retrieve user ID from session cookie
+		cookie, err := r.Cookie("session")
+		if err != nil {
+			return
+		}
+
+		foundVal := cookie.Value
+		curr, err := CurrentUser(foundVal)
+		if err != nil {
+			DeleteCookie(w)
+			return
+		}
 		var newEvent EventGroup
 
-		err := r.ParseMultipartForm(10 << 20) // 10MB max size
+		err = r.ParseMultipartForm(10 << 20) // 10MB max size
 		if err != nil {
 
 			http.Error(w, "400 bad request: "+err.Error(), http.StatusBadRequest)
@@ -60,18 +74,6 @@ func EventHandler(w http.ResponseWriter, r *http.Request) {
 
 		newEvent.IDGroup = eventid
 
-		// Retrieve user ID from session cookie
-		cookie, err := r.Cookie("session")
-		if err != nil {
-			return
-		}
-
-		foundVal := cookie.Value
-		curr, err := CurrentUser(foundVal)
-		if err != nil {
-			return
-		}
-
 		// Call the function to create a new post
 		err = NewEvent(newEvent, curr)
 		if err != nil {
@@ -79,8 +81,14 @@ func EventHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		ListUser, err := HowIsInGroup(newEvent, curr)
+		if err != nil {
+			fmt.Println("error exec", err)
+			return
+		}
+
 		// Send response indicating success
-		msg := Resp{Msg: "New EventGroup added"}
+		msg := Resp{Msg: "New EventGroup added", Target: ListUser}
 		resp, err := json.Marshal(msg)
 		if err != nil {
 			http.Error(w, "500 internal server error", http.StatusInternalServerError)
@@ -92,6 +100,50 @@ func EventHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "405 method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
+}
+
+func HowIsInGroup(p EventGroup, u User) ([]int, error) {
+	GroupId := p.IDGroup
+	OwnerUserId := u.Id
+
+	// Connexion à la base de données
+	db, err := sql.Open("sqlite3", "backend/pkg/db/database.db")
+	if err != nil {
+		return nil, fmt.Errorf("Erreur lors de l'ouverture de la base de données: %v", err)
+	}
+	defer db.Close()
+
+	// Préparation de la requête SQL pour récupérer les UserID
+	stmt, err := db.Prepare(`SELECT UserID FROM MEMBERSGROUPS WHERE IDGroup = ? AND UserID != ?`)
+	if err != nil {
+		return nil, fmt.Errorf("Erreur lors de la préparation de la requête SQL: %v", err)
+	}
+	defer stmt.Close()
+
+	// Exécution de la requête
+	rows, err := stmt.Query(GroupId, OwnerUserId)
+	if err != nil {
+		return nil, fmt.Errorf("Erreur lors de l'exécution de la requête SQL: %v", err)
+	}
+	defer rows.Close()
+
+	// Parcourir les résultats et les ajouter à un tableau
+	var userIds []int
+	for rows.Next() {
+		var userId int
+		err = rows.Scan(&userId)
+		if err != nil {
+			return nil, fmt.Errorf("Erreur lors de la lecture des résultats: %v", err)
+		}
+		userIds = append(userIds, userId)
+	}
+
+	// Vérification des erreurs lors de la itération
+	if err = rows.Err(); err != nil {
+		return nil, fmt.Errorf("Erreur lors de l'itération des résultats: %v", err)
+	}
+
+	return userIds, nil
 }
 
 // Création d'un nouveau post.
@@ -109,6 +161,20 @@ func NewEvent(p EventGroup, u User) error {
 		return err
 	}
 	fmt.Println(postInsert)
+
+	ListUser, err := HowIsInGroup(p, u)
+	if err != nil {
+		fmt.Println("error exec", err)
+		return err
+	}
+	date := time.Now().Format("01-02-2006 15:04:05")
+
+	// convert int64 to int
+	lastInsertId, _ := postInsert.LastInsertId()
+
+	for _, user := range ListUser {
+		InsertNotif(int(lastInsertId), user, date, "event", db)
+	}
 
 	return nil
 }

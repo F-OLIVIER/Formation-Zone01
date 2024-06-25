@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
 import useComments from '../services/useComments';
-import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import { parse, formatDistanceToNow } from 'date-fns';
+
+const formatDate = (dateStr) => {
+  const parsedDate = parse(dateStr, 'MM-dd-yyyy HH:mm:ss', new Date());
+  return formatDistanceToNow(parsedDate, { addSuffix: true });
+};
 
 const CommentGroupContainer = ({ Post_id, NbComments }) => {
   const router = useRouter();
+  const [userDetails, setUserDetails] = useState({});
   const [fetching, setFetching] = useState(false);
   const { commentsGroup, fetchCommentsGroup } = useComments(Post_id)
+
   const handleFetchComments = () => {
     console.log(Post_id)
     setFetching(true);
@@ -16,28 +22,64 @@ const CommentGroupContainer = ({ Post_id, NbComments }) => {
       .catch(() => setFetching(false));
   };
 
+  const fetchUsers = async (userIds) => {
+    try {
+      const userResponses = await Promise.all(
+        userIds.map(id =>
+          fetch(`http://localhost:8080/user?id=${id}`, {
+            credentials: 'include'
+          }).then(response => response.json())
+        )
+      );
+      const usersData = userResponses.reduce((acc, userData) => {
+        acc[userData.id] = userData;
+        return acc;
+      }, {});
+      setUserDetails(usersData);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+  useEffect(() => {
+    if (commentsGroup && commentsGroup.length > 0) {
+      const userIds = commentsGroup.map(comment => comment.user_id);
+      const uniqueUserIds = [...new Set(userIds)];
+      fetchUsers(uniqueUserIds);
+    }
+  }, [commentsGroup]);
+
   return (
     <div>
-      <h2>Comments</h2>
-      <Button
-        variant="contained"
-        onClick={handleFetchComments}
-        disabled={fetching}
-      >
-        {NbComments}
-      </Button>
+      <div className='post-comments'>
+        <span
+          className='commentsbtn groupcommentsbtn'
+          variant="contained"
+          onClick={handleFetchComments}
+          disabled={fetching}
+        >
+        </span>
+        <span className='commentscount'>
+          {NbComments}
+        </span>
+      </div>
       {commentsGroup && (
         <ul>
           {commentsGroup.map(comment => (
             <li key={comment.id}>
-              <p>{comment.content}</p>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Commented by{' '}
-                <Typography variant="body2" color="primary" component="a" onClick={() => router.push(`/user?id=${comment.user_id}`)}>
-                  User ID: {comment.user_id}
-                </Typography>
-              </Typography>
-              <p>Date: {comment.date}</p>
+              <div className='comment-container'>
+                <p className='username' onClick={() => router.push(`/user?id=${comment.user_id}`)}>
+                {userDetails[comment.user_id] ? userDetails[comment.user_id].nickname : `User ID: ${comment.user_id}`}
+                </p>
+                <p className='comment-content'>{comment.content}</p>
+              </div>
+              <p className='time'>{formatDate(comment.date)}</p>
+              {comment.image && (
+                <img
+                  className='comment-image'
+                  src={`data:image/jpeg;base64,${comment.image}`}
+                  alt="Selected Image"
+                />
+              )}
             </li>
           ))}
         </ul>

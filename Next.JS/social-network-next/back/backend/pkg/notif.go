@@ -22,6 +22,17 @@ func NotifHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	/* 	cookie, err := r.Cookie("session")
+	   	if err != nil {
+	   		return
+	   	}
+	   	foundVal := cookie.Value
+	   	_, err = CurrentUser(foundVal)
+	   	if err != nil {
+	   		DeleteCookie(w)
+	   		return
+	   	} */
+
 	var data Receiver
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -32,7 +43,7 @@ func NotifHandler(w http.ResponseWriter, r *http.Request) {
 		data.TypeNotif = "get"
 	}
 
-	fmt.Println("Data :", data)
+	// fmt.Println("Data :", data)
 
 	db, err := sql.Open("sqlite3", "backend/pkg/db/database.db")
 	if err != nil {
@@ -119,5 +130,6 @@ func NotifHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.NewEncoder(w).Encode(jsonResponse); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println("error response")
 	}
 }

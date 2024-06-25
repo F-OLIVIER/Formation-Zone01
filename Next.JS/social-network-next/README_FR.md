@@ -29,9 +29,17 @@ Image du projet
 <table align= "center" width="95%">
     <tbody>
         <tr>
-            <td><img src="./readme_Img/home.png"></td>
-            <td><img src="./readme_Img/post.png"></td>
-        </tr> 
+            <td><img src="./readme_img/notconnected.png"></td>
+            <td><img src="./readme_img/post.png"></td>
+        </tr>
+        <tr>
+            <td><img src="./readme_img/group.png"></td>
+            <td><img src="./readme_img/chat.png"></td>
+        </tr>
+        <tr>
+            <td><img src="./readme_img/notif.png"></td>
+            <td><img src="./readme_img/navbar.png"></td>
+        </tr>
     </tbody>
 </table>
 

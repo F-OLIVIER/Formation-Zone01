@@ -4,15 +4,27 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
 func CreateGroupHandler(w http.ResponseWriter, r *http.Request) {
-	var registerData Group
+	// Retrieve user ID from session cookie
+	cookie, err := r.Cookie("session")
+	if err != nil {
+		return
+	}
 
+	foundVal := cookie.Value
+	_, err = CurrentUser(foundVal)
+	if err != nil {
+		DeleteCookie(w)
+		return
+	}
+
+	var registerData Group
 	if err := json.NewDecoder(r.Body).Decode(&registerData); err != nil {
-		bodyBytes, _ := ioutil.ReadAll(r.Body)
+		bodyBytes, _ := io.ReadAll(r.Body)
 		bodyString := string(bodyBytes)
 		fmt.Printf("Request body: %s\n", bodyString) // Print the request body
 		http.Error(w, fmt.Sprintf("Error decoding request body: %v. Body: %s", err, bodyString), http.StatusBadRequest)
@@ -107,8 +119,8 @@ func GetName(db *sql.DB, w http.ResponseWriter, r *http.Request) (error, int) {
 
 	// SQL query to find the UserID corresponding to the sessionToken
 	var userID int
-	fmt.Println("cookie.Value", cookie.Value)
-	fmt.Println("ownerOfTheGroup", cookie.Value)
+	// fmt.Println("cookie.Value", cookie.Value)
+	// fmt.Println("ownerOfTheGroup", cookie.Value)
 
 	err = db.QueryRow("SELECT UserID FROM SESSIONS WHERE SessionToken = ?", cookie.Value).Scan(&userID)
 	if err != nil {

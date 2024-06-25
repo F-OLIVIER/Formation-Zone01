@@ -16,6 +16,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
+
 	var registerData User
 	err := r.ParseMultipartForm(10 << 20) // 10MB max size
 	if err != nil {

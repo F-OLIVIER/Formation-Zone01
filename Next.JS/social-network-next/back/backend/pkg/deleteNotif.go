@@ -3,13 +3,25 @@ package pkg
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
 func DeleteNotificationHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Retrieve user ID from session cookie
+	cookie, err := r.Cookie("session")
+	if err != nil {
+		return
+	}
+
+	foundVal := cookie.Value
+	_, err = CurrentUser(foundVal)
+	if err != nil {
+		DeleteCookie(w)
 		return
 	}
 
@@ -24,8 +36,8 @@ func DeleteNotificationHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Ici, supprime la notification avec l'ID fourni de votre base de données
-	fmt.Println("Notification deleted with ID:", data.NotificationID)
-	fmt.Println("Category:", data.Category)
+	// fmt.Println("Notification deleted with ID:", data.NotificationID)
+	// fmt.Println("Category:", data.Category)
 
 	db, err := sql.Open("sqlite3", "backend/pkg/db/database.db")
 	if err != nil {

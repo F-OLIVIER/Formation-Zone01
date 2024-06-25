@@ -1,3 +1,5 @@
+@import "notif.css";
+
 :root {
     --white: #F7F9FF;
     --primary-yellow: #FFC700;
@@ -31,6 +33,10 @@
     text-wrap: nowrap;
     color: var(--white);
     margin: 10px;
+}
+
+h2 {
+    margin-top: 20px;
 }
 
 .title {
@@ -460,6 +466,7 @@
 }
 
 .createpostbtn {
+    z-index: 2;
     cursor: pointer;
     pointer-events: all;
     display: flex;
@@ -481,7 +488,7 @@
 
 .addpostplus {
     user-select: none;
-    z-index: 10;
+    z-index: 1;
     background-image: url('./media/plus.png');
     background-position: center;
     background-size: contain;
@@ -509,7 +516,7 @@ ul {
     align-items: center;
     position: absolute;
     border-radius: 40px;
-    z-index: 99;
+    z-index: 1;
     background-color: var(--primary-yellow);
     width: 400px;
     overflow: hidden;
@@ -805,6 +812,7 @@ h2 {
     font-size: 25px;
     margin: 0;
     font-weight: 500;
+    text-transform: capitalize;
 }
 
 .img-preview {
@@ -850,6 +858,7 @@ h2 {
 
 .post-content {
     text-align: justify;
+    word-break: break-word;
 }
 
 .post-likes {
@@ -953,4 +962,314 @@ h2 {
     overflow: scroll;
     height: calc(100vh - 110px);
     margin-left: 100px;
+}
+
+.follower-list-container {
+    width: calc(100vw - 300px);
+    display: flex;
+    overflow-x: scroll;
+    height: 200px;
+}
+
+.follower-list-container::-webkit-scrollbar {
+    height: 1px;
+}
+
+.follower-list-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.follower-pp {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.follower-name {
+    margin: 0;
+    text-transform: capitalize;
+    color: var(--white);
+}
+
+.nickname {
+    opacity: 0.7;
+}
+
+.follower-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+    width: 200px;
+    min-width: 200px;
+}
+
+.offline-users {
+    width: calc(100vw - 170px);
+    display: flex;
+    overflow-x: scroll;
+    height: 200px;
+}
+
+.offline-users::-webkit-scrollbar {
+    height: 1px;
+}
+
+.offline-users::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.user {
+    width: 200px;
+    min-width: 200px;
+    border: 0px solid var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    border: transparent;
+}
+
+.user>* {
+    text-transform: capitalize;
+}
+
+.chat-user-username {
+    cursor: pointer;
+    color: var(--white);
+    text-transform: capitalize;
+    font-size: 25px;
+}
+
+.privacy {
+    margin: 0;
+    font-size: 12px;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    justify-content: center;
+    border-radius: 10px;
+    white-space: nowrap;
+    text-transform: capitalize;
+}
+
+.toggleprivacy {
+    background-color: transparent;
+    /*     background-color: red; */
+    border: 0px;
+    border-radius: 30px;
+    color: var(--white);
+}
+
+.profileusername {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.aboutme {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0;
+    opacity: 0.7;
+}
+
+.follow-section {
+    margin-top: 30px;
+}
+
+.followtitle {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+}
+
+
+.pp-profile {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.emoji-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    filter: invert();
+}
+
+.picker-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    bottom: 200px;
+
+}
+
+
+
+/* .mainContainer {
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-top: 200px;
+} */
+
+
+.creategroupContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inviteinmygroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.group-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+hr {
+    margin: 0;
+    width: 100%;
+    height: 1px;
+    margin-bottom: 30px;
+    background-color: var(--white);
+}
+
+.group-mini {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+    background-color: var(--primary-yellow);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.o5 {
+    opacity: 0.5;
+}
+
+.grouptitle {
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - 100px);
+    padding-left: 50px;
+}
+
+.profilename {
+    margin: 0;
+}
+
+.profileis {
+    margin: 5px;
+}
+
+.commentgroup-section {
+    margin-bottom: 45px;
+}
+
+.groupcommentsbtn {
+    margin-left: 0;
+    cursor: pointer;
+}
+
+.commentposts-container {
+    height: calc(100vh - 290px);
+}
+
+.createEvent-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.autosize {
+    width: 100%;
+}
+
+.createEventbtn {
+    cursor: pointer;
+    background-color: var(--primary-yellow);
+    min-width: 30px;
+    height: 30px;
+    padding: 0;
+    margin-right: 10px;
+    font-size: 35px;
+    font-weight: 700;
+    transition: all 0.2s ease-in-out;
+}
+
+.createEventbtn:hover {
+    transform: scale(1.1);
+    background-color: var(--primary-blue);
+}
+
+.eventsContainer {
+margin: 0;
+height: calc(100vh - 478px);
+overflow-x: hidden;
+overflow-y: scroll;
+}
+
+.eventdate {
+    opacity: 0.7;
+}
+
+.yesnobtn {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.commingornot {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.registerForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerbtn {
+    border: none;
+    background: #ffc800; 
+    color: var(--white);
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 100px;
+    cursor: pointer;
 }

@@ -20,7 +20,7 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	// for crossplatform
-	// lecture du cookie pour supprimer l'utilisateur de la liste des connectés
+	// lecture du cookie pour supprimer l'utilisateur de la liste
 	oldcookie, err := r.Cookie("session")
 	if err != nil {
 		return
@@ -31,18 +31,13 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ListOnline = RemoveSliceInt(ListOnline, curr.Id)
+	// fmt.Println("ListOnline logout : ", ListOnline)
 
-	// Supprimer le cookie de session
-	cookie := &http.Cookie{
-		Name:     "session",
-		Value:    "",
-		HttpOnly: true,
-		Path:     "/",
-		MaxAge:   -1, // Définit une date d'expiration passée pour supprimer le cookie
-		SameSite: http.SameSiteNoneMode,
-		Secure:   true,
-	}
-	http.SetCookie(w, cookie)
+	// delete de la session dans la db
+	_, err = db.Exec(`DELETE FROM SESSIONS WHERE UserID = ?`, curr.Id)
+	// delete du cookie
+	DeleteCookie(w)
+
 	/*postDataLogin := WebsocketMessage{Type: "login", Data: UserData}
 	broadcast <- postDataLogin*/
 	jsonResponse := map[string]interface{}{
@@ -53,4 +48,14 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+}
+
+// Supprimer le cookie de session
+func DeleteCookie(w http.ResponseWriter) {
+	http.SetCookie(w, &http.Cookie{
+		Name:   "session",
+		Value:  "",
+		Path:   "/",
+		MaxAge: -1, // Définit une date d'expiration passée pour supprimer le cookie
+	})
 }

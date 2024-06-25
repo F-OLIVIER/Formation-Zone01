@@ -13,14 +13,14 @@ func FollowHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
-	// FIXME: check du cookies ICI
+	// check du cookies ICI
 	cookie, err := r.Cookie("session")
 	if err != nil {
 		fmt.Println("Error cookie FollowHandler")
 	}
 	user, err := CurrentUser(cookie.Value)
 	if err != nil {
-		http.Error(w, "500 internal server error", http.StatusInternalServerError)
+		DeleteCookie(w)
 		return
 	}
 

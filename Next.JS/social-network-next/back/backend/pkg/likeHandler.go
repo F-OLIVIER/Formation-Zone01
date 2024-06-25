@@ -14,28 +14,25 @@ func LikeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Retrieve user ID from session cookie
+	cookie, err := r.Cookie("session")
+	if err != nil {
+		return
+	}
+
+	foundVal := cookie.Value
+	curr, err := CurrentUser(foundVal)
+	if err != nil {
+		DeleteCookie(w)
+		return
+	}
+
 	if r.Method == "POST" {
 
 		var like Like
 		err := json.NewDecoder(r.Body).Decode(&like)
 		if err != nil {
 			http.Error(w, "500 internal server error: Failed to connect to database. "+err.Error(), http.StatusInternalServerError)
-		}
-
-		fmt.Println("here")
-
-		// Retrieve user ID from session cookie
-		cookie, err := r.Cookie("session")
-		if err != nil {
-			return
-		}
-
-		fmt.Println(cookie)
-
-		foundVal := cookie.Value
-		curr, err := CurrentUser(foundVal)
-		if err != nil {
-			return
 		}
 
 		like.User_id = curr.Id

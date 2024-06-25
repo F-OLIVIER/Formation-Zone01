@@ -4,7 +4,6 @@ import UserContainer from '../components/UserContainer';
 import { getUsers, updateUsers } from '../services/useWebsocket';
 
 const Chat = ({ loggedIn, id }) => {
-
     useEffect(() => {
         if (loggedIn) {
         //console.log(id)
@@ -17,7 +16,6 @@ const Chat = ({ loggedIn, id }) => {
       return (
 
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-
         <ChatContainer />
         <UserContainer />
     </div>

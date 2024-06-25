@@ -48,11 +48,10 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	}
 
 	//fmt.Println("call ws")
-
 	var foundVal string
 	var msg Message
 	conn.ReadJSON(&msg)
-	fmt.Println("msg : ", msg)
+
 	if msg.Session_uuid == "" { // Si site internet
 		cookie, err := r.Cookie("session")
 		if err != nil {
@@ -62,7 +61,7 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	} else { // si application crossPlatform
 		foundVal = msg.Session_uuid
 	}
-	// fmt.Println("\nnew msg cross Platform :\n", msg)
+
 	curr, err := CurrentUser(foundVal)
 	if err != nil {
 		fmt.Println("no cookie.Value for ws")
@@ -70,8 +69,8 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	}
 	if msg.Session_uuid != "" && !ContainsID(curr.Id, ListOnline) {
 		ListOnline = append(ListOnline, curr.Id)
-		// fmt.Println("crossPlatform new user ListOnline : ", ListOnline)
 	}
+	// fmt.Println("msg debut : ", msg.Msg_type, curr.Id)
 
 	client := &Client{
 		hub:        hub,
@@ -102,7 +101,6 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 
 func (c *Client) readPump() {
 	defer func() {
-		// Désenregistrer le client du hub
 		c.hub.unregister <- c
 		c.conn.Close()
 	}()
@@ -127,12 +125,17 @@ func (c *Client) readPump() {
 
 		if msg.Msg_type == "msg" {
 			msg.Date = time.Now().Format("01-02-2006 15:04:05")
-			fmt.Println("mp")
+			// fmt.Println("mp")
 			err = NewMessage(msg)
 			if err != nil {
 				log.Printf("Error storing new message: %v", err)
 				break
 			}
+		}
+
+		// for crossplatform
+		if msg.Msg_type == "userleave" {
+			ListOnline = RemoveSliceInt(ListOnline, c.userID)
 		}
 
 		if msg.Msg_type == "groupmsg" {
@@ -143,11 +146,6 @@ func (c *Client) readPump() {
 				log.Printf("Error storing new message: %v", err)
 				break
 			}
-		}
-
-		// for crossplatform
-		if msg.Msg_type == "userleave" {
-			ListOnline = RemoveSliceInt(ListOnline, c.userID)
 		}
 
 		sendMsg, err := json.Marshal(msg)

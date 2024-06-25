@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import {conn, sendMsg} from "@/services/useWebsocket";
+import { useState } from 'react';
 
 const usePosts = () => {
   const [posts, setPosts] = useState([]);
@@ -23,7 +22,7 @@ const usePosts = () => {
 
   const fetchPostsGroup = async (id) => {
     try {
-      console.log("fetch for id:", id)
+      //console.log("fetch for id:", id)
       const response = await fetch(`http://localhost:8080/postgroup?id=${id}`);
       if (response.ok) {
         const data = await response.json();

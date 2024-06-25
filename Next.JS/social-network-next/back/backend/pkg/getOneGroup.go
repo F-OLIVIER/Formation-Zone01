@@ -4,13 +4,13 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
 func GetOneGroup(w http.ResponseWriter, r *http.Request) {
 	var group Group
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		fmt.Println("Error reading request body:", err)
 		return
@@ -40,8 +40,8 @@ func GetOneGroup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(group.Title, group.AboutGroup)
-	fmt.Println("this id the id ", group.IdGroup)
+	// fmt.Println(group.Title, group.AboutGroup)
+	// fmt.Println("this id the id ", group.IdGroup)
 
 	// Set the content type to application/json
 	w.Header().Set("Content-Type", "application/json")

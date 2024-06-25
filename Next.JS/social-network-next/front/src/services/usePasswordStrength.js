@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import zxcvbn from 'zxcvbn';
-import NotificationFetcher from "@/pages/notif";
+//import NotificationFetcher from "@/pages/notif";
 
 class PasswordStrengthMeter extends Component {
 

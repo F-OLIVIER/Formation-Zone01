@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@mui/material';
+import { Button } from '@mui/material';
 
 const CreateEvent = ({ handleCreateEvent }) => {
   const [title, setTitle] = useState('');
@@ -12,38 +12,54 @@ const CreateEvent = ({ handleCreateEvent }) => {
     formData.append('title', title);
     formData.append('content', content);
     formData.append('date', date)
-    handleCreateEvent(formData);
-    setTitle('');
-    setContent('');
-    setDate('');
+    if (title.trim() != "" && content.trim() != "" && date.trim() != "") {
+      handleCreateEvent(formData);
+      setTitle('');
+      setContent('');
+      setDate('');
+    } else {
+      alert('Please complete all fields');
+    }
   };
 
 
   return (
     <div>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <h2>Create a New Event</h2>
-        <TextField
-          label="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TextField
-          label="Content"
+        <h2 className='pagetitle'>Create a New Event</h2>
+        <div className='createEvent-form'>
+
+        <div className='inputContainer'>
+          <input
+            className={'inputBox autosize'}
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            />
+        </div>
+        <div className='inputContainer'>
+        <input
+          className={'inputBox autosize'}
+          placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           multiline
-        />
-        <TextField
-          label="Date"
+          />
+        </div>
+        <div className='inputContainer'>
+        <input
+          className={'inputBox autosize'}
+          placeholder="Date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
           multiline
-        />
+          />
+        </div>
 
-        <Button type="submit" variant="contained">
-          Create Event
+        <Button className='createEventbtn' type="submit" variant="contained">
+          +
         </Button>
+          </div>
       </form>
     </div>
   );

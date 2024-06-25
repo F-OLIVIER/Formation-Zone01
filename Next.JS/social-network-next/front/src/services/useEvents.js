@@ -5,7 +5,7 @@ const useEvents = () => {
 
   const fetchEvents = async (id) => {
     try {
-      console.log("fetch for id:", id)
+      //console.log("fetch for id:", id)
       const response = await fetch(`http://localhost:8080/event?id=${id}`);
       if (response.ok) {
         const data = await response.json();
@@ -19,7 +19,7 @@ const useEvents = () => {
   };
 
   const createEvent = async (formData, id) => {
-    console.log(formData)
+    //console.log(formData)
     try {
       const response = await fetch(`http://localhost:8080/event?id=${id}`, {
         method: 'POST',
@@ -30,6 +30,7 @@ const useEvents = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
+        return data;
       } else {
         console.error('Create a event failed:', response.statusText);
       }

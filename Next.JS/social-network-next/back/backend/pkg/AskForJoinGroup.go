@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"time"
@@ -13,7 +13,7 @@ import (
 func AskForJoinGroup(w http.ResponseWriter, r *http.Request) {
 	var grp Group
 
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		fmt.Println("Error reading request body:", err)
 		return
@@ -33,8 +33,8 @@ func AskForJoinGroup(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	fmt.Println(grp.ID)
-	fmt.Println(grp.IdGroup)
+	// fmt.Println(grp.ID)
+	// fmt.Println(grp.IdGroup)
 
 	// Insert the notification in the askgroup
 

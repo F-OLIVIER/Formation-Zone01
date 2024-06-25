@@ -35,6 +35,20 @@ export const fetchNotification = async (id, setNotifications) => {
                 });
             }
 
+            if (data.listEvent) {
+                data.listEvent.forEach(element => {
+                    const notification = {
+                        id: idCounter++, // Assign a unique ID
+                        category: 'Event',
+                        user: element[0],
+                        group: element[1],
+                        event: element[2]
+                    };
+                    //console.log("Notification Group: ", notification);
+                    allNotifications.push(notification);
+                });
+            }
+
             if (data.listAskGroup) {
                 data.listAskGroup.forEach(element => {
                     const notification = {

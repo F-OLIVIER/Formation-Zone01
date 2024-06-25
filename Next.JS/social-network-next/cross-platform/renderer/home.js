@@ -11,11 +11,6 @@ function home() {
 
     OnlineOfflineMode();
 
-    // Button logout
-    document.getElementById('logout').addEventListener('click', () => {
-        window.Electron.logout();
-    });
-
     // Ajout des emojis
     chatEmojis();
 
@@ -27,6 +22,17 @@ function home() {
         const usersmessages = DataStorage.usersmessages;
         // console.log('usersmessages : ', usersmessages);
         // console.log('online : ', online)
+
+        // Button logout
+        document.getElementById('logout').addEventListener('click', async () => {
+            const msgSocket = {
+                sender_id: userDataStorage.id,
+                msg_type: "userleave",
+                uuid: userDataStorage.uuid,
+            }
+            await window.Electron.chat(msgSocket);
+            await window.Electron.logout();
+        });
 
         document.getElementById('userconnected').innerHTML = `${userDataStorage.firstname} ${userDataStorage.lastname}</br> (${userDataStorage.nickname})`;
 
@@ -51,6 +57,12 @@ function home() {
             }
         });
 
+        setInterval(() => {
+            // mise a jour du stockage pour delog l'utilisateur si besoin
+            window.Electron.updateDiscussion(userDataStorage.id, userDataStorage.uuid);
+            // mise à jour de la liste des utilisateurs
+            window.Electron.updateUserList(usersmessages, userDataStorage.id, userDataStorage.uuid)
+        }, 8000);
 
         // gestion de l'input
         const inputmessage = document.getElementById('inputmessage');
@@ -94,6 +106,12 @@ function home() {
 
     // réception d'une demande d'update de l'encart de discussion
     window.Electron.ipcRenderer.on('updateDiscussion', async (dataStorageupdate) => {
+        // vérification de l'utilisateur
+        console.log('dataStorageupdate :\n', dataStorageupdate.userData.uuid)
+        if (dataStorageupdate.userData.uuid.trim() == "") {
+            await window.Electron.logout();
+            return
+        }
         // console.log('-> updateDiscussion valid');
         const usersmessages = dataStorageupdate.usersmessages
         const id = parseInt(document.getElementById('userid').value, 10);
@@ -103,12 +121,12 @@ function home() {
     });
 
     // moteur de rechercher
-    document.getElementById('inputsearch').addEventListener('keypress', async function (event) {
-        if (event.key) {
-            if (event.key === 'Enter') {
+    document.getElementById('inputsearch').addEventListener('input', async function (event) {
+        // Vérifie si l'événement keypress ou supp ou delete text a été déclenché
+        if (event.inputType === 'insertText' || event.inputType === 'deleteContentBackward' || event.inputType === 'deleteContentForward') {
+            if (event.inputType === 'insertText' && event.data === '\n') { // recherche avec enter
                 window.Electron.search(true);
-            } else {
-                console.log('search sans enter');
+            } else { // recherche sans enter
                 window.Electron.search(false);
             }
         }

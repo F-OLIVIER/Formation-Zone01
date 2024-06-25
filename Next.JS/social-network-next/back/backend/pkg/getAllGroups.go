@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -22,7 +22,7 @@ func GetAllGroups(w http.ResponseWriter, r *http.Request) {
 
 	var MyId int
 
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		fmt.Println("Error reading request body:", err)
 		return

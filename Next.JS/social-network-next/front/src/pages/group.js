@@ -147,7 +147,7 @@ const Group = (props) => {
 
 
     return (
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+        <div className='test'>
             <GroupForm
                 form={form}
                 formErrors={formErrors}

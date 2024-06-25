@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"time"
@@ -48,8 +48,21 @@ func CommentGroupHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Si POST on créé un nouveau commentaire (postData(url:comment))
 	case "POST":
+
+		// Retrieve user ID from session cookie
+		cookie, err := r.Cookie("session")
+		if err != nil {
+			return
+		}
+
+		foundVal := cookie.Value
+		curr, err := CurrentUser(foundVal)
+		if err != nil {
+			DeleteCookie(w)
+			return
+		}
 		var newComment Comment
-		err := r.ParseMultipartForm(10 << 20) // 10MB max size
+		err = r.ParseMultipartForm(10 << 20) // 10MB max size
 		if err != nil {
 			http.Error(w, "400 bad request: "+err.Error(), http.StatusBadRequest)
 			return
@@ -80,25 +93,13 @@ func CommentGroupHandler(w http.ResponseWriter, r *http.Request) {
 			defer file.Close()
 
 			// Read the file data
-			fileBytes, err := ioutil.ReadAll(file)
+			fileBytes, err := io.ReadAll(file)
 			if err != nil {
 				http.Error(w, "500 internal server error: "+err.Error(), http.StatusInternalServerError)
 				return
 			}
 
 			newComment.Image = fileBytes
-		}
-
-		// Retrieve user ID from session cookie
-		cookie, err := r.Cookie("session")
-		if err != nil {
-			return
-		}
-
-		foundVal := cookie.Value
-		curr, err := CurrentUser(foundVal)
-		if err != nil {
-			return
 		}
 
 		newComment.User_id = curr.Id

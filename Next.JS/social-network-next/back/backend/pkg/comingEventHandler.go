@@ -28,11 +28,10 @@ func ComingEventHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Println(cookie)
-
 		foundVal := cookie.Value
 		curr, err := CurrentUser(foundVal)
 		if err != nil {
+			DeleteCookie(w)
 			return
 		}
 
@@ -110,11 +109,10 @@ func NotComingEventHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Println(cookie)
-
 		foundVal := cookie.Value
 		curr, err := CurrentUser(foundVal)
 		if err != nil {
+			DeleteCookie(w)
 			return
 		}
 

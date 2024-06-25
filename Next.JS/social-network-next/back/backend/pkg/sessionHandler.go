@@ -13,6 +13,7 @@ func SessionHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
+
 	db, err := sql.Open("sqlite3", "backend/pkg/db/database.db")
 	if err != nil {
 		fmt.Println("Erreur lors de l'ouverture de la base de données:", err)

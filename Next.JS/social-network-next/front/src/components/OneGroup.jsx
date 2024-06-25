@@ -8,9 +8,12 @@ const OneGroup = ({ SingleForm }) => {
 
     return (
         <>
-            <h1> Title : {SingleForm.Title}</h1>
+            <h1 className="pagetitle">{SingleForm.Title}</h1>
+            <div className="grouptitle">
+
+            <p className="o5 white">{SingleForm.AboutGroup}</p>
             <hr/>
-            <p> about US : {SingleForm.AboutGroup}</p>
+            </div>
             </>
     );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Picker from "emoji-picker-react";
+import { useRouter } from 'next/router';
 
 const ChatContainer = () => {
   const [inputStr, setInputStr] = useState("");
@@ -18,12 +19,14 @@ const ChatContainer = () => {
     console.log("Sending message:", inputStr);
     setInputStr("");
   };
+  
+  const router = useRouter();
 
   return (
     <div className="chat-wrapper">
       <div className="chat-username-wrapper">
         <div className="chat-user">
-          <div className="chat-user-username"></div>
+          <a className="chat-user-username" onClick={() => router.push('/user?id=' + document.querySelector('.chat-user-username').id)}></a>
           <span id="typing-indicator" style={{ display: 'none' }}>
             <span id="typing-text"></span>
           </span>
@@ -36,8 +39,9 @@ const ChatContainer = () => {
       <div className="app">
         <div className="picker-container">
         {showPicker && (
-          <Picker pickerStyle={{ width: "100%", backgroundColor: "transparent" }} onEmojiClick={onEmojiClick} />
+          <Picker className='emoji-picker' pickerStyle={{ width: "100%", backgroundColor: "transparent" }} onEmojiClick={onEmojiClick} />
                     )}
+            </div>
           <input
             className="chat-input"
             id="chat-input"
@@ -51,10 +55,7 @@ const ChatContainer = () => {
             alt="Emoji Picker"
             onClick={() => setShowPicker((val) => !val)}
           />
-          <button id="send-btn" aria-label="Send" onClick={sendMessage}>Send</button>
-
-
-        </div>
+          <button id="send-btn" aria-label="Send" onClick={sendMessage}></button>
       </div>
     </div>
   );
