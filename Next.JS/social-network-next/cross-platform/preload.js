@@ -30,12 +30,12 @@ contextBridge.exposeInMainWorld('Electron', {
         ipcRenderer.send('updateDiscussion', id, uuid);
     },
     
-    updateUserList: (id) => {
+    updateUserList: () => {
         ipcRenderer.send('updateUserList');
     },
     
-    internetonline: (id) => {
-        ipcRenderer.send('internetonline', id);
+    internetonline: () => {
+        ipcRenderer.send('internetonline');
     },
 
     // Transmission de data à l'intérieur de la fenétre (emission dans main.js et reception dans la fenêtre intérieur)

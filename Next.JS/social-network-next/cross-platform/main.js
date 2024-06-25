@@ -62,11 +62,13 @@ let online = false;
   app.on('window-all-closed', async () => {
     if (process.platform !== 'darwin') {
       const DataStorage = await store.get('dataStorage');
-      const msgSocket = {
-        msg_type: "userleave",
-        uuid: DataStorage.userData.uuid,
+      if (DataStorage) {
+        const msgSocket = {
+          msg_type: "userleave",
+          uuid: DataStorage.userData.uuid,
+        }
+        conn.send(JSON.stringify(msgSocket));
       }
-      conn.send(JSON.stringify(msgSocket));
       app.quit();
     }
   });

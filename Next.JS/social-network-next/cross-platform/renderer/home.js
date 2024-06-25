@@ -16,7 +16,7 @@ function home() {
 
     // récupération de l'utilisateur stocker
     window.Electron.ipcRenderer.on('userDataStorage', async (DataStorage) => {
-        console.log('DataStorage : ', DataStorage);
+        // console.log('DataStorage : ', DataStorage);
         const userDataStorage = DataStorage.userData;
         // console.log('userDataStorage : ', userDataStorage);
         const usersmessages = DataStorage.usersmessages;
@@ -39,21 +39,19 @@ function home() {
         // mise à jour des data lorsque internet reviens
         window.Electron.ipcRenderer.on('internetonline', async () => {
             window.Electron.updateDiscussion(userDataStorage.id, userDataStorage.uuid);
-            window.Electron.updateUserList(usersmessages, userDataStorage.id, userDataStorage.uuid);
+            window.Electron.updateUserList();
         });
 
         // Utilisateur qui se connecte
         window.Electron.ipcRenderer.on('online', async () => {
-            console.log('new online user (home.js)')
             notification(userDataStorage.id, userDataStorage.uuid, 'online', userDataStorage.id);
-            window.Electron.updateUserList(usersmessages, userDataStorage.id, userDataStorage.uuid);
+            window.Electron.updateUserList();
         });
         // Utilisateur qui se déconnecte
         window.Electron.ipcRenderer.on('userleave', async (msgdata) => {
             if (online) {
-                // console.log('offline user (home.js): ', msgdata)
                 notification(userDataStorage.id, userDataStorage.uuid, 'offline', userDataStorage.id);
-                window.Electron.updateUserList(usersmessages, userDataStorage.id, userDataStorage.uuid);
+                window.Electron.updateUserList();
             }
         });
 
@@ -61,7 +59,7 @@ function home() {
             // mise a jour du stockage pour delog l'utilisateur si besoin
             window.Electron.updateDiscussion(userDataStorage.id, userDataStorage.uuid);
             // mise à jour de la liste des utilisateurs
-            window.Electron.updateUserList(usersmessages, userDataStorage.id, userDataStorage.uuid)
+            window.Electron.updateUserList();
         }, 8000);
 
         // gestion de l'input
@@ -90,7 +88,6 @@ function home() {
 
         // réception d'un nouveau message
         window.Electron.ipcRenderer.on('new_msg', async (msgdata) => {
-            // console.log('new_msg : ', msgdata);
             notification(msgdata.sender_id, userDataStorage.uuid, ' sent you a message', userDataStorage.id);
             window.Electron.updateDiscussion(userDataStorage.id, userDataStorage.uuid);
         });
@@ -107,12 +104,10 @@ function home() {
     // réception d'une demande d'update de l'encart de discussion
     window.Electron.ipcRenderer.on('updateDiscussion', async (dataStorageupdate) => {
         // vérification de l'utilisateur
-        console.log('dataStorageupdate :\n', dataStorageupdate.userData.uuid)
         if (dataStorageupdate.userData.uuid.trim() == "") {
             await window.Electron.logout();
             return
         }
-        // console.log('-> updateDiscussion valid');
         const usersmessages = dataStorageupdate.usersmessages
         const id = parseInt(document.getElementById('userid').value, 10);
         if (usersmessages[id] && usersmessages[id].Messages !== undefined) {
@@ -140,7 +135,7 @@ home();
 
 async function notification(useridtofetch, uuid, notifMessage, currentID = 0) {
     const data = await fetchSendServer('getuser', { id: useridtofetch, uuid: uuid });
-    console.log('data notification : ', useridtofetch, data.userData)
+    // console.log('data notification : ', useridtofetch, data.userData)
     if (currentID !== data.userData.id) {
         const currentUserIdOpen = parseInt(document.getElementById('userid').value, 10);
         // modification du bouton utilisateur
@@ -159,7 +154,7 @@ async function notification(useridtofetch, uuid, notifMessage, currentID = 0) {
         // Désactivation de la notification apres x secondes
         setTimeout(async function () {
             notif.classList.remove('active');
-        }, 3000);
+        }, 4000);
     }
 }
 
