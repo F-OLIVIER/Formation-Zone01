@@ -127,21 +127,18 @@ const ProfileContainer = ({ users, togglePrivacy, userPosts, follow, validatefol
                 ) : (
                     <>
                         {followButton()}
-
-                        {/* {users.privateprofile == 1 && users.listfollowers && ( */}
-                        {displayProfile && (
+                        {users.listfollowers && displayProfile && (
                             <>
-                            <p className='white followtitle'>Followers</p>
-
-                            <div>{followList("List of followers", users.listfollowers)}</div>
+                            	<p className='white followtitle'>Followers</p>
+                            	<div>{followList("List of followers", users.listfollowers)}</div>
                             </>
                         )}
 
 
-                        {displayProfile && (
+                        {users.listfollowings && displayProfile && (
                             <>
-                                                    <p className='white followtitle'>Followings</p>
-                            <div>{followList("List of followings", users.listfollowings)}</div>
+                		<p className='white followtitle'>Followings</p>
+                            	<div>{followList("List of followings", users.listfollowings)}</div>
                             </>
                         )}
                     </>
