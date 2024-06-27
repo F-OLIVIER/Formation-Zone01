@@ -47,7 +47,7 @@ Les paramêtres essentielles à son utilisation sont les suivantes:
 
 Et ainsi de suite si vous voulez savoir le nombre attributs que vous pouvez configurer n'hésitez pas à regarder l'object virtualElement dans le chemin suivant `script/virtualElement.js`. Je précise aussi que presque tout les attributs se configurent génèralement grace à une string.
 
-**Childs** (👶👶👶)</br>
+**Childs**</br>
 Avant de finir sur cette partie, il est important de préciser que `virtualElement` ne contient pas seulement des key pour acceuillir des attribus(string) mais aussi des property qui vous serviront à ajouter des enfants à votre élèment : appendChild et removeChild.
 
 - virtualElement.appendChild(otherVirtualElement) ━🢂 Cette property sert à acceuilir d'autres virtualElement au sein de votre élèment (dans virtualElement.childs plus précisèment).
