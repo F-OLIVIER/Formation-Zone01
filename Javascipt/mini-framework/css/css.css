@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    /* Centrer horizontalement */
+    align-items: center;
+    /* Centrer verticalement */
+    min-height: 100vh;
+    flex-direction: column;
+    /* Organise les éléments en colonne */
+    background-color: white;
+}
+
+#global {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.25);
+    padding: 10px;
+    width: 70%;
+    height: 85vh;
+    border: solid 2px grey;
+    border-radius: 15px;
+    padding-top: 50px;
+}
+
+button {
+    padding: 7px;
+    margin: 0px 5px;
+    border-radius: 15px;
+    border: solid white 1px;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+input[type="text"] {
+    padding: 7px;
+    margin: 0px 5px;
+    border-radius: 15px;
+}
+
+button:hover {
+    background-color: rgb(36, 112, 255);
+    color: white;
+}
+
+.title {
+    font-size: 180%;
+}
+
+#tasks {
+    width: 100%;
+    height: 64vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 15px;
+    padding-bottom: 10px;
+}
+
+#tasks div {
+    word-break: break-all;
+}
+
+.newTask {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    width: 95%;
+    margin-top: 20px;
+    font-size: 130%;
+    color: rgb(0, 0, 0);
+}
+
+.newTask div {
+    cursor: url('./cursor_pencil.png'), pointer;
+}
+
+.newTask input {
+    cursor: copy;
+}
+
+
+.removeTask {
+    margin-left: 5px;
+    min-height: 30px;
+    min-width: 30px;
+}
+
+input[type="checkbox"] {
+    margin-left: 20px;
+    min-height: 20px;
+    min-width: 20px;
+}
+
+#menu {
+    margin-top: 20px;
+}
+
+#menu-buttons {
+    margin-top: 20px;
+}
+
+#count-tasks-complete {
+    margin-top: 20px;
+}
+
+footer {
+    margin-top: 5px;
+    text-align: center;
+}
+
+#globaldiv {
+    width: 50%;
+    min-height: 30vh;
+    position: absolute;
+    z-index: 999;
+    top: 10;
+    left: 10;
+}
+
+#divedittask {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgb(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 15px;
+    color: white;
+}
+
+#divedittask textarea {
+    padding: 10px;
+    width: 60%;
+    min-height: 100px;
+    margin: 15px;
+}
