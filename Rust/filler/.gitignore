@@ -1,0 +1,9 @@
+***target
+***.lock
+docker_image/linux_robots
+docker_image/m1_robots
+docker_image/maps
+docker_image/linux_game_engine
+docker_image/m1_game_engine
+docker_image/solution/output.txt
+docker_image/solution/start.sh

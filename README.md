@@ -19,6 +19,7 @@ Ce dossier contient les projets que j'ai réalisés lors de ma formation chez [Z
 - [SQLite](https://www.sqlite.org)
 - [GraphQL](https://graphql.org)
 - [Docker](https://www.docker.com)
+- [Rust](https://www.rust-lang.org/fr)
 
 ___
 ## 🧑‍💻 Authors
