@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to test the Rust HTTP Server!</h1>
+
+        <h2>Create Script</h2>
+        <form action="/submit-script" method="POST">
+            <label for="filename">File Name:</label>
+            <input type="text" id="filename" name="filename" placeholder="Enter file name" required>
+
+            <label for="extension">File Extension:</label>
+            <input type="text" id="extension" name="extension" placeholder="Enter file extension (example: .py)" required>
+
+            <label for="script">Enter your script:</label>
+            <textarea id="script" name="script_content" rows="10" placeholder="Write your script here..." required></textarea>
+
+            <input type="submit" value="Submit Script">
+        </form>
+        
+        <h2>Delete a Script</h2>
+        <form action="/delete-script" method="POST">
+            <label for="delete-filename">File Name:</label>
+            <input type="text" id="delete-filename" name="delete-filename" placeholder="Enter file name to delete" required>
+
+            <input type="submit" value="Delete Script">
+        </form>
+        
+        <h2>Répertoire</h2>
+        <button onclick="location.href='./ressources'">Afficher les fichiers du dossier ressources</button>
+    </div>
+</body>
+</html>
