@@ -1,0 +1,16 @@
+***.lock
+/target
+wget-log
+
+# Fichier de test
+***.zip
+***.tar.gz
+***.jpg
+***.png
+***.gif
+/downloads
+/corndog.io
+/oct82.com
+/trypap.com
+/theuselessweb.com
+
