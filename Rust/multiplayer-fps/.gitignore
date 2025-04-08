@@ -1,0 +1,14 @@
+***target
+***.lock
+***.free
+***pkg
+***bin
+.vscode
+*.DS_Store
+**.glb
+***.ogg
+appimage
+old_ressource
+cargo-appimage
+AppRun
+*.AppImage

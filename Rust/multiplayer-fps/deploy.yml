@@ -1,0 +1,71 @@
+# Doc : https://docs.github.com/fr/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+# Nom du workflow
+name: Game-deployment
+
+# Nom des workflows générés (ici le nom d'utilisateur GitHub qui exécute l'action)
+run-name: ${{ github.actor }} deploy a new version.
+
+# Déclencheur du workflow (ici quand un push est effectué sur la branche master ou main)
+on:
+  push:
+    branches:
+      - master
+
+# jobs:
+# # Phase de testing
+#     runs-on: ubuntu-24.04
+
+#     steps:
+#       - name: Test unitaire go
+#         uses: go test
+
+
+# Définition des actions (jobs) à exécuter
+jobs:
+  # Nom du travail (job)
+  deploy-new-game-version:
+    # Le job sera exécuté sur Ubuntu 24.04
+    runs-on: ubuntu-24.04
+
+    # Liste des étapes (steps) qui seront exécutées dans ce job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Étape pour installer Rust (si nécessaire pour la mise à jour)
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      # Étape pour exécuter des commandes sur ton serveur via SSH
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          #
+          # Sur le serveur : Configurer l'accès SSH avec des clés privées/publiques
+          # C'est à dire génèrer une paire de clés SSH sur la machine locale et ajoute la clé publique au fichier "~/.ssh/authorized_keys" sur le serveur.
+          #
+          # Sur le dépôt GitHub, définir des secrets (GitHub Secrets) :
+          # → Settings → Secrets and variables → Actions.
+          # Ajouter les variables : "SSH_HOST", "SSH_USER", "SSH_KEY".
+          # Utiliser la clé privée générée comme valeur pour "SSH_KEY".
+          host: ${{ secrets.SSH_HOST }} # L'adresse IP ou le domaine de ton serveur
+          username: ${{ secrets.SSH_USER }} # Le nom d'utilisateur SSH
+          key: ${{ secrets.SSH_KEY }} # La clé privée SSH stockée dans les secrets GitHub
+          port: 22 # Port SSH par défaut
+          script: |
+            cd /path/to/app                                             # Chemin de l'application sur le serveur
+            pkill -f Game-deployment || echo "No running app to stop"   # Stoppe l'application actuelle si elle est en cours d'exécution
+            git pull origin master                                      # Récupère la dernière version du code
+            cargo clean                                                 # Nettoie les fichiers de compilation
+            cargo build --release                                       # Compile le projet en release
+            cargo run ./release/target/Game-deployment                  # Rub de l'app
+
+
+################################################################
+##                 Mise en service du fichier                 ##
+##    Placer le fichier deploy.yml dans .github/workflows/    ##
+################################################################
+

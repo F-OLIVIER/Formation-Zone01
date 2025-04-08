@@ -1,0 +1,16 @@
+pub mod audio;
+pub mod cursor;
+pub mod environment;
+pub mod fps;
+pub mod graphique_quality;
+pub mod map;
+pub mod menu_general;
+pub mod menu_register;
+pub mod moteur;
+pub mod player_manager;
+pub mod player_movement;
+pub mod scene;
+pub mod setup_ennemy;
+pub mod setup_player;
+pub mod struct_manager;
+pub mod struct_menu;
